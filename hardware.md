@@ -8,3 +8,6 @@ Potrzebne:
 Opcjonalne:
 * Czujnik natężenia światła BH1750 ([link](https://botland.com.pl/czujniki-swiatla-i-koloru/2024-czujnik-natezenia-swiatla-bh1750-5904422373283.html))
 * Moduł RTC DS3231 I2C - zegar czasu rzeczywistego ([link](https://botland.com.pl/moduly-rtc/3790-modul-rtc-ds3231-i2c-zegar-czasu-rzeczywistego-5904422373788.html))
+* MQ-135 - czujnik jakości powietrza
+* Czujnik dotyku TTP223
+* LED RGB - kolorowe diody 
