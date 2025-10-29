@@ -1,0 +1,4 @@
+# ESP32 build folder
+/build/
+/sdkconfig
+/.vscode/
