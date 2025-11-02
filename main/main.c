@@ -22,8 +22,8 @@ static bool wifi_connected = false;
 static bool last_wifi_connected = false;
 
 
-    // --- Obsługa zdarzeń Wi-Fi ---
-static void wifi_event_handler(void* arg, esp_event_base_t event_base,
+    // --- Obsługa zdarzeń Wi-Fi --- (chwilowo nie static)
+void wifi_event_handler(void* arg, esp_event_base_t event_base,
                                int32_t event_id, void* event_data)
 {
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
@@ -134,7 +134,8 @@ void app_main(void)
 {
     ESP_ERROR_CHECK(nvs_flash_init());
     // wifi_init_sta();  // Inicjalizacja Wi-Fi w trybie stacji
-    wifi_init_softap(); // Inicjalizacja Wi-Fi w trybie Access Point
+    //wifi_init_softap(); // Inicjalizacja Wi-Fi w trybie Access Point
+    wifi_init_apsta(); // Inicjalizacja Wi-Fi w trybie stacji + AP
 
     // Task tylko dla diody
     xTaskCreate(&blink_task, "blink_task", 2048, NULL, 5, NULL);
