@@ -10,6 +10,8 @@
 #include "esp_http_client.h"
 #include "driver/gpio.h"
 
+#include "ap_conf.h"
+
 
 #define WIFI_SSID      "marco"
 #define WIFI_PASS      "polo1234"
@@ -79,6 +81,7 @@ void log_task(void *pvParameter)
     }
 }
 
+// --- tu już serio mruga diodą ---
 void blink_task(void *pvParameter)
 {
     gpio_reset_pin(LED_GPIO);
@@ -101,7 +104,7 @@ void blink_task(void *pvParameter)
 // --- Test HTTP GET ---
 void http_get_task(void *pvParameter)
 {
-    const char *url = "http://shinyoldlushtreasure.neverssl.com/online/";
+    const char *url = "http://example.com/";
     while (1) {
         if (wifi_connected) {
             esp_http_client_config_t config = {
@@ -126,10 +129,12 @@ void http_get_task(void *pvParameter)
 }
 
 // --- Funkcja główna ---
+// task to jak wątek ( w tym FreeRTOS)
 void app_main(void)
 {
     ESP_ERROR_CHECK(nvs_flash_init());
-    wifi_init_sta();
+    // wifi_init_sta();  // Inicjalizacja Wi-Fi w trybie stacji
+    wifi_init_softap(); // Inicjalizacja Wi-Fi w trybie Access Point
 
     // Task tylko dla diody
     xTaskCreate(&blink_task, "blink_task", 2048, NULL, 5, NULL);
