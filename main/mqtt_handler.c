@@ -1,30 +1,23 @@
 #include <stdio.h>
-#include <stdint.h>
-#include <stddef.h>
 #include <string.h>
-#include <math.h> // Do losowania
+#include <stdlib.h> // Potrzebne do malloc/free
 #include "esp_wifi.h"
 #include "esp_system.h"
-#include "nvs_flash.h"
 #include "esp_event.h"
-#include "esp_netif.h"
 #include "esp_log.h"
-#include "esp_random.h" // Generator losowy
 #include "esp_mac.h"
 #include "esp_timer.h"
+#include "esp_netif.h"
+#include "esp_random.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "freertos/semphr.h"
-#include "freertos/queue.h"
 #include "freertos/event_groups.h"
-
-#include "lwip/sockets.h"
-#include "lwip/dns.h"
-#include "lwip/netdb.h"
 
 #include "mqtt_client.h"
 #include "cJSON.h"
+#include "ssd1306.h" // Twój wirtualny sterownik
+#include "mqtt_handler.h" // Nagłówek tego pliku
 
 // ================= KONFIGURACJA =================
 
@@ -38,7 +31,7 @@
 #define ESP_MQTT_USER       "guest"
 #define ESP_MQTT_PASS       "guest"
 
-#define TOPIC_ROOT          "smartmirror/user_01" 
+#define TOPIC_ROOT          "smartmirror/user_01"
 
 // =================================================
 
@@ -51,109 +44,193 @@ static int s_retry_num = 0;
 
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT      BIT1
-//#define MQTT_CONNECTED_BIT BIT2
-char current_display_text[64] = "Cześć Piękna, ja czekam na dane...";
+#define MQTT_CONNECTED_BIT BIT2 // <--- ODKOMENTOWANE!
+
+// Zmienne globalne (Edge Computing)
+char current_display_text[64] = "Czesc Piekna, czekam na dane..."; // <--- POPRAWNA NAZWA
 bool is_screen_on = true;
-
-
 
 // Funkcja odświeżająca (Wirtualny) Ekran na podstawie stanu
 void refresh_oled() {
     if (is_screen_on) {
-        ssd1306_display_text(current_text_msg);
+        // Używamy poprawnej nazwy zmiennej: current_display_text
+        ssd1306_display_text(current_display_text);
     } else {
         ssd1306_clear_screen();
         ESP_LOGI(TAG, "[EDGE] Ekran wygaszony (oszczędzanie energii)");
     }
 }
 
-// ============================================================
-// OBSŁUGA PRZYHODZĄCYCH INFO  NA OLEDA
-// ============================================================
-void handle_incoming_data(const char *topic, int topic_len, const char *data, int data_len){
-    char topic_str[128];
-    char data_str[128];
-
-    if (topic_len >= sizeof(topic_str)) topic_len = sizeof(topic_str) - 1;  // -1 bo one sie na 0 kończa
-    if (data_len >= sizeof(data_str)) data_len = sizeof(data_str) - 1;
-
-    strncpy(topic_str, topic, topic_len);
-    topic_str[data_len] = '\0';
-
-    strncpy(data_str, data, data_len);
-    data_str[data_len] = '\0';
-
-    ESP_LOGI(TAG, "Odebrano dane MQTT. Temat: %s, tag: %s", topic_str, data_str);
-
-    //sprawdzamy czy to tekst motywacyjny
-    if (strstr(topic_str, "/display/text") != NULL) {
-        //tUTAJ W PRZYSZŁOŚCI BEDZIE: oled_display_text(data_str);
-        ESP_LOGI(TAG, "Wyświetl na OLED: %s", data_str);
-    }
-    //sprawdzamy czy to klaendarz
-    else if (strstr(topic_str, "/display/calendar") != NULL) {
-        //TUTAJ W PRZYSZŁOŚCI BEDZIE: oled_display_calendar(data_str);
-        ESP_LOGI(TAG, "Wyświetl kalendarz na OLED: %s", data_str);
+// ----------------------------------------------------------------
+// OBSŁUGA PRZYCHODZĄCYCH KOMEND (JSON)
+// ----------------------------------------------------------------
+void handle_command_json(const char *json_str) {
+    cJSON *root = cJSON_Parse(json_str);
+    if (root == NULL) {
+        ESP_LOGW(TAG, "Otrzymano błędny JSON!");
+        return;
     }
 
-    //sprawdzamy czy to polecenie włączenia/wyłączenia ekranu - nwm czy bedzei czy tylko PIR zdecyduje
-    else if (strstr(topic_str, "/cmd/screen") != NULL) {
-        if (strcmp(data_str, "ON") == 0) {
-            ESP_LOGI(TAG, ">>> [SYSTEM] Włączam ekran OLED");
-        } else if (strcmp(data_str, "OFF") == 0) {
-            ESP_LOGI(TAG, ">>> [SYSTEM] Wygaszam ekran OLED (oszczędzanie energii)");
+    // Sprawdzamy pole "action"
+    cJSON *action = cJSON_GetObjectItem(root, "action");
+    if (cJSON_IsString(action)) {
+
+        // 1. Zmiana tekstu
+        if (strcmp(action->valuestring, "update_text") == 0) {
+            cJSON *msg = cJSON_GetObjectItem(root, "msg");
+            if (cJSON_IsString(msg)) {
+                // Używamy poprawnej nazwy zmiennej: current_display_text
+                snprintf(current_display_text, sizeof(current_display_text), "%s", msg->valuestring);
+                ESP_LOGI(TAG, ">>> Otrzymano nowy tekst: %s", current_display_text);
+                refresh_oled();
+            }
+        }
+        // 2. Wymuszenie stanu ekranu
+        else if (strcmp(action->valuestring, "set_screen") == 0) {
+            cJSON *state = cJSON_GetObjectItem(root, "state"); // "ON" / "OFF"
+            if (cJSON_IsString(state)) {
+                if (strcmp(state->valuestring, "ON") == 0) is_screen_on = true;
+                else is_screen_on = false;
+                ESP_LOGI(TAG, ">>> Wymuszono stan ekranu: %s", state->valuestring);
+                refresh_oled();
+            }
         }
     }
+    cJSON_Delete(root);
 }
 
-//=============================================================
+// ============================================================
 // OBSŁUGA MQTT
 // ============================================================
 static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data) {
     esp_mqtt_event_handle_t event = event_data;
-    (void)event;
-
     switch ((esp_mqtt_event_id_t)event_id) {
-    
-        case MQTT_EVENT_CONNECTED:
-        ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
+    case MQTT_EVENT_CONNECTED:
+        ESP_LOGI(TAG, "MQTT Połączono!");
         xEventGroupSetBits(s_wifi_event_group, MQTT_CONNECTED_BIT);
 
-        // Subskrypcje tematów przychodzących (do OLED)
-        {
-            char topic[128];
-
-            // 1. Teksty motywacyjne
-            snprintf(topic, sizeof(topic), "%s/%s/display/text", TOPIC_ROOT, esp_mac_str);
-            esp_mqtt_client_subscribe(client, topic, 0);
-
-            // 2. Kalendarz
-            snprintf(topic, sizeof(topic), "%s/%s/display/calendar", TOPIC_ROOT, esp_mac_str);
-            esp_mqtt_client_subscribe(client, topic, 0);
-
-            // 3. Polecenia ekranu
-            snprintf(topic, sizeof(topic), "%s/%s/cmd/screen", TOPIC_ROOT, esp_mac_str);
-            esp_mqtt_client_subscribe(client, topic, 0);
-        }
-
+        // Subskrybujemy kanał KOMEND
+        char sub_topic[128];
+        snprintf(sub_topic, sizeof(sub_topic), "%s/%s/cmd", TOPIC_ROOT, esp_mac_str);
+        esp_mqtt_client_subscribe(client, sub_topic, 0);
+        ESP_LOGI(TAG, "Subskrypcja: %s", sub_topic);
         break;
-    
-        case MQTT_EVENT_DISCONNECTED:
-        ESP_LOGI(TAG, "MQTT_EVENT_DISCONNECTED");
+
+    case MQTT_EVENT_DATA:
+        // Obsługa danych przychodzących
+        // Tworzymy tymczasowy bufor z zerem na końcu (bezpieczeństwo stringa)
+        // Sprawdzamy czy data_len > 0
+        if (event->data_len > 0) {
+            char *data_buf = (char *)malloc(event->data_len + 1);
+            if (data_buf) {
+                memcpy(data_buf, event->data, event->data_len);
+                data_buf[event->data_len] = '\0';
+                handle_command_json(data_buf);
+                free(data_buf);
+            }
+        }
+        break;
+
+    case MQTT_EVENT_DISCONNECTED:
+        ESP_LOGW(TAG, "MQTT Rozłączono");
         xEventGroupClearBits(s_wifi_event_group, MQTT_CONNECTED_BIT);
         break;
+    default: break;
+    }
+}
 
-        case MQTT_EVENT_DATA:
-        // Tutaj wpadają dane przychodzące z serwera
-        handle_incoming_data(event->topic, event->topic_len, event->data, event->data_len);
-        break;
-    
-        case MQTT_EVENT_ERROR:
-        ESP_LOGE(TAG, "MQTT_EVENT_ERROR");
-        break;
-        
-        default:
-        break;
+// ----------------------------------------------------------------
+// ZADANIE 1: TELEMETRIA (Temp, Hum, Light) -> JSON
+// ----------------------------------------------------------------
+void telemetry_task(void *pvParameters) {
+    char topic[128];
+    char payload[256];
+    snprintf(topic, sizeof(topic), "%s/%s/telemetry", TOPIC_ROOT, esp_mac_str);
+
+    while (1) {
+        if (xEventGroupGetBits(s_wifi_event_group) & MQTT_CONNECTED_BIT) {
+            // Symulacja czujników
+            float temp = 21.0 + ((esp_random() % 50) / 10.0); // 21.0 - 26.0
+            int lux = 200 + (esp_random() % 500);
+
+            // Agregacja danych w jeden JSON (zgodnie z zaleceniami)
+            snprintf(payload, sizeof(payload),
+                "{\"temp\": %.2f, \"lux\": %d, \"unit_t\": \"C\", \"unit_l\": \"lx\"}",
+                temp, lux);
+
+            esp_mqtt_client_publish(client, topic, payload, 0, 0, 0);
+
+            ESP_LOGI(TAG, "Wysłano telemetrię: %s", payload);
+        }
+        vTaskDelay(pdMS_TO_TICKS(5000)); // Co 5s
+    }
+}
+
+// ----------------------------------------------------------------
+// ZADANIE 2: STATUS TECHNICZNY -> JSON
+// ----------------------------------------------------------------
+void status_task(void *pvParameters) {
+    char topic[128];
+    char payload[256];
+    snprintf(topic, sizeof(topic), "%s/%s/status", TOPIC_ROOT, esp_mac_str);
+
+    while (1) {
+        if (xEventGroupGetBits(s_wifi_event_group) & MQTT_CONNECTED_BIT) {
+            // Pobieramy uptime
+            int64_t uptime = esp_timer_get_time() / 1000000;
+
+            // Pobieramy IP
+            esp_netif_ip_info_t ip_info;
+            esp_netif_t* netif = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
+            if (netif) esp_netif_get_ip_info(netif, &ip_info);
+
+            snprintf(payload, sizeof(payload),
+                "{\"uptime\": %lld, \"ip\": \"" IPSTR "\", \"online\": true}",
+                uptime, IP2STR(&ip_info.ip));
+
+            esp_mqtt_client_publish(client, topic, payload, 0, 0, 0);
+        }
+        vTaskDelay(pdMS_TO_TICKS(60000)); // Co minutę
+    }
+}
+
+// ----------------------------------------------------------------
+// ZADANIE 3: EDGE COMPUTING (Wykrywanie ruchu)
+// ----------------------------------------------------------------
+void motion_task(void *pvParameters) {
+    char topic[128];
+    snprintf(topic, sizeof(topic), "%s/%s/event", TOPIC_ROOT, esp_mac_str);
+
+    bool last_motion = false;
+
+    while(1) {
+        // Symulacja PIR: 10% szans na zmianę stanu
+        bool motion_detected = last_motion;
+        if ((esp_random() % 100) > 90) motion_detected = !last_motion;
+
+        if (motion_detected != last_motion) {
+            last_motion = motion_detected;
+
+            // --- LOGIKA EDGE (Lokalna) ---
+            // Działa nawet bez internetu!
+            if (motion_detected) {
+                ESP_LOGW(TAG, "[PIR] RUCH WYKRYTY! -> Włączam ekran.");
+                is_screen_on = true;
+            } else {
+                ESP_LOGW(TAG, "[PIR] Brak ruchu. -> Wyłączam ekran.");
+                is_screen_on = false;
+            }
+            refresh_oled(); // Aktualizuj wirtualny ekran
+
+            // --- LOGIKA CLOUD (Raportowanie) ---
+            if (xEventGroupGetBits(s_wifi_event_group) & MQTT_CONNECTED_BIT) {
+                char payload[64];
+                snprintf(payload, sizeof(payload), "{\"type\": \"motion\", \"val\": %s}",
+                    motion_detected ? "true" : "false");
+                esp_mqtt_client_publish(client, topic, payload, 0, 0, 0);
+            }
+        }
+        vTaskDelay(pdMS_TO_TICKS(2000)); // Sprawdzaj co 2s
     }
 }
 
@@ -201,6 +278,7 @@ void wifi_init_sta(void) {
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
     ESP_ERROR_CHECK(esp_wifi_start());
 
+    // Czekamy na WiFi przed startem MQTT
     EventBits_t bits = xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT | WIFI_FAIL_BIT, pdFALSE, pdFALSE, portMAX_DELAY);
     if (bits & WIFI_CONNECTED_BIT) {
         esp_mqtt_client_start(client);
@@ -220,71 +298,24 @@ static void mqtt_app_start(void) {
     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
 }
 
-// ============================================================
-// ZADANIE SYMULUJĄCE CZUJNIKI SMART MIRROR
-// ============================================================
-void sensors_task(void *pvParameters) {
-    char topic[128];
-    char payload[128];
-
-    // Symulowane zmienne
-    float temp = 22.0;
-    float hum = 45.0;
-    int lux = 300;
-    int motion = 0;
-
-    while (1) {
-        // Czekamy na połączenie MQTT
-        EventBits_t bits = xEventGroupWaitBits(s_wifi_event_group, MQTT_CONNECTED_BIT, pdFALSE, pdTRUE, pdMS_TO_TICKS(2000));
-        
-        if (bits & MQTT_CONNECTED_BIT) {
-            
-            // 1. Symulacja zmian wartości (żeby wykresy żyły)
-            temp += ((float)(esp_random() % 20) / 10.0) - 1.0; // wahania +/- 1 st
-            if(temp < 18) temp = 18; 
-            if(temp > 30) temp = 30;
-
-            hum += ((float)(esp_random() % 40) / 10.0) - 2.0; // wahania +/- 2%
-            
-            lux = 200 + (esp_random() % 600); // 200 - 800 lux
-            
-            motion = (esp_random() % 10) > 7 ? 1 : 0; // 30% szans na wykrycie ruchu
-
-            // 2. Wysyłanie TEMPERATURY
-            snprintf(topic, sizeof(topic), "%s/%s/sensor/temp", TOPIC_ROOT, esp_mac_str);
-            snprintf(payload, sizeof(payload), "{\"val\": %.2f, \"unit\": \"C\"}", temp);
-            esp_mqtt_client_publish(client, topic, payload, 0, 0, 0);
-            ESP_LOGI(TAG, "Wyslano TEMP: %s -> %s", topic, payload);
-
-            // 3. Wysyłanie WILGOTNOŚCI
-            snprintf(topic, sizeof(topic), "%s/%s/sensor/humidity", TOPIC_ROOT, esp_mac_str);
-            snprintf(payload, sizeof(payload), "{\"val\": %.1f, \"unit\": \"%%\"}", hum);
-            esp_mqtt_client_publish(client, topic, payload, 0, 0, 0);
-
-            // 4. Wysyłanie ŚWIATŁA
-            snprintf(topic, sizeof(topic), "%s/%s/sensor/light", TOPIC_ROOT, esp_mac_str);
-            snprintf(payload, sizeof(payload), "{\"val\": %d, \"unit\": \"lx\"}", lux);
-            esp_mqtt_client_publish(client, topic, payload, 0, 0, 0);
-
-            // 5. Wysyłanie CZUJNIKA RUCHU (PIR)
-            snprintf(topic, sizeof(topic), "%s/%s/sensor/motion", TOPIC_ROOT, esp_mac_str);
-            snprintf(payload, sizeof(payload), "{\"val\": %d}", motion);
-            esp_mqtt_client_publish(client, topic, payload, 0, 0, 0);
-        }
-
-        vTaskDelay(pdMS_TO_TICKS(5000)); // Wyślij co 5 sekund
-    }
-}
-
+// --- GŁÓWNA FUNKCJA STARTOWA TEGO MODUŁU ---
 void start_mqtt_handler(void) {
-//    ESP_ERROR_CHECK(nvs_flash_init());
-    
     uint8_t mac[6];
     esp_read_mac(mac, ESP_MAC_WIFI_STA);
-    snprintf(esp_mac_str, sizeof(esp_mac_str), "%02X%02X%02X", mac[3], mac[4], mac[5]); // Skrócony MAC (ostatnie 3 bajty)
-    
+    snprintf(esp_mac_str, sizeof(esp_mac_str), "%02X%02X%02X%02X%02X%02X", mac[0],mac[1],mac[2],mac[3],mac[4],mac[5]);
+
+    ESP_LOGI(TAG, "Device ID: %s", esp_mac_str);
+
+    // 1. Init Wirtualnego Ekranu
+    ssd1306_init();
+    ssd1306_display_text("Booting System...");
+
+    // 2. Init Sieci
     mqtt_app_start();
     wifi_init_sta();
 
-    xTaskCreate(sensors_task, "sensors_task", 4096, NULL, 5, NULL);
+    // 3. Start Zadań
+    xTaskCreate(telemetry_task, "telemetry", 4096, NULL, 5, NULL);
+    xTaskCreate(status_task, "status", 4096, NULL, 5, NULL);
+    xTaskCreate(motion_task, "motion", 4096, NULL, 5, NULL);
 }
