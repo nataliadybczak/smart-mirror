@@ -1,143 +1,189 @@
 #include <stdio.h>
 #include <string.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <errno.h>
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "nvs_flash.h"
-#include "esp_system.h"
-#include "esp_log.h"
-#include "esp_event.h"
+#include "freertos/event_groups.h"
+
 #include "esp_wifi.h"
-#include "esp_http_client.h"
+#include "esp_event.h"
+#include "esp_log.h"
+#include "esp_system.h"
+#include "nvs_flash.h"
 #include "driver/gpio.h"
 
-
-#define WIFI_SSID      "marco"
-#define WIFI_PASS      "polo1234"
-#define LED_GPIO 4
+#define WIFI_SSID   "marco"
+#define WIFI_PASS   "polo1234"
+#define LED_GPIO    4
 
 static const char *TAG = "wifi_test";
-static bool wifi_connected = false;
-static bool last_wifi_connected = false;
+
+volatile bool wifi_connected = false; 
+volatile bool last_wifi_connected = false;
+
+static EventGroupHandle_t wifi_event_group;
+#define WIFI_CONNECTED_BIT BIT0
 
 
-    // --- Obsługa zdarzeń Wi-Fi ---
+// ====== HANDLER ZDARZEŃ =======
 static void wifi_event_handler(void* arg, esp_event_base_t event_base,
                                int32_t event_id, void* event_data)
 {
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
         esp_wifi_connect();
-    } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
+    }
+    else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
+
         wifi_connected = false;
-        if (last_wifi_connected != wifi_connected) {
-            ESP_LOGI(TAG, "Rozłączono!");
-            last_wifi_connected = wifi_connected;
-        }
+        xEventGroupClearBits(wifi_event_group, WIFI_CONNECTED_BIT);
+
+        ESP_LOGI(TAG, "Rozłączono!");
         esp_wifi_connect();
-    } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
+    }
+    else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
+
         wifi_connected = true;
-        ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
-        if (last_wifi_connected != wifi_connected) {
-            ESP_LOGI(TAG, "Połączono! IP: " IPSTR, IP2STR(&event->ip_info.ip));
-            last_wifi_connected = wifi_connected;
-        }
+        xEventGroupSetBits(wifi_event_group, WIFI_CONNECTED_BIT);
+
+        ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
+        ESP_LOGI(TAG, "Połączono! IP: " IPSTR, IP2STR(&event->ip_info.ip));
     }
 }
 
-void wifi_init_sta(void)
+
+// ====== INICJALIZACJA AP + STA =======
+void wifi_init_apsta(void)
 {
     esp_netif_init();
     esp_event_loop_create_default();
+
     esp_netif_create_default_wifi_sta();
+    esp_netif_create_default_wifi_ap();
 
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+    esp_wifi_init(&cfg);
 
-    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL));
-    ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL));
+    wifi_event_group = xEventGroupCreate();
 
-    wifi_config_t wifi_config = {0};
-    strncpy((char*)wifi_config.sta.ssid, WIFI_SSID, sizeof(wifi_config.sta.ssid)-1);
-    strncpy((char*)wifi_config.sta.password, WIFI_PASS, sizeof(wifi_config.sta.password)-1);
+    esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL);
+    esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL);
 
-    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
-    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
+    wifi_config_t sta_cfg = {0};
+    strncpy((char*)sta_cfg.sta.ssid, WIFI_SSID, sizeof(sta_cfg.sta.ssid)-1);
+    strncpy((char*)sta_cfg.sta.password, WIFI_PASS, sizeof(sta_cfg.sta.password)-1);
 
-    ESP_ERROR_CHECK(esp_wifi_start());
-    ESP_LOGI(TAG, "Inicjalizacja Wi-Fi zakończona");
-}
-
-// --- Symulacja mrugania diodą ---
-static const char *TAG_LED = "led_task";  // osobny tag dla logów LED
-
-void log_task(void *pvParameter)
-{
-    while (1) {
-        if (!wifi_connected) {
-            ESP_LOGW(TAG_LED, "mrug mrug");  // tylko logowanie, żadnego LED
+    wifi_config_t ap_cfg = {
+        .ap = {
+            .ssid = "to_patryk",
+            .ssid_len = strlen("to_patryk"),
+            .channel = 1,
+            .password = "12345678",
+            .max_connection = 4,
+            .authmode = WIFI_AUTH_WPA2_PSK
         }
-        vTaskDelay(500 / portTICK_PERIOD_MS); // co 500 ms
-    }
+    };
+
+    esp_wifi_set_mode(WIFI_MODE_APSTA);
+    esp_wifi_set_config(WIFI_IF_STA, &sta_cfg);
+    esp_wifi_set_config(WIFI_IF_AP, &ap_cfg);
+
+    esp_wifi_start();
+
+    ESP_LOGI(TAG, "Tryb AP+STA uruchomiony");
 }
 
-void blink_task(void *pvParameter)
+
+// ====== MIGANIE DIODĄ =======
+void blink_task(void *pv)
 {
     gpio_reset_pin(LED_GPIO);
     gpio_set_direction(LED_GPIO, GPIO_MODE_OUTPUT);
 
     while (1) {
-        if (!wifi_connected) {
-            gpio_set_level(LED_GPIO, 1);
-            vTaskDelay(500 / portTICK_PERIOD_MS);
-            gpio_set_level(LED_GPIO, 0);
-            vTaskDelay(500 / portTICK_PERIOD_MS);
-        } else {
+        EventBits_t bits = xEventGroupGetBits(wifi_event_group);
+
+        if (bits & WIFI_CONNECTED_BIT) {
             gpio_set_level(LED_GPIO, 1);
             vTaskDelay(1000 / portTICK_PERIOD_MS);
+        } else {
+            gpio_set_level(LED_GPIO, 1);
+            vTaskDelay(200 / portTICK_PERIOD_MS);
+            gpio_set_level(LED_GPIO, 0);
+            vTaskDelay(200 / portTICK_PERIOD_MS);
         }
     }
 }
 
 
-// --- Test HTTP GET ---
-void http_get_task(void *pvParameter)
+// ======= HTTP GET ZROBI0NY RĘCZNIE NA SOCKETACH ========
+void http_get_task(void *pv)
 {
-    const char *url = "http://shinyoldlushtreasure.neverssl.com/online/";
+    const char *host = "example.com";
+
     while (1) {
-        if (wifi_connected) {
-            esp_http_client_config_t config = {
-                .url = url,
-                .method = HTTP_METHOD_GET,
-                .timeout_ms = 5000,
-                .skip_cert_common_name_check = true,
+        if (xEventGroupGetBits(wifi_event_group) & WIFI_CONNECTED_BIT) {
+
+            struct addrinfo hints = {
+                .ai_family = AF_INET,
+                .ai_socktype = SOCK_STREAM,
             };
-            esp_http_client_handle_t client = esp_http_client_init(&config);
-            esp_err_t err = esp_http_client_perform(client);
-            if (err == ESP_OK) {
-                ESP_LOGI(TAG, "HTTP GET OK, status=%d, content_length=%d",
-                         esp_http_client_get_status_code(client),
-                         esp_http_client_get_content_length(client));
-            } else {
-                ESP_LOGE(TAG, "HTTP GET failed: %s", esp_err_to_name(err));
+            struct addrinfo *res;
+
+            int err = getaddrinfo(host, "80", &hints, &res);
+            if (err != 0 || res == NULL) {
+                ESP_LOGE(TAG, "getaddrinfo failed");
+                vTaskDelay(5000 / portTICK_PERIOD_MS);
+                continue;
             }
-            esp_http_client_cleanup(client);
+
+            int sock = socket(res->ai_family, res->ai_socktype, 0);
+            if (sock < 0) {
+                ESP_LOGE(TAG, "socket error");
+                freeaddrinfo(res);
+                continue;
+            }
+
+            if (connect(sock, res->ai_addr, res->ai_addrlen) != 0) {
+                ESP_LOGE(TAG, "connect failed");
+                close(sock);
+                freeaddrinfo(res);
+                continue;
+            }
+
+            freeaddrinfo(res);
+
+            char request[] =
+                "GET / HTTP/1.1\r\n"
+                "Host: example.com\r\n"
+                "User-Agent: ESP32\r\n"
+                "Connection: close\r\n\r\n";
+
+            write(sock, request, strlen(request));
+
+            char buffer[512];
+            int r;
+            while ((r = read(sock, buffer, sizeof(buffer)-1)) > 0) {
+                buffer[r] = 0;
+                printf("%s", buffer);
+            }
+
+            close(sock);
         }
+
         vTaskDelay(10000 / portTICK_PERIOD_MS);
     }
 }
 
-// --- Funkcja główna ---
+
+// ===== MAIN =====
 void app_main(void)
 {
-    ESP_ERROR_CHECK(nvs_flash_init());
-    wifi_init_sta();
+    nvs_flash_init();
+    wifi_init_apsta();
 
-    // Task tylko dla diody
-    xTaskCreate(&blink_task, "blink_task", 2048, NULL, 5, NULL);
-
-    // Task tylko dla logów „mrug mrug”
-    xTaskCreate(&log_task, "log_task", 2048, NULL, 5, NULL);
-
-    // Task dla HTTP GET
-    xTaskCreate(&http_get_task, "http_get_task", 8192, NULL, 5, NULL);
+    xTaskCreate(blink_task, "blink_task", 2048, NULL, 5, NULL);
+    xTaskCreate(http_get_task, "http_get_task", 8192, NULL, 5, NULL);
 }
-
