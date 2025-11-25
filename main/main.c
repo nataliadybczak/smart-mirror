@@ -10,6 +10,8 @@
 #include "esp_http_client.h"
 #include "driver/gpio.h"
 
+#include "ble_hid_sniffer.h"
+
 
 #define WIFI_SSID      "marco"
 #define WIFI_PASS      "polo1234"
@@ -128,16 +130,26 @@ void http_get_task(void *pvParameter)
 // --- Funkcja główna ---
 void app_main(void)
 {
-    ESP_ERROR_CHECK(nvs_flash_init());
-    wifi_init_sta();
+    // ESP_ERROR_CHECK(nvs_flash_init());
+    // wifi_init_sta();
 
     // Task tylko dla diody
-    xTaskCreate(&blink_task, "blink_task", 2048, NULL, 5, NULL);
+    // xTaskCreate(&blink_task, "blink_task", 2048, NULL, 5, NULL);
 
     // Task tylko dla logów „mrug mrug”
-    xTaskCreate(&log_task, "log_task", 2048, NULL, 5, NULL);
+    // xTaskCreate(&log_task, "log_task", 2048, NULL, 5, NULL);
 
     // Task dla HTTP GET
-    xTaskCreate(&http_get_task, "http_get_task", 8192, NULL, 5, NULL);
+    // xTaskCreate(&http_get_task, "http_get_task", 8192, NULL, 5, NULL);
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+      ESP_ERROR_CHECK(nvs_flash_erase());
+      ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
+    
+    ESP_LOGI(TAG, "Start systemu...");
+    
+    start_sniffer();
 }
 
