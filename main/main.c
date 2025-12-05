@@ -110,9 +110,9 @@ void blink_task(void *pv)
             vTaskDelay(1000 / portTICK_PERIOD_MS);
         } else {
             gpio_set_level(LED_GPIO, 1);
-            vTaskDelay(200 / portTICK_PERIOD_MS);
+            vTaskDelay(300 / portTICK_PERIOD_MS);
             gpio_set_level(LED_GPIO, 0);
-            vTaskDelay(200 / portTICK_PERIOD_MS);
+            vTaskDelay(300 / portTICK_PERIOD_MS);
         }
     }
 }
@@ -121,7 +121,7 @@ void blink_task(void *pv)
 // ======= HTTP GET ZROBI0NY RĘCZNIE NA SOCKETACH ========
 void http_get_task(void *pv)
 {
-    const char *host = "example.com";
+    const char *host = "httpforever.com";
 
     while (1) {
         if (xEventGroupGetBits(wifi_event_group) & WIFI_CONNECTED_BIT) {
@@ -157,7 +157,7 @@ void http_get_task(void *pv)
 
             char request[] =
                 "GET / HTTP/1.1\r\n"
-                "Host: example.com\r\n"
+                "Host: httpforever.com\r\n"
                 "User-Agent: ESP32\r\n"
                 "Connection: close\r\n\r\n";
 
