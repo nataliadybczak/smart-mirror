@@ -26,9 +26,7 @@ static const char *TAG = "i2c_demo";
 
 /* BME280 registers */
 #define BME280_REG_ID 0xD0
-#define BME280_RESET 0xE0
 #define BME280_CTRL_HUM 0xF2
-#define BME280_STATUS 0xF3
 #define BME280_CTRL_MEAS 0xF4
 #define BME280_CONFIG 0xF5
 #define BME280_PRESS_MSB 0xF7
@@ -39,7 +37,7 @@ static const char *TAG = "i2c_demo";
 #define SSD1306_CONTROL_CMD 0x00
 #define SSD1306_CONTROL_DATA 0x40
 
-/* Minimal font 8x8: 0-9, T, H, C, %, :, . */
+/* Minimal font 8x8 */
 static const uint8_t font8x8_basic[][8] = {
     {0x3C,0x66,0x6E,0x76,0x66,0x66,0x3C,0x00}, //0
     {0x18,0x38,0x18,0x18,0x18,0x18,0x3C,0x00}, //1
@@ -54,6 +52,9 @@ static const uint8_t font8x8_basic[][8] = {
     {0x7E,0x5A,0x18,0x18,0x18,0x18,0x18,0x00}, //T
     {0x66,0x66,0x66,0x7E,0x66,0x66,0x66,0x00}, //H
     {0x3C,0x66,0x60,0x60,0x60,0x66,0x3C,0x00}, //C
+    {0x7C,0x66,0x66,0x7C,0x60,0x60,0x60,0x00}, //P
+    {0x60,0x60,0x7C,0x66,0x66,0x66,0x00,0x00}, //h
+    {0x00,0x3C,0x06,0x3E,0x66,0x3E,0x00,0x00}, //a
     {0x62,0x64,0x08,0x10,0x26,0x46,0x00,0x00}, //%
     {0x00,0x18,0x18,0x00,0x00,0x18,0x18,0x00}, //:
     {0x00,0x00,0x00,0x00,0x00,0x18,0x18,0x00}, //.
@@ -65,11 +66,14 @@ static int8_t char_to_index(char c){
     if(c=='T') return 10;
     if(c=='H') return 11;
     if(c=='C') return 12;
-    if(c=='%') return 13;
-    if(c==':') return 14;
-    if(c=='.') return 15;
-    if(c==' ') return 16;
-    return 16;
+    if(c=='P') return 13;
+    if(c=='h') return 14;
+    if(c=='a') return 15;
+    if(c=='%') return 16;
+    if(c==':') return 17;
+    if(c=='.') return 18;
+    if(c==' ') return 19;
+    return 19;
 }
 
 /* I2C helpers */
@@ -131,7 +135,7 @@ static esp_err_t ssd1306_write_cmd(uint8_t cmd){
 
 static esp_err_t ssd1306_init(void){
     const uint8_t seq[]={0xAE,0xD5,0x80,0xA8,0x3F,0xD3,0x00,0x40,0x8D,0x14,0x20,0x00,
-                         0xA1,0xC8,0xDA,0x12,0x81,0xCF,0xD9,0xF1,0xDB,0x40,0xA4,0xA6,0xAF};
+                         0xA0,0xC0,0xDA,0x12,0x81,0xCF,0xD9,0xF1,0xDB,0x40,0xA4,0xA6,0xAF};
     for(size_t i=0;i<sizeof(seq);i++) ssd1306_write_cmd(seq[i]);
     vTaskDelay(pdMS_TO_TICKS(50));
     return ESP_OK;
@@ -139,15 +143,15 @@ static esp_err_t ssd1306_init(void){
 
 static void ssd1306_clear(void){
     uint8_t zero[128*8]; memset(zero,0,sizeof(zero));
-    for(int p=0;p<8;p++){
+    for(int page=0; page<8; page++){
         ssd1306_write_cmd(0x21); ssd1306_write_cmd(0); ssd1306_write_cmd(127);
-        ssd1306_write_cmd(0x22); ssd1306_write_cmd(p); ssd1306_write_cmd(p);
+        ssd1306_write_cmd(0x22); ssd1306_write_cmd(page); ssd1306_write_cmd(page);
         i2c_cmd_handle_t h=i2c_cmd_link_create();
         i2c_master_start(h);
         i2c_master_write_byte(h,(SSD1306_ADDR<<1)|I2C_MASTER_WRITE,I2C_ACK_CHECK_EN);
         uint8_t ctrl=SSD1306_CONTROL_DATA;
         i2c_master_write_byte(h,ctrl,I2C_ACK_CHECK_EN);
-        i2c_master_write(h,zero+128*p,128,I2C_MASTER_ACK);
+        i2c_master_write(h, zero+128*page, 128, I2C_MASTER_ACK);
         i2c_master_stop(h);
         i2c_master_cmd_begin(I2C_MASTER_NUM,h,pdMS_TO_TICKS(I2C_TIMEOUT_MS));
         i2c_cmd_link_delete(h);
@@ -157,7 +161,7 @@ static void ssd1306_clear(void){
 static void ssd1306_write_string(const char* str, uint8_t page){
     uint8_t buf[128]; memset(buf,0,128);
     int col=0;
-    for(const char* s=str;*s && col<16;s++,col++){
+    for(const char* s=str; *s && col<16; s++, col++){
         int8_t idx=char_to_index(*s);
         for(int i=0;i<8;i++){
             if(col*8+i<128) buf[col*8+i]=font8x8_basic[idx][i];
@@ -182,7 +186,8 @@ typedef struct{
     uint16_t dig_P1; int16_t dig_P2,dig_P3,dig_P4,dig_P5,dig_P6,dig_P7,dig_P8,dig_P9;
     uint8_t dig_H1; int16_t dig_H2; uint8_t dig_H3; int16_t dig_H4,dig_H5; int8_t dig_H6;
 } bme280_calib_t;
-static bme280_calib_t bme_calib; static int32_t t_fine;
+static bme280_calib_t bme_calib; 
+static int32_t t_fine;
 
 static esp_err_t bme280_read_calib(uint8_t dev_addr)
 {
@@ -241,7 +246,7 @@ static esp_err_t bme280_init(uint8_t dev_addr)
     return ESP_OK;
 }
 
-static esp_err_t bme280_read_raw(uint8_t dev_addr, int32_t *adc_T, int32_t *adc_H)
+static esp_err_t bme280_read_raw(uint8_t dev_addr, int32_t *adc_T, int32_t *adc_H, int32_t *adc_P)
 {
     uint8_t data[8];
     esp_err_t err = i2c_read_regs(dev_addr, BME280_PRESS_MSB, data, 8); // read press(3), temp(3), hum(2)
@@ -275,11 +280,29 @@ static int32_t bme280_compensate_H_int32(int32_t adc_H)
     return (v_x1_u32r >> 12); // returns value in Q22.10 format -> convert later
 }
 
-/* Main */
+static int32_t bme280_compensate_P_int32(int32_t adc_P)
+{
+    int64_t var1, var2, p;
+    var1 = ((int64_t)t_fine) - 128000;
+    var2 = var1 * var1 * (int64_t)bme_calib.dig_P6;
+    var2 = var2 + ((var1 * (int64_t)bme_calib.dig_P5) << 17);
+    var2 = var2 + (((int64_t)bme_calib.dig_P4) << 35);
+    var1 = ((var1 * var1 * (int64_t)bme_calib.dig_P3) >> 8) + ((var1 * (int64_t)bme_calib.dig_P2) << 12);
+    var1 = (((((int64_t)1) << 47) + var1) * ((int64_t)bme_calib.dig_P1)) >> 33;
+    if (var1 == 0) return 0; // avoid div by zero
+    p = 1048576 - adc_P;
+    p = (((p << 31) - var2) * 3125) / var1;
+    var1 = (((int64_t)bme_calib.dig_P9) * (p >> 13) * (p >> 13)) >> 25;
+    var2 = (((int64_t)bme_calib.dig_P8) * p) >> 19;
+    p = ((p + var1 + var2) >> 8) + (((int64_t)bme_calib.dig_P7) << 4);
+    return (int32_t)(p >> 8); // Pa
+}
+
 void app_main(void){
     ESP_LOGI(TAG,"Starting I2C + BME280 + SSD1306 demo");
     ESP_ERROR_CHECK(i2c_master_init());
     ESP_ERROR_CHECK(ssd1306_init());
+    ssd1306_clear();
 
     uint8_t bme_addr=0, id;
     if(i2c_read_regs(BME280_ADDR1,BME280_REG_ID,&id,1)==ESP_OK) bme_addr=BME280_ADDR1;
@@ -292,22 +315,29 @@ void app_main(void){
 
     while(1){
         if(bme_addr){
-            int32_t rawT,rawH;
-            if(bme280_read_raw(bme_addr,&rawT,&rawH)==ESP_OK){
-                int32_t temp_x100=bme280_compensate_T_int32(rawT);
-                int32_t hum_q=bme280_compensate_H_int32(rawH);
-                float temp=temp_x100/100.0f;
-                float hum=hum_q/1024.0f;
-                ESP_LOGI(TAG,"T=%.2f C, H=%.2f %%",temp,hum);
-                char line1[17],line2[17];
-                snprintf(line1,sizeof(line1),"T: %.2fC",temp);
-                snprintf(line2,sizeof(line2),"H: %.2f%%",hum);
+            int32_t rawT, rawH, rawP;
+            if(bme280_read_raw(bme_addr, &rawT, &rawH, &rawP) == ESP_OK){
+                int32_t temp_x100 = bme280_compensate_T_int32(rawT);
+                int32_t hum_q = bme280_compensate_H_int32(rawH);
+                int32_t pres = bme280_compensate_P_int32(rawP);
+
+                float temp = temp_x100 / 100.0f;
+                float hum = hum_q / 1024.0f;
+                float pres_hPa = pres / 100.0f;
+
+                ESP_LOGI(TAG,"T=%.2f C, H=%.2f %%, P=%.2f hPa", temp, hum, pres_hPa);
+
+                char line1[17], line2[17], line3[17];
+                snprintf(line1, sizeof(line1), "T:%.1fC", temp);
+                snprintf(line2, sizeof(line2), "H:%.1f%%", hum);
+                snprintf(line3, sizeof(line3), "P:%.0fhPa", pres_hPa);
+
                 ssd1306_clear();
-                ssd1306_write_string(line1,0);
-                ssd1306_write_string(line2,1);
+                ssd1306_write_string(line1, 0);
+                ssd1306_write_string(line2, 1);
+                ssd1306_write_string(line3, 2);
             }
         }
         vTaskDelay(pdMS_TO_TICKS(5000));
     }
 }
-
