@@ -1,0 +1,14 @@
+dependencies:
+  cmake_utilities: 0.*
+  i2c_bus:
+    public: true
+  idf: '>=4.4'
+description: I2C driver for BME280 preesure sensor
+documentation: https://docs.espressif.com/projects/esp-iot-solution/en/latest/sensors/pressure.html
+issues: https://github.com/espressif/esp-iot-solution/issues
+repository: git://github.com/espressif/esp-iot-solution.git
+repository_info:
+  commit_sha: 1f4206cfe0ff480fedd4fa7860dc41ece6768812
+  path: components/sensors/pressure/bme280
+url: https://github.com/espressif/esp-iot-solution/tree/master/components/sensors/pressure/bme280
+version: 0.1.1
