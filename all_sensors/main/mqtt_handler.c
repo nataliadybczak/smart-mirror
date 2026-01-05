@@ -222,8 +222,7 @@ void motion_task(void *pvParameters) {
 
     while(1) {
         // prawdziwy odczyt z PIR
-        bool motion_detected = last_motion;
-        if ((esp_random() % 100) > 90) motion_detected = !last_motion;
+        bool motion_detected = gpio_get_level(PIR_PIN);
 
         if (motion_detected != last_motion) {
             last_motion = motion_detected;

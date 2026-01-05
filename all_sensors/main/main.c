@@ -9,6 +9,7 @@
 #include "driver/uart.h"
 #include "ssd1306.h"
 #include "bme280.h"
+#include "mqtt_handler.h"
 
 #define I2C_PORT I2C_NUM_0
 #define PIR_PIN 27
@@ -59,9 +60,16 @@ void app_main(void) {
     // 3. PIR i BH1750
     gpio_reset_pin(PIR_PIN);
     gpio_set_direction(PIR_PIN, GPIO_MODE_INPUT);
-    uint8_t cmd_on = 0x01, cmd_meas = 0x10;
-    i2c_master_write_to_device(I2C_PORT, BH1750_ADDR, &cmd_on, 1, 100);
-    i2c_master_write_to_device(I2C_PORT, BH1750_ADDR, &cmd_meas, 1, 100);
+    uint8_t cmd_on = 0x01;
+    uint8_t cmd_measure = 0x10;
+    i2c_master_write_to_device(I2C_PORT, BH1750_ADDR, &cmd_on, 1, 100/portTICK_PERIOD_MS);
+    i2c_master_write_to_device(I2C_PORT, BH1750_ADDR, &cmd_measure, 1, 100/portTICK_PERIOD_MS);
+
+    // ==========================================
+    // TU DALAM START SWOJEGO KODU Z MQTT:
+    ESP_LOGI("MAIN", "Uruchamianie MQTT i WiFi...");
+    start_mqtt_handler(); 
+    // ==========================================
 
     char buf_t[20], buf_p[30], buf_l[20], buf_time[20];
 
