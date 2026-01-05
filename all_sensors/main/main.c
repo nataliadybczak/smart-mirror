@@ -41,6 +41,8 @@ void init_uart() {
     uart_driver_install(UART_NUM_2, 1024, 0, 0, NULL, 0);
 }
 
+SSD1306_t dev;
+
 void app_main(void) {
     init_uart();
     vTaskDelay(pdMS_TO_TICKS(500));
@@ -54,24 +56,19 @@ void app_main(void) {
     ssd1306_init(&dev, 128, 64);
     ssd1306_clear_screen(&dev, false);
 
+    start_mqtt_handler();
+
     // 2. BME280 - TERAZ POPRAWIONE
     bme280_init(I2C_PORT, BME280_ADDR); 
 
     // 3. PIR i BH1750
     gpio_reset_pin(PIR_PIN);
     gpio_set_direction(PIR_PIN, GPIO_MODE_INPUT);
-    uint8_t cmd_on = 0x01;
-    uint8_t cmd_measure = 0x10;
-    i2c_master_write_to_device(I2C_PORT, BH1750_ADDR, &cmd_on, 1, 100/portTICK_PERIOD_MS);
-    i2c_master_write_to_device(I2C_PORT, BH1750_ADDR, &cmd_measure, 1, 100/portTICK_PERIOD_MS);
+    uint8_t cmd_on = 0x01, cmd_meas = 0x10;
+    i2c_master_write_to_device(I2C_PORT, BH1750_ADDR, &cmd_on, 1, 100);
+    i2c_master_write_to_device(I2C_PORT, BH1750_ADDR, &cmd_meas, 1, 100);
 
-    // ==========================================
-    // TU DALAM START SWOJEGO KODU Z MQTT:
-    ESP_LOGI("MAIN", "Uruchamianie MQTT i WiFi...");
-    start_mqtt_handler(); 
-    // ==========================================
-
-    char buf_t[20], buf_p[30], buf_l[20], buf_time[20];
+    char buf_t[20], buf_l[20], buf_time[20];
 
     while (1) {
         // Czas
@@ -97,8 +94,6 @@ void app_main(void) {
         snprintf(buf_t, sizeof(buf_t), "T:%.1fC H:%.0f%%", temp, hum);
         ssd1306_display_text(&dev, 2, buf_t, strlen(buf_t), false);
         
-        snprintf(buf_p, sizeof(buf_p), "P:%.1f hPa", press/100.0);
-        ssd1306_display_text(&dev, 3, buf_p, strlen(buf_p), false);
 
         if (lux > 600.0) {
             ssd1306_display_text(&dev, 5, "JASNO - GRA!", 12, true);
