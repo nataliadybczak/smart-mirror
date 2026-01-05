@@ -10,6 +10,7 @@
 #include "ssd1306.h"
 #include "bme280.h"
 #include "mqtt_handler.h"
+#include "nvs_flash.h"
 
 #define I2C_PORT I2C_NUM_0
 #define PIR_PIN 27
@@ -43,14 +44,24 @@ void init_uart() {
 
 SSD1306_t dev;
 
+SSD1306_t dev;
+
 void app_main(void) {
+    // 1. Inicjalizacja pamięci (Wspólna dla wszystkich modułów)
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+      ESP_ERROR_CHECK(nvs_flash_erase());
+      ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
+
     init_uart();
     vTaskDelay(pdMS_TO_TICKS(500));
     send_dfplayer_cmd(0x06, 20); 
     vTaskDelay(pdMS_TO_TICKS(100));
 
     // 1. OLED i I2C
-    SSD1306_t dev;
+    
     i2c_master_init(&dev, 21, 22, -1); 
     dev._address = 0x3C; 
     ssd1306_init(&dev, 128, 64);

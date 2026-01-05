@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdlib.h>
 #include "esp_wifi.h"
 #include "esp_system.h"
 #include "esp_event.h"
@@ -14,6 +15,9 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
+
+#include "driver/i2c.h"
+#include "driver/gpio.h"
 
 #include "mqtt_client.h"
 #include "cJSON.h"
@@ -51,6 +55,7 @@ static int s_retry_num = 0;
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT      BIT1
 #define MQTT_CONNECTED_BIT BIT2
+#define MQTT_CONNECTED_BIT BIT2
 
 // Zmienne globalne stanu
 char current_display_text[64] = "Czesc Piekna, czekam na dane...";
@@ -83,10 +88,15 @@ void handle_command_json(const char *json_str) {
         }
         else if (strcmp(action->valuestring, "set_screen") == 0) {
             cJSON *state = cJSON_GetObjectItem(root, "state");
+            cJSON *state = cJSON_GetObjectItem(root, "state");
             if (cJSON_IsString(state)) {
+                is_screen_on = (strcmp(state->valuestring, "ON") == 0);
                 is_screen_on = (strcmp(state->valuestring, "ON") == 0);
                 refresh_oled();
             }
+        }
+        else if (strcmp(action->valuestring, "set_light") == 0) {
+             ESP_LOGI(TAG, "Zmieniono jasność (symulacja)");
         }
     }
     cJSON_Delete(root);
@@ -149,6 +159,7 @@ void telemetry_task(void *pvParameters) {
             ESP_LOGI(TAG, "Wysłano dane: %s", payload);
         }
         vTaskDelay(pdMS_TO_TICKS(5000));
+        vTaskDelay(pdMS_TO_TICKS(5000));
     }
 }
 
@@ -203,7 +214,6 @@ static void wifi_event_handler(void* arg, esp_event_base_t event_base, int32_t e
         if (s_retry_num < ESP_MAXIMUM_RETRY) {
             esp_wifi_connect();
             s_retry_num++;
-            ESP_LOGI(TAG, "Ponawiam WiFi...");
         } else {
             xEventGroupSetBits(s_wifi_event_group, WIFI_FAIL_BIT);
         }
@@ -239,10 +249,7 @@ void wifi_init_sta(void) {
 static void mqtt_app_start(void) {
     esp_mqtt_client_config_t mqtt_cfg = {
         .broker.address.uri = ESP_MQTT_BROKER_URL,
-        .credentials = {
-            .username = ESP_MQTT_USER,
-            .authentication = { .password = ESP_MQTT_PASS }
-        },
+        .credentials = { .username = ESP_MQTT_USER, .authentication = { .password = ESP_MQTT_PASS } },
     };
     client = esp_mqtt_client_init(&mqtt_cfg);
     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
