@@ -1,0 +1,10 @@
+Command: ninja all
+You have changed variables that require your cache to be deleted.
+Configure will be re-run and you may have to reset some variables.
+The following variables have changed:
+CMAKE_C_COMPILER= D:/msys64/mingw64/bin/gcc.exe
+CMAKE_CXX_COMPILER= D:/msys64/mingw64/bin/g++.exe
+CMAKE_C_COMPILER= D:/msys64/mingw64/bin/gcc.exe
+CMAKE_CXX_COMPILER= D:/msys64/mingw64/bin/g++.exe
+CMAKE_C_COMPILER= D:/msys64/mingw64/bin/gcc.exe
+

@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+D:/Studia/smart-mirror/build/CMakeFiles/bootloader
+D:/Studia/smart-mirror/build/CMakeFiles/bootloader.rule
+D:/Studia/smart-mirror/build/CMakeFiles/bootloader-complete.rule
+D:/Studia/smart-mirror/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+D:/Studia/smart-mirror/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+D:/Studia/smart-mirror/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+D:/Studia/smart-mirror/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+D:/Studia/smart-mirror/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+D:/Studia/smart-mirror/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+D:/Studia/smart-mirror/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

@@ -1,0 +1,452 @@
+Command: D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe D:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM8 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 D:\Studia\smart-mirror\build\esp32-wifi-example.elf D:\Studia\smart-mirror\build\bootloader\bootloader.elf --force-color -m 'D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'D:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Nov 24 2025 15:06:45[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1d7f4h (120820) map[0m
+[0;32mI (129) esp_image: segment 1: paddr=0002d81c vaddr=3ffbdb60 size=027fch ( 10236) load[0m
+[0;32mI (133) esp_image: segment 2: paddr=00030020 vaddr=400d0020 size=7390ch (473356) map[0m
+[0;32mI (295) esp_image: segment 3: paddr=000a3934 vaddr=3ffc035c size=02060h (  8288) load[0m
+[0;32mI (299) esp_image: segment 4: paddr=000a599c vaddr=40080000 size=179fch ( 96764) load[0m
+[0;32mI (337) esp_image: segment 5: paddr=000bd3a0 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (349) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (349) boot: Disabling RNG early entropy source...[0m
+[0;32mI (359) cpu_start: Multicore app[0m
+[0;32mI (368) cpu_start: Pro cpu start user code[0m
+[0;32mI (368) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (368) app_init: Application information:[0m
+[0;32mI (368) app_init: Project name:     esp32-wifi-example[0m
+[0;32mI (373) app_init: App version:      c5f5f3f-dirty[0m
+[0;32mI (377) app_init: Compile time:     Nov 24 2025 16:07:19[0m
+[0;32mI (382) app_init: ELF file SHA256:  81b359be7...[0m
+[0;32mI (387) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (390) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (394) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (398) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (402) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (408) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (413) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (419) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (424) heap_init: At 3FFC6AB8 len 00019548 (101 KiB): DRAM[0m
+[0;32mI (429) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (434) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (440) heap_init: At 400979FC len 00008604 (33 KiB): IRAM[0m
+[0;32mI (447) spi_flash: detected chip: generic[0m
+[0;32mI (449) spi_flash: flash io: dio[0m
+[0;33mW (452) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (465) coexist: coex firmware version: b0bcc39[0m
+[0;32mI (469) main_task: Started on CPU0[0m
+[0;32mI (479) main_task: Calling app_main()[0m
+[0;32mI (509) wifi_test: Start systemu...[0m
+[0;32mI (509) BTDM_INIT: BT controller compile version [722c907][0m
+[0;32mI (509) BTDM_INIT: Using main XTAL as clock source[0m
+[0;32mI (509) BTDM_INIT: Bluetooth MAC: 78:ee:4c:01:0f:36[0m
+[0;32mI (519) phy_init: phy_version 4861,b71b5ad,Aug  5 2025,11:16:06[0m
+[0;32mI (909) HID_SNIFFER: Konfiguracja skanowania...[0m
+[0;32mI (909) main_task: Returned from app_main()[0m
+[0;32mI (919) HID_SNIFFER: Parametry OK! Start skanowania...[0m
+[0;32mI (919) HID_SNIFFER: SKANOWANIE AKTYWNE - Patrz na logi![0m
+[0;32mI (959) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -97[0m
+[0;32mI (1079) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (1179) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -59[0m
+[0;32mI (1179) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (1279) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (1279) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -96[0m
+[0;32mI (1389) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -94[0m
+[0;32mI (1389) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -100[0m
+[0;32mI (1389) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -93[0m
+[0;32mI (1459) HID_SNIFFER: Znalazłem MAC: e7:ba:5e:e2:52:0e, RSSI: -62[0m
+[0;32mI (1459) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -61[0m
+[0;32mI (1489) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -90[0m
+[0;32mI (1489) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (1579) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -70[0m
+[0;32mI (1599) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (1599) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -94[0m
+[0;32mI (1659) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -94[0m
+[0;32mI (1729) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -55[0m
+[0;32mI (1809) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -92[0m
+[0;32mI (1889) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -90[0m
+[0;32mI (1959) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -96[0m
+[0;32mI (1999) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -60[0m
+[0;32mI (2079) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (2089) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (2249) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (2249) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -95[0m
+[0;32mI (2329) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (2329) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -93[0m
+[0;32mI (2429) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -91[0m
+[0;32mI (2459) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -96[0m
+[0;32mI (2539) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -92[0m
+[0;32mI (2539) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (2549) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -60[0m
+[0;32mI (2579) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -69[0m
+[0;32mI (2639) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -94[0m
+[0;32mI (2639) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (2749) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -97[0m
+[0;32mI (2749) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -99[0m
+[0;32mI (2859) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (2859) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (3099) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -94[0m
+[0;32mI (3099) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -59[0m
+[0;32mI (3109) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -70[0m
+[0;32mI (3289) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -81[0m
+[0;32mI (3289) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -91[0m
+[0;32mI (3379) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -103[0m
+[0;32mI (3379) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -92[0m
+[0;32mI (3409) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (3459) HID_SNIFFER: Znalazłem MAC: e7:ba:5e:e2:52:0e, RSSI: -61[0m
+[0;32mI (3479) HID_SNIFFER: Znalazłem MAC: 6f:a0:90:d2:80:3c, RSSI: -60[0m
+[0;32mI (3479) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -92[0m
+[0;32mI (3509) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -99[0m
+[0;32mI (3589) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -90[0m
+[0;32mI (3589) HID_SNIFFER: Znalazłem MAC: d9:fe:87:26:04:9d, RSSI: -79[0m
+[0;32mI (3589) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -80[0m
+[0;32mI (3599) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (3609) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -93[0m
+[0;32mI (3639) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -59[0m
+[0;32mI (3709) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -99[0m
+[0;32mI (3799) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -95[0m
+[0;32mI (3799) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -94[0m
+[0;32mI (3959) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -98[0m
+[0;32mI (4059) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -91[0m
+[0;32mI (4099) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (4099) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -96[0m
+[0;32mI (4099) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (4159) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (4189) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -60[0m
+[0;32mI (4309) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (4409) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -95[0m
+[0;32mI (4509) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (4609) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -92[0m
+[0;32mI (4629) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -92[0m
+[0;32mI (4709) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -69[0m
+[0;32mI (4709) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -96[0m
+[0;32mI (4739) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -93[0m
+[0;32mI (4759) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -58[0m
+[0;32mI (4809) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -95[0m
+[0;32mI (4839) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -94[0m
+[0;32mI (4839) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -91[0m
+[0;32mI (4949) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -90[0m
+[0;32mI (4949) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (4949) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -92[0m
+[0;32mI (5049) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -92[0m
+[0;32mI (5049) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -100[0m
+[0;32mI (5129) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (5149) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -91[0m
+[0;32mI (5149) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -96[0m
+[0;32mI (5259) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -91[0m
+[0;32mI (5259) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -81[0m
+[0;32mI (5299) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -58[0m
+[0;32mI (5349) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (5359) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -92[0m
+[0;32mI (5439) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -99[0m
+[0;32mI (5439) HID_SNIFFER: Znalazłem MAC: e7:ba:5e:e2:52:0e, RSSI: -60[0m
+[0;32mI (5509) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (5509) HID_SNIFFER: Znalazłem MAC: 6f:a0:90:d2:80:3c, RSSI: -59[0m
+[0;32mI (5539) HID_SNIFFER: Znalazłem MAC: ca:bb:9d:1f:9e:a3, RSSI: -91[0m
+[0;32mI (5539) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -91[0m
+[0;32mI (5609) HID_SNIFFER: Znalazłem MAC: d9:fe:87:26:04:9d, RSSI: -84[0m
+[0;32mI (5629) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (5659) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (5749) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -88[0m
+[0;32mI (5749) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -98[0m
+[0;32mI (5849) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -60[0m
+[0;32mI (5909) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -94[0m
+[0;32mI (5989) HID_SNIFFER: Znalazłem MAC: c2:91:54:6e:cf:8b, RSSI: -100[0m
+[0;32mI (5989) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (5989) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -92[0m
+[0;32mI (6089) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -93[0m
+[0;32mI (6089) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (6129) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -67[0m
+[0;32mI (6209) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -99[0m
+[0;32mI (6289) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -92[0m
+[0;32mI (6299) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (6309) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -95[0m
+[0;32mI (6309) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -91[0m
+[0;32mI (6409) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -93[0m
+[0;32mI (6509) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -91[0m
+[0;32mI (6609) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (6679) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -58[0m
+[0;32mI (6759) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -92[0m
+[0;32mI (6839) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (6939) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (6939) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -95[0m
+[0;32mI (6939) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -96[0m
+[0;32mI (6959) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -56[0m
+[0;32mI (7049) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (7049) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -95[0m
+[0;32mI (7139) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -88[0m
+[0;32mI (7139) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -91[0m
+[0;32mI (7139) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (7229) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -53[0m
+[0;32mI (7249) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -91[0m
+[0;32mI (7249) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -96[0m
+[0;32mI (7349) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (7359) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -92[0m
+[0;32mI (7449) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (7449) HID_SNIFFER: Znalazłem MAC: e7:ba:5e:e2:52:0e, RSSI: -48[0m
+[0;32mI (7449) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -89[0m
+[0;32mI (7509) HID_SNIFFER: Znalazłem MAC: 6f:a0:90:d2:80:3c, RSSI: -49[0m
+[0;32mI (7559) HID_SNIFFER: Znalazłem MAC: ca:bb:9d:1f:9e:a3, RSSI: -89[0m
+[0;32mI (7589) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -98[0m
+[0;32mI (7589) HID_SNIFFER: Znalazłem MAC: d9:fe:87:26:04:9d, RSSI: -82[0m
+[0;32mI (7629) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -70[0m
+[0;32mI (7709) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -94[0m
+[0;32mI (7779) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (7809) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -56[0m
+[0;32mI (7889) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -92[0m
+[0;32mI (7889) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -92[0m
+[0;32mI (7989) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -92[0m
+[0;32mI (7999) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -96[0m
+[0;32mI (7999) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -92[0m
+[0;32mI (8089) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -94[0m
+[0;32mI (8089) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -91[0m
+[0;32mI (8109) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -84[0m
+[0;32mI (8139) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (8209) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (8309) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -96[0m
+[0;32mI (8329) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -56[0m
+[0;32mI (8409) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -94[0m
+[0;32mI (8459) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -95[0m
+[0;32mI (8559) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (8559) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -84[0m
+[0;32mI (8629) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -58[0m
+[0;32mI (8629) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -93[0m
+[0;32mI (8629) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -92[0m
+[0;32mI (8639) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -101[0m
+[0;32mI (8659) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -69[0m
+[0;32mI (8759) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -94[0m
+[0;32mI (8839) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -84[0m
+[0;32mI (8839) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -91[0m
+[0;32mI (8939) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -100[0m
+[0;32mI (8939) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (9029) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (9049) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -96[0m
+[0;32mI (9049) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -96[0m
+[0;32mI (9139) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -95[0m
+[0;32mI (9149) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -71[0m
+[0;32mI (9159) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -57[0m
+[0;32mI (9259) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -90[0m
+[0;32mI (9299) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -91[0m
+[0;32mI (9409) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -92[0m
+[0;32mI (9409) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (9459) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -95[0m
+[0;32mI (9489) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -95[0m
+[0;32mI (9499) HID_SNIFFER: Znalazłem MAC: 6f:a0:90:d2:80:3c, RSSI: -57[0m
+[0;32mI (9559) HID_SNIFFER: Znalazłem MAC: ca:bb:9d:1f:9e:a3, RSSI: -89[0m
+[0;32mI (9599) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (9599) HID_SNIFFER: Znalazłem MAC: d9:fe:87:26:04:9d, RSSI: -80[0m
+[0;32mI (9649) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -69[0m
+[0;32mI (9699) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (9709) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -54[0m
+[0;32mI (9759) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -96[0m
+[0;32mI (9809) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -94[0m
+[0;32mI (9839) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (9909) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (9979) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -55[0m
+[0;32mI (10009) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -90[0m
+[0;32mI (10059) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -93[0m
+[0;32mI (10099) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -93[0m
+[0;32mI (10099) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -95[0m
+[0;32mI (10129) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -69[0m
+[0;32mI (10209) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (10249) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -56[0m
+[0;32mI (10359) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (10459) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -92[0m
+[0;32mI (10459) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (10529) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -56[0m
+[0;32mI (10559) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -96[0m
+[0;32mI (10649) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -92[0m
+[0;32mI (10659) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (10759) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -93[0m
+[0;32mI (10759) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (10799) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -93[0m
+[0;32mI (10809) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -58[0m
+[0;32mI (10839) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -95[0m
+[0;32mI (10839) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -97[0m
+[0;32mI (10939) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -92[0m
+[0;32mI (10939) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (11049) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -91[0m
+[0;32mI (11049) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -99[0m
+[0;32mI (11079) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -59[0m
+[0;32mI (11099) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -92[0m
+[0;32mI (11099) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -97[0m
+[0;32mI (11129) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (11149) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -94[0m
+[0;32mI (11149) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -95[0m
+[0;32mI (11199) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (11209) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -88[0m
+[0;32mI (11259) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (11309) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -95[0m
+[0;32mI (11359) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -92[0m
+[0;32mI (11409) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (11459) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -94[0m
+[0;32mI (11499) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (11499) HID_SNIFFER: Znalazłem MAC: 6f:a0:90:d2:80:3c, RSSI: -59[0m
+[0;32mI (11509) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (11559) HID_SNIFFER: Znalazłem MAC: ca:bb:9d:1f:9e:a3, RSSI: -92[0m
+[0;32mI (11629) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -58[0m
+[0;32mI (11859) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -88[0m
+[0;32mI (11859) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -93[0m
+[0;32mI (11899) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -96[0m
+[0;32mI (11909) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -59[0m
+[0;32mI (12009) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (12059) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -98[0m
+[0;32mI (12099) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -93[0m
+[0;32mI (12099) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -100[0m
+[0;32mI (12129) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (12139) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (12149) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -69[0m
+[0;32mI (12149) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -94[0m
+[0;32mI (12199) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -94[0m
+[0;32mI (12199) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -96[0m
+[0;32mI (12259) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -95[0m
+[0;32mI (12309) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (12359) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -97[0m
+[0;32mI (12409) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -94[0m
+[0;32mI (12449) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -59[0m
+[0;32mI (12579) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (12639) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -91[0m
+[0;32mI (12639) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (12709) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -67[0m
+[0;32mI (12709) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (12809) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -96[0m
+[0;32mI (12909) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (12909) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -94[0m
+[0;32mI (12909) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -90[0m
+[0;32mI (12929) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -95[0m
+[0;32mI (12929) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -96[0m
+[0;32mI (12979) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -59[0m
+[0;32mI (13059) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (13149) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -90[0m
+[0;32mI (13149) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -92[0m
+[0;32mI (13209) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -94[0m
+[0;32mI (13249) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -95[0m
+[0;32mI (13249) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -96[0m
+[0;32mI (13359) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -84[0m
+[0;32mI (13509) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -90[0m
+[0;32mI (13509) HID_SNIFFER: Znalazłem MAC: 6f:a0:90:d2:80:3c, RSSI: -60[0m
+[0;32mI (13539) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -58[0m
+[0;32mI (13559) HID_SNIFFER: Znalazłem MAC: ca:bb:9d:1f:9e:a3, RSSI: -89[0m
+[0;32mI (13649) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -91[0m
+[0;32mI (13659) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (13679) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (13759) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -92[0m
+[0;32mI (13859) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -98[0m
+[0;32mI (13959) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -92[0m
+[0;32mI (14009) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -94[0m
+[0;32mI (14089) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (14109) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -59[0m
+[0;32mI (14139) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (14149) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (14189) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -102[0m
+[0;32mI (14189) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -92[0m
+[0;32mI (14249) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -93[0m
+[0;32mI (14249) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -93[0m
+[0;32mI (14289) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -98[0m
+[0;32mI (14289) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -93[0m
+[0;32mI (14409) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (14489) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -96[0m
+[0;32mI (14489) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -100[0m
+[0;32mI (14499) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -94[0m
+[0;32mI (14559) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -90[0m
+[0;32mI (14559) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -92[0m
+[0;32mI (14589) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -96[0m
+[0;32mI (14589) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -94[0m
+[0;32mI (14639) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -59[0m
+[0;32mI (14639) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (14709) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -92[0m
+[0;32mI (14799) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (14799) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (14899) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -95[0m
+[0;32mI (14909) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -95[0m
+[0;32mI (14959) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -91[0m
+[0;32mI (15049) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -96[0m
+[0;32mI (15149) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (15149) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (15159) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (15159) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (15189) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -58[0m
+[0;32mI (15259) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -92[0m
+[0;32mI (15309) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -96[0m
+[0;32mI (15339) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -88[0m
+[0;32mI (15339) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -94[0m
+[0;32mI (15459) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (15509) HID_SNIFFER: Znalazłem MAC: e7:ba:5e:e2:52:0e, RSSI: -59[0m
+[0;32mI (15539) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (15539) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -99[0m
+[0;32mI (15559) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -91[0m
+[0;32mI (15609) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -94[0m
+[0;32mI (15639) HID_SNIFFER: Znalazłem MAC: d9:fe:87:26:04:9d, RSSI: -84[0m
+[0;32mI (15649) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (15649) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -97[0m
+[0;32mI (15739) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -58[0m
+[0;32mI (15759) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -96[0m
+[0;32mI (16079) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -92[0m
+[0;32mI (16079) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -95[0m
+[0;32mI (16089) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -95[0m
+[0;32mI (16149) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (16189) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (16189) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (16289) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -92[0m
+[0;32mI (16309) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -59[0m
+[0;32mI (16399) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -94[0m
+[0;32mI (16399) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -96[0m
+[0;32mI (16509) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (16509) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -83[0m
+[0;32mI (16609) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -98[0m
+[0;32mI (16639) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -91[0m
+[0;32mI (16639) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -92[0m
+[0;32mI (16699) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -94[0m
+[0;32mI (16759) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -89[0m
+[0;32mI (16759) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -93[0m
+[0;32mI (16849) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -98[0m
+[0;32mI (16859) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -57[0m
+[0;32mI (16939) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (16939) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -91[0m
+[0;32mI (16959) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -93[0m
+[0;32mI (17049) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -88[0m
+[0;32mI (17049) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -89[0m
+[0;32mI (17049) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (17159) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -90[0m
+[0;32mI (17179) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -69[0m
+[0;32mI (17249) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -82[0m
+[0;32mI (17249) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -94[0m
+[0;32mI (17359) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -89[0m
+[0;32mI (17399) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -89[0m
+[0;32mI (17409) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -58[0m
+[0;32mI (17459) HID_SNIFFER: Znalazłem MAC: 0b:a3:32:4d:2d:3a, RSSI: -91[0m
+[0;32mI (17509) HID_SNIFFER: Znalazłem MAC: e7:ba:5e:e2:52:0e, RSSI: -58[0m
+[0;32mI (17609) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -93[0m
+[0;32mI (17609) HID_SNIFFER: Znalazłem MAC: 35:72:30:da:9b:c3, RSSI: -91[0m
+[0;32mI (17659) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -99[0m
+[0;32mI (17699) HID_SNIFFER: Znalazłem MAC: 68:fc:ca:c4:9d:49, RSSI: -68[0m
+[0;32mI (17709) HID_SNIFFER: Znalazłem MAC: 35:72:30:da:9b:c3, RSSI: -81[0m
+[0;32mI (17759) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -98[0m
+[0;32mI (17799) HID_SNIFFER: Znalazłem MAC: 66:c3:b8:b8:e3:91, RSSI: -90[0m
+[0;32mI (17859) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -91[0m
+[0;32mI (17909) HID_SNIFFER: Znalazłem MAC: 21:8e:a2:cf:c7:a3, RSSI: -103[0m
+[0;32mI (17939) HID_SNIFFER: Znalazłem MAC: 02:8f:9f:7f:9f:45, RSSI: -94[0m
+[0;32mI (17939) HID_SNIFFER: Znalazłem MAC: 34:68:d2:20:1d:8a, RSSI: -100[0m
+[0;32mI (17939) HID_SNIFFER: Znalazłem MAC: 61:10:0d:76:ee:ec, RSSI: -59[0m

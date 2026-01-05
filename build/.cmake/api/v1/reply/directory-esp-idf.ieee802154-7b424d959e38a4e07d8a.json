@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "esp-idf/ieee802154",
+		"source" : "D:/Espressif/frameworks/esp-idf-v5.5.1/components/ieee802154"
+	}
+}

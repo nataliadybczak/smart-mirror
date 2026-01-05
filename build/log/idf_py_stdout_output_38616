@@ -1,0 +1,204 @@
+Command: D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe D:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM8 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 D:\Studia\smart-mirror\build\esp32-wifi-example.elf D:\Studia\smart-mirror\build\bootloader\bootloader.elf --force-color -m 'D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'D:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Nov 24 2025 15:06:45[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1ec20h (125984) map[0m
+[0;32mI (131) esp_image: segment 1: paddr=0002ec48 vaddr=3ffbdb60 size=013d0h (  5072) load[0m
+[0;32mI (133) esp_image: segment 2: paddr=00030020 vaddr=400d0020 size=a2ddch (667100) map[0m
+[0;32mI (363) esp_image: segment 3: paddr=000d2e04 vaddr=3ffbef30 size=0401ch ( 16412) load[0m
+[0;32mI (369) esp_image: segment 4: paddr=000d6e28 vaddr=40080000 size=194a4h (103588) load[0m
+[0;32mI (410) esp_image: segment 5: paddr=000f02d4 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (422) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (423) boot: Disabling RNG early entropy source...[0m
+[0;32mI (433) cpu_start: Multicore app[0m
+[0;32mI (441) cpu_start: Pro cpu start user code[0m
+[0;32mI (441) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (442) app_init: Application information:[0m
+[0;32mI (442) app_init: Project name:     esp32-wifi-example[0m
+[0;32mI (446) app_init: App version:      d92293b-dirty[0m
+[0;32mI (451) app_init: Compile time:     Dec 30 2025 13:37:39[0m
+[0;32mI (456) app_init: ELF file SHA256:  f44aaa46b...[0m
+[0;32mI (460) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (464) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (468) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (472) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (476) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (482) heap_init: At 3FFAE6E0 len 0000F480 (61 KiB): DRAM[0m
+[0;32mI (487) heap_init: At 3FFC7668 len 00018998 (98 KiB): DRAM[0m
+[0;32mI (492) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (498) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (503) heap_init: At 400994A4 len 00006B5C (26 KiB): IRAM[0m
+[0;32mI (510) spi_flash: detected chip: generic[0m
+[0;32mI (512) spi_flash: flash io: dio[0m
+[0;33mW (515) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (528) coexist: coex firmware version: b0bcc39[0m
+[0;32mI (532) main_task: Started on CPU0[0m
+[0;32mI (542) main_task: Calling app_main()[0m
+[0;32mI (572) MAIN_CONTROLLER: Start systemu...[0m
+[0;32mI (572) SMART_MIRROR: Device ID: 78EE4C010F34[0m
+[0;32mI (572) VIRTUAL_OLED: ------------------------------------------------[0m
+[0;32mI (582) VIRTUAL_OLED:  INICJALIZACJA EKRANU (TRYB SYMULACJI) [0m
+[0;32mI (582) VIRTUAL_OLED:  Sterownik gotowy. Rozdzielczość 128x64.[0m
+[0;32mI (592) VIRTUAL_OLED: ------------------------------------------------[0m
+[0;32mI (592) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (612) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (612) VIRTUAL_OLED: ║ Booting System...                  ║[0m
+[0;32mI (622) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (642) wifi:wifi driver task: 3ffb8ba4, prio:23, stack:6656, core=0[0m
+[0;32mI (662) wifi:wifi firmware version: 14da9b7[0m
+[0;32mI (662) wifi:wifi certification version: v7.0[0m
+[0;32mI (662) wifi:config NVS flash: enabled[0m
+[0;32mI (662) wifi:config nano formatting: disabled[0m
+[0;32mI (662) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (672) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (672) wifi:Init management short buffer num: 32[0m
+[0;32mI (672) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (682) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (682) wifi:Init static rx buffer num: 10[0m
+[0;32mI (692) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (692) wifi_init: rx ba win: 6[0m
+[0;32mI (692) wifi_init: accept mbox: 6[0m
+[0;32mI (702) wifi_init: tcpip mbox: 32[0m
+[0;32mI (702) wifi_init: udp mbox: 6[0m
+[0;32mI (702) wifi_init: tcp mbox: 6[0m
+[0;32mI (702) wifi_init: tcp tx win: 5760[0m
+[0;32mI (712) wifi_init: tcp rx win: 5760[0m
+[0;32mI (712) wifi_init: tcp mss: 1440[0m
+[0;32mI (712) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (722) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (722) phy_init: phy_version 4861,b71b5ad,Aug  5 2025,11:16:06[0m
+[0;32mI (812) wifi:mode : sta (78:ee:4c:01:0f:34)[0m
+[0;32mI (812) wifi:enable tsf[0m
+[0;32mI (822) wifi:Set ps type: 0, coexist: 0[0m
+
+[0;32mI (832) wifi:new:<11,0>, old:<1,0>, ap:<255,255>, sta:<11,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (832) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (832) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (852) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (1042) wifi:state: run -> init (0x2a0)[0m
+[0;32mI (1052) wifi:new:<11,0>, old:<11,0>, ap:<255,255>, sta:<11,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (1052) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;33mW (1152) wifi:tx null, bss is null[0m
+[0;32mI (3472) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (3482) wifi:new:<11,0>, old:<11,0>, ap:<255,255>, sta:<11,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (3482) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (3492) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (3502) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (3572) wifi:connected with kalarepa, aid = 3, channel 11, BW20, bssid = 9a:b8:ba:15:6e:fe[0m
+[0;32mI (3572) wifi:security: WPA2-PSK, phy: bgn, rssi: -39[0m
+[0;32mI (3572) wifi:pm start, type: 0[0m
+
+[0;32mI (3572) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (3622) wifi:<ba-add>idx:0 (ifx:0, 9a:b8:ba:15:6e:fe), tid:0, ssn:0, winSize:64[0m
+[0;32mI (3632) wifi:dp: 2, bi: 102400, li: 4, scale listen interval from 307200 us to 409600 us[0m
+[0;32mI (3632) wifi:AP's beacon interval = 102400 us, DTIM period = 2[0m
+[0;32mI (4652) esp_netif_handlers: sta ip: 192.168.43.246, mask: 255.255.255.0, gw: 192.168.43.1[0m
+[0;32mI (4652) main_task: Returned from app_main()[0m
+[0;32mI (4752) wifi:<ba-add>idx:1 (ifx:0, 9a:b8:ba:15:6e:fe), tid:1, ssn:1, winSize:64[0m
+[0;32mI (4882) SMART_MIRROR: MQTT Połączono![0m
+[0;32mI (4892) SMART_MIRROR: Subskrypcja: smartmirror/user_01/78EE4C010F34/cmd[0m
+[0;32mI (14652) SMART_MIRROR: Telemetria wysłana: {"temp": 24.00, "hum": 48.0, "lux_raw": 1751, "led_pwr": 50}[0m
+[0;33mW (20652) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (20652) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (20652) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (20662) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (20662) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (20672) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (24652) SMART_MIRROR: Telemetria wysłana: {"temp": 23.90, "hum": 51.0, "lux_raw": 1808, "led_pwr": 50}[0m
+[0;33mW (27682) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (27682) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (27682) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (27682) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (34652) SMART_MIRROR: Telemetria wysłana: {"temp": 24.00, "hum": 46.0, "lux_raw": 1617, "led_pwr": 0}[0m
+[0;32mI (44652) SMART_MIRROR: Telemetria wysłana: {"temp": 22.70, "hum": 52.0, "lux_raw": 1904, "led_pwr": 0}[0m
+[0;32mI (47752) SMART_MIRROR: >>> Otrzymano nowy tekst: Kocham Piwo[0m
+[0;32mI (47752) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (47752) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (54652) SMART_MIRROR: Telemetria wysłana: {"temp": 23.10, "hum": 51.0, "lux_raw": 1796, "led_pwr": 0}[0m
+[0;32mI (64652) SMART_MIRROR: Telemetria wysłana: {"temp": 22.60, "hum": 47.0, "lux_raw": 1795, "led_pwr": 0}[0m
+[0;32mI (74652) SMART_MIRROR: Telemetria wysłana: {"temp": 23.40, "hum": 50.0, "lux_raw": 1832, "led_pwr": 0}[0m
+[0;32mI (81352) SMART_MIRROR: >>> Wymuszono stan ekranu: ON[0m
+[0;32mI (81352) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (81352) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (81362) VIRTUAL_OLED: ║ Kocham Piwo                        ║[0m
+[0;32mI (81362) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (84652) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 49.0, "lux_raw": 1971, "led_pwr": 0}[0m
+[0;32mI (94652) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 52.0, "lux_raw": 1620, "led_pwr": 0}[0m
+[0;33mW (94692) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (94692) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (94692) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (94702) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (94702) VIRTUAL_OLED: ║ Kocham Piwo                        ║[0m
+[0;32mI (94712) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;33mW (100722) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (100722) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (100722) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (100722) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (104652) SMART_MIRROR: Telemetria wysłana: {"temp": 23.80, "hum": 51.0, "lux_raw": 1576, "led_pwr": 0}[0m
+[0;32mI (114652) SMART_MIRROR: Telemetria wysłana: {"temp": 24.40, "hum": 48.0, "lux_raw": 1964, "led_pwr": 0}[0m
+[0;33mW (122732) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (122732) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (122732) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (122742) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (122742) VIRTUAL_OLED: ║ Kocham Piwo                        ║[0m
+[0;32mI (122752) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;33mW (123772) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (123772) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (123772) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (123772) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (124652) SMART_MIRROR: Telemetria wysłana: {"temp": 23.40, "hum": 45.0, "lux_raw": 1758, "led_pwr": 0}[0m
+[0;33mW (126782) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (126782) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (126782) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (126792) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (126792) VIRTUAL_OLED: ║ Kocham Piwo                        ║[0m
+[0;32mI (126802) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;33mW (130822) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (130822) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (130822) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (130822) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (134652) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 50.0, "lux_raw": 1822, "led_pwr": 0}[0m
+[0;32mI (144652) SMART_MIRROR: Telemetria wysłana: {"temp": 23.40, "hum": 51.0, "lux_raw": 1759, "led_pwr": 0}[0m
+[0;33mW (152832) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (152832) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (152832) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (152842) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (152842) VIRTUAL_OLED: ║ Kocham Piwo                        ║[0m
+[0;32mI (152852) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (154652) SMART_MIRROR: Telemetria wysłana: {"temp": 23.10, "hum": 47.0, "lux_raw": 1982, "led_pwr": 50}[0m
+[0;32mI (164652) SMART_MIRROR: Telemetria wysłana: {"temp": 23.20, "hum": 46.0, "lux_raw": 1702, "led_pwr": 50}[0m
+[0;32mI (174652) SMART_MIRROR: Telemetria wysłana: {"temp": 24.20, "hum": 48.0, "lux_raw": 1697, "led_pwr": 50}[0m
+[0;32mI (184652) SMART_MIRROR: Telemetria wysłana: {"temp": 24.00, "hum": 52.0, "lux_raw": 1673, "led_pwr": 50}[0m
+[0;32mI (194652) SMART_MIRROR: Telemetria wysłana: {"temp": 24.20, "hum": 48.0, "lux_raw": 1878, "led_pwr": 50}[0m
+[0;33mW (194872) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (194872) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (194872) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (194872) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;33mW (196882) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (196882) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (196882) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (196892) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (196892) VIRTUAL_OLED: ║ Kocham Piwo                        ║[0m
+[0;32mI (196902) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m

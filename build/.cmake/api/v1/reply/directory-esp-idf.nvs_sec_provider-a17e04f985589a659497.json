@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "esp-idf/nvs_sec_provider",
+		"source" : "D:/Espressif/frameworks/esp-idf-v5.5.1/components/nvs_sec_provider"
+	}
+}

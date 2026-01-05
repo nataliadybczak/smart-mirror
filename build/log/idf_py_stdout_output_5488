@@ -1,0 +1,730 @@
+Command: D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe D:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM7 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 D:\Studia\smart-mirror\build\esp32-wifi-example.elf D:\Studia\smart-mirror\build\bootloader\bootloader.elf --force-color -m 'D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'D:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Nov 22 2025 17:23:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1e5bch (124348) map[0m
+[0;32mI (130) esp_image: segment 1: paddr=0002e5e4 vaddr=3ffb0000 size=01a34h (  6708) load[0m
+[0;32mI (133) esp_image: segment 2: paddr=00030020 vaddr=400d0020 size=a1788h (661384) map[0m
+[0;32mI (360) esp_image: segment 3: paddr=000d17b0 vaddr=3ffb1a34 size=02588h (  9608) load[0m
+[0;32mI (364) esp_image: segment 4: paddr=000d3d40 vaddr=40080000 size=17f48h ( 98120) load[0m
+[0;32mI (402) esp_image: segment 5: paddr=000ebc90 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (414) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (414) boot: Disabling RNG early entropy source...[0m
+[0;32mI (425) cpu_start: Multicore app[0m
+[0;32mI (433) cpu_start: Pro cpu start user code[0m
+[0;32mI (433) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (433) app_init: Application information:[0m
+[0;32mI (433) app_init: Project name:     esp32-wifi-example[0m
+[0;32mI (438) app_init: App version:      6a4e15d-dirty[0m
+[0;32mI (443) app_init: Compile time:     Nov 22 2025 18:59:46[0m
+[0;32mI (448) app_init: ELF file SHA256:  36fcc18e1...[0m
+[0;32mI (452) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (456) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (460) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (464) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (468) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (474) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (479) heap_init: At 3FFB86A0 len 00027960 (158 KiB): DRAM[0m
+[0;32mI (484) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (490) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (495) heap_init: At 40097F48 len 000080B8 (32 KiB): IRAM[0m
+[0;32mI (502) spi_flash: detected chip: generic[0m
+[0;32mI (504) spi_flash: flash io: dio[0m
+[0;33mW (507) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (520) main_task: Started on CPU0[0m
+[0;32mI (530) main_task: Calling app_main()[0m
+[0;32mI (560) MAIN_CONTROLLER: Start systemu...[0m
+[0;32mI (560) SMART_MIRROR: Device ID: 78EE4C010F34[0m
+[0;32mI (560) VIRTUAL_OLED: ------------------------------------------------[0m
+[0;32mI (570) VIRTUAL_OLED:  INICJALIZACJA EKRANU (TRYB SYMULACJI) [0m
+[0;32mI (570) VIRTUAL_OLED:  Sterownik gotowy. Rozdzielczość 128x64.[0m
+[0;32mI (580) VIRTUAL_OLED: ------------------------------------------------[0m
+[0;32mI (580) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (590) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (600) VIRTUAL_OLED: ║ Booting System...                  ║[0m
+[0;32mI (610) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (630) wifi:wifi driver task: 3ffc12dc, prio:23, stack:6656, core=0[0m
+[0;32mI (650) wifi:wifi firmware version: 14da9b7[0m
+[0;32mI (650) wifi:wifi certification version: v7.0[0m
+[0;32mI (650) wifi:config NVS flash: enabled[0m
+[0;32mI (650) wifi:config nano formatting: disabled[0m
+[0;32mI (650) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (660) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (660) wifi:Init management short buffer num: 32[0m
+[0;32mI (660) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (670) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (670) wifi:Init static rx buffer num: 10[0m
+[0;32mI (680) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (680) wifi_init: rx ba win: 6[0m
+[0;32mI (680) wifi_init: accept mbox: 6[0m
+[0;32mI (690) wifi_init: tcpip mbox: 32[0m
+[0;32mI (690) wifi_init: udp mbox: 6[0m
+[0;32mI (690) wifi_init: tcp mbox: 6[0m
+[0;32mI (690) wifi_init: tcp tx win: 5760[0m
+[0;32mI (700) wifi_init: tcp rx win: 5760[0m
+[0;32mI (700) wifi_init: tcp mss: 1440[0m
+[0;32mI (700) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (710) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (710) phy_init: phy_version 4861,b71b5ad,Aug  5 2025,11:16:06[0m
+[0;32mI (800) wifi:mode : sta (78:ee:4c:01:0f:34)[0m
+[0;32mI (800) wifi:enable tsf[0m
+[0;32mI (820) wifi:new:<6,0>, old:<1,0>, ap:<255,255>, sta:<6,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (820) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (1820) wifi:state: auth -> init (0x200)[0m
+[0;32mI (1830) wifi:new:<6,0>, old:<6,0>, ap:<255,255>, sta:<6,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (1830) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (4250) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (4250) wifi:new:<6,0>, old:<6,0>, ap:<255,255>, sta:<6,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (4250) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (4340) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (4350) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (4410) wifi:connected with kalarepa, aid = 11, channel 6, BW20, bssid = 9a:b8:ba:15:6e:fe[0m
+[0;32mI (4410) wifi:security: WPA2-PSK, phy: bgn, rssi: -44[0m
+[0;32mI (4420) wifi:pm start, type: 1[0m
+
+[0;32mI (4420) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (4450) wifi:<ba-add>idx:0 (ifx:0, 9a:b8:ba:15:6e:fe), tid:0, ssn:0, winSize:64[0m
+[0;32mI (4510) wifi:dp: 2, bi: 102400, li: 4, scale listen interval from 307200 us to 409600 us[0m
+[0;32mI (4510) wifi:AP's beacon interval = 102400 us, DTIM period = 2[0m
+[0;32mI (5460) esp_netif_handlers: sta ip: 192.168.43.246, mask: 255.255.255.0, gw: 192.168.43.1[0m
+[0;32mI (5460) main_task: Returned from app_main()[0m
+[0;32mI (5690) SMART_MIRROR: MQTT Połączono![0m
+[0;32mI (5690) SMART_MIRROR: Subskrypcja: smartmirror/user_01/78EE4C010F34/cmd[0m
+[0;32mI (10460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.40, "lux": 595, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (15460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.40, "lux": 237, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (20460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.20, "lux": 447, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (25460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.00, "lux": 678, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (30460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.10, "lux": 328, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (35460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.20, "lux": 417, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (40460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.10, "lux": 250, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (43460) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (43460) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (43460) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (43470) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (43470) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (45460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.20, "lux": 200, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (45490) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (45490) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;33mW (49490) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (49490) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (49490) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (49500) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (49500) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (50460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.00, "lux": 507, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (55460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.50, "lux": 610, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (60460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.60, "lux": 374, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (65460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.70, "lux": 549, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (70460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.90, "lux": 464, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (75460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.80, "lux": 587, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (80460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.20, "lux": 633, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (85460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.60, "lux": 559, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (90460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.60, "lux": 575, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (95460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.90, "lux": 487, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (100460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.30, "lux": 229, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (105460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.70, "lux": 609, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (110460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.30, "lux": 561, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (115460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.80, "lux": 583, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (117520) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (117520) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (120460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.70, "lux": 413, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (125460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.30, "lux": 425, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (130460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.00, "lux": 594, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (130470) SMART_MIRROR: >>> Otrzymano nowy tekst: Kocham Piwo[0m
+[0;32mI (130470) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (135460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.00, "lux": 686, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (135520) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (135520) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (135520) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (135530) VIRTUAL_OLED: ║ Kocham Piwo                        ║[0m
+[0;32mI (135530) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (140460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 302, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (145460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.70, "lux": 212, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (150460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.40, "lux": 205, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (155460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 560, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (160460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.00, "lux": 458, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (165460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.40, "lux": 386, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (170460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.20, "lux": 577, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (175460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.60, "lux": 314, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (179550) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (179550) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (180460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.80, "lux": 224, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (181550) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (181550) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (181550) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (181560) VIRTUAL_OLED: ║ Kocham Piwo                        ║[0m
+[0;32mI (181560) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (182910) SMART_MIRROR: >>> Wymuszono stan ekranu: ON[0m
+[0;32mI (182910) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (182910) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (182920) VIRTUAL_OLED: ║ Kocham Piwo                        ║[0m
+[0;32mI (182920) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (185460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.10, "lux": 698, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (190460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.60, "lux": 461, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (195460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.10, "lux": 431, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (200460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.60, "lux": 621, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (205460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.90, "lux": 596, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (210460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.70, "lux": 610, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (215460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.90, "lux": 674, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (220460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.30, "lux": 593, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (225460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.80, "lux": 275, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (230460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.20, "lux": 320, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (235460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.30, "lux": 551, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (239580) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (239580) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (240460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.40, "lux": 657, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (243580) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (243580) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (243580) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (243590) VIRTUAL_OLED: ║ Kocham Piwo                        ║[0m
+[0;32mI (243590) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (245460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.30, "lux": 473, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (246600) SMART_MIRROR: >>> Otrzymano nowy tekst: Hi Barbiee[0m
+[0;32mI (246600) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (246610) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (246620) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (246620) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (250460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.60, "lux": 427, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (255460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.80, "lux": 241, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (260460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.90, "lux": 333, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (265460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.40, "lux": 263, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (269610) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (269610) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (270460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.60, "lux": 486, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (273740) SMART_MIRROR: >>> Wymuszono stan ekranu: OFF[0m
+[0;32mI (273740) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (275460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.00, "lux": 540, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (280460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.60, "lux": 560, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (285460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.20, "lux": 392, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (290460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.70, "lux": 646, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (295460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.20, "lux": 369, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (295610) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (295610) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (295610) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (295620) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (295620) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (300460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.70, "lux": 288, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (305460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.50, "lux": 266, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (310460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.20, "lux": 548, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (315460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.70, "lux": 332, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (320460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.00, "lux": 205, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (325460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.00, "lux": 382, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (325750) wifi:state: run -> init (0xec0)[0m
+[0;32mI (325760) wifi:pm stop, total sleep time: 297397462 us / 321340663 us[0m
+
+[0;32mI (325760) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (325760) wifi:new:<6,0>, old:<6,0>, ap:<255,255>, sta:<6,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (325770) SMART_MIRROR: Ponawiam WiFi...[0m
+[1;31mE (325770) transport_base: tcp_read error, errno=Software caused connection abort[0m
+[1;31mE (325770) mqtt_client: esp_mqtt_handle_transport_read_error: transport_read() error: errno=113[0m
+[1;31mE (325780) mqtt_client: mqtt_process_receive: mqtt_message_receive() returned -2[0m
+[0;33mW (325790) SMART_MIRROR: MQTT Rozłączono[0m
+[0;32mI (328190) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (330600) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (333020) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (335430) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (337850) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (340260) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (342680) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (342750) wifi:new:<6,0>, old:<6,0>, ap:<255,255>, sta:<6,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (342750) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (342760) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (342850) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (344060) wifi:connected with kalarepa, aid = 1, channel 6, BW20, bssid = 9a:b8:ba:15:6e:fe[0m
+[0;32mI (344060) wifi:security: WPA2-PSK, phy: bgn, rssi: -47[0m
+[0;32mI (344070) wifi:pm start, type: 1[0m
+
+[0;32mI (344070) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (344080) wifi:dp: 2, bi: 102400, li: 4, scale listen interval from 307200 us to 409600 us[0m
+[0;32mI (344080) wifi:AP's beacon interval = 102400 us, DTIM period = 2[0m
+[0;32mI (344180) wifi:<ba-add>idx:0 (ifx:0, 9a:b8:ba:15:6e:fe), tid:0, ssn:0, winSize:64[0m
+[0;32mI (345230) esp_netif_handlers: sta ip: 192.168.43.246, mask: 255.255.255.0, gw: 192.168.43.1[0m
+[0;33mW (345640) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (345640) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[1;31mE (347790) esp-tls: couldn't get hostname for :srv38.mikr.us: getaddrinfo() returns 202, addrinfo=0x0[0m
+[1;31mE (347790) transport_base: Failed to open a new connection: 32769[0m
+[1;31mE (347790) mqtt_client: Error transport connect[0m
+[0;33mW (347790) SMART_MIRROR: MQTT Rozłączono[0m
+[0;33mW (349640) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (349640) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (349640) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (349650) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (349650) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;33mW (351670) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (351670) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (359780) SMART_MIRROR: MQTT Połączono![0m
+[0;32mI (359780) SMART_MIRROR: Subskrypcja: smartmirror/user_01/78EE4C010F34/cmd[0m
+[0;32mI (360460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.60, "lux": 523, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (365460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.80, "lux": 241, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (370460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.20, "lux": 395, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (371670) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (371670) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (371670) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (371680) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (371680) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (375460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.00, "lux": 542, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (380460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.70, "lux": 575, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (383700) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (383700) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (385460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.60, "lux": 276, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (390460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.80, "lux": 676, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (395460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.10, "lux": 465, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (400460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.00, "lux": 383, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (405460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.30, "lux": 386, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (410460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.90, "lux": 447, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (415460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 636, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (419700) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (419700) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (419700) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (419710) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (419710) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (420460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.70, "lux": 579, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (425460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.20, "lux": 562, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (430460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.50, "lux": 236, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (435460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.50, "lux": 610, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (435730) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (435730) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (440460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.70, "lux": 532, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (443730) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (443730) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (443730) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (443740) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (443740) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (445460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.00, "lux": 544, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (447760) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (447760) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (450460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 459, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (455460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.10, "lux": 390, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (455760) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (455760) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (455760) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (455770) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (455770) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (460460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.60, "lux": 581, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (461790) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (461790) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (465460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.90, "lux": 672, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (470460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.30, "lux": 359, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (475460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.20, "lux": 369, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (480460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.10, "lux": 422, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (485460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.30, "lux": 690, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (490460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.00, "lux": 202, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (495460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.90, "lux": 614, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (500460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.60, "lux": 421, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (505460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 499, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (510460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.20, "lux": 552, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (515460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.80, "lux": 572, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (520460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.90, "lux": 204, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (521790) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (521790) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (521790) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (521800) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (521800) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (525460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.60, "lux": 299, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (530460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.00, "lux": 269, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (535460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.80, "lux": 619, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (540460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.00, "lux": 532, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (545460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.50, "lux": 385, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (550460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 421, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (555460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.90, "lux": 651, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (560460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.80, "lux": 227, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (565460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.60, "lux": 313, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (570460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.50, "lux": 236, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (575460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.80, "lux": 629, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (580460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.80, "lux": 308, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (585460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.00, "lux": 210, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (590460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.80, "lux": 625, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (595460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.20, "lux": 684, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (600460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.40, "lux": 368, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (605460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.60, "lux": 693, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (610460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.20, "lux": 340, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (611820) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (611820) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (615460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.30, "lux": 201, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (615820) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (615820) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (615820) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (615830) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (615830) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (620460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.20, "lux": 410, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (623850) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (623850) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (625460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.50, "lux": 656, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (630460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.00, "lux": 585, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (635460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.40, "lux": 456, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (640460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.40, "lux": 329, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (645460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.50, "lux": 522, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (649850) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (649850) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (649850) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (649860) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (649860) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (650460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.30, "lux": 268, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (655460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.90, "lux": 336, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (660460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.00, "lux": 341, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (665460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.20, "lux": 427, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (667880) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (667880) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (670460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.00, "lux": 485, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (675460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.90, "lux": 255, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (680460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.20, "lux": 496, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (685460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 648, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (690460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.80, "lux": 650, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (693880) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (693880) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (693880) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (693890) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (693890) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (695460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.60, "lux": 672, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (700460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 409, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (705460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.90, "lux": 432, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (710460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.50, "lux": 300, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (711910) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (711910) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (715460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.80, "lux": 301, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (715910) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (715910) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (715910) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (715920) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (715920) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (720460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.80, "lux": 485, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (721940) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (721940) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (725460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 321, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (730460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.40, "lux": 452, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (735460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.60, "lux": 573, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (737940) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (737940) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (737940) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (737950) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (737950) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (740460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.40, "lux": 264, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (745460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.00, "lux": 428, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (750460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.30, "lux": 673, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (755460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.70, "lux": 448, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (760460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.70, "lux": 357, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (765460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.30, "lux": 574, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (770460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.70, "lux": 613, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (771970) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (771970) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (775460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.80, "lux": 426, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (780460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.60, "lux": 342, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (785460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.00, "lux": 523, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (790460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.90, "lux": 291, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (795460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.90, "lux": 696, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (800460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 619, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (805460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.00, "lux": 383, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (810460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.00, "lux": 439, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (811970) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (811970) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (811970) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (811980) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (811980) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (815460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.50, "lux": 548, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (820460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.50, "lux": 579, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (825460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 274, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (830460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.90, "lux": 250, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (835460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.20, "lux": 310, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (840000) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (840000) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (840460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.60, "lux": 587, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (842000) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (842000) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (842000) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (842010) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (842010) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (845460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.40, "lux": 373, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (850030) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (850030) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (850460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.90, "lux": 434, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (855460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.20, "lux": 508, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (860460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.00, "lux": 532, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (865460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.40, "lux": 273, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (868030) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (868030) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (868030) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (868040) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (868040) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (870460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.40, "lux": 265, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (875460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.20, "lux": 404, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (880460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.60, "lux": 534, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (885460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.50, "lux": 640, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (890460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.10, "lux": 301, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (895460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.40, "lux": 253, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (896060) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (896060) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (900460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.20, "lux": 629, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (902060) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (902060) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (902060) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (902070) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (902070) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;33mW (904090) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (904090) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (905460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.90, "lux": 406, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (910460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.20, "lux": 457, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (915460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.30, "lux": 386, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (920460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.50, "lux": 473, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (925460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.00, "lux": 265, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (930460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.90, "lux": 605, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (935460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.30, "lux": 531, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (940460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.30, "lux": 495, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (945460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.60, "lux": 224, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (950460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.50, "lux": 514, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (954090) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (954090) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (954090) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (954100) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (954100) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (955460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.60, "lux": 468, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (960460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.30, "lux": 607, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (965460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.40, "lux": 232, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (970460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.60, "lux": 389, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (975460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.80, "lux": 582, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (978120) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (978120) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (980460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.70, "lux": 526, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (982120) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (982120) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (982120) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (982130) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (982130) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (985460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.80, "lux": 257, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (990460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.80, "lux": 573, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (994150) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (994150) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (995460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.70, "lux": 691, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1000460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.40, "lux": 266, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1004150) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1004150) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1004150) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1004160) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1004160) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1005460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.40, "lux": 493, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1010460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.10, "lux": 542, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1012180) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1012180) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1015460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.80, "lux": 435, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1020180) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1020180) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1020180) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1020190) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1020190) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1020460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.80, "lux": 554, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1025460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.20, "lux": 320, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1030460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.10, "lux": 374, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1035460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.90, "lux": 607, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1040460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.70, "lux": 679, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1045460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.70, "lux": 383, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1050460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.10, "lux": 226, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1055460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.70, "lux": 633, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1060460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.70, "lux": 278, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1065460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.70, "lux": 591, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1066210) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1066210) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;33mW (1068210) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1068210) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1068210) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1068220) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1068220) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1070460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.30, "lux": 540, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1075460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.80, "lux": 644, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1080460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.80, "lux": 471, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1085460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.00, "lux": 510, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1088240) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1088240) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1090460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.40, "lux": 596, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1095460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.20, "lux": 379, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1100460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.70, "lux": 646, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1105460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.80, "lux": 497, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1110460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.30, "lux": 216, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1115460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.60, "lux": 515, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1120460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.60, "lux": 610, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1125460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.60, "lux": 475, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1130460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.50, "lux": 514, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1135460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.10, "lux": 570, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1140460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.90, "lux": 563, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1145460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.00, "lux": 269, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1150460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.20, "lux": 603, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1152240) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1152240) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1152240) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1152250) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1152250) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1155460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.10, "lux": 424, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1160460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.80, "lux": 441, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1165460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.40, "lux": 462, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1170270) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1170270) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1170460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.60, "lux": 241, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1175460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.10, "lux": 404, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1180460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.20, "lux": 377, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1185460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.70, "lux": 215, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1190460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.20, "lux": 234, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1195460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.00, "lux": 661, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1200460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.50, "lux": 488, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1205460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 562, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1210460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.90, "lux": 609, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1215460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.30, "lux": 491, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1220460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.30, "lux": 351, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1225460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.20, "lux": 502, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1230460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 321, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1235460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.10, "lux": 556, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1236270) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1236270) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1236270) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1236280) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1236280) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1240460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.50, "lux": 489, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1244300) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1244300) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1245460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.30, "lux": 376, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1250460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.20, "lux": 441, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1255460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.80, "lux": 648, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1260460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.60, "lux": 324, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1265460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.20, "lux": 498, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1266300) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1266300) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1266300) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1266310) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1266320) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;33mW (1270330) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1270330) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1270460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.00, "lux": 488, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1275460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.50, "lux": 240, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1280460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.20, "lux": 526, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1285460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.60, "lux": 679, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1290330) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1290330) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1290330) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1290340) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1290340) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1290460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.00, "lux": 415, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1295460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.50, "lux": 428, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1300460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.10, "lux": 694, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1304360) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1304360) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1305460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.80, "lux": 298, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1310460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.50, "lux": 688, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1315460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.60, "lux": 309, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1320460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.00, "lux": 499, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1325460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.90, "lux": 471, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1328360) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1328360) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1328360) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1328370) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1328370) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1330460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.90, "lux": 677, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1335460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.20, "lux": 364, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1336390) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1336390) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1340460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.30, "lux": 660, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1344390) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1344390) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1344390) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1344400) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1344400) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1345460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.50, "lux": 215, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1350460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.30, "lux": 543, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1355460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.20, "lux": 286, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1360460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.60, "lux": 321, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1365460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.50, "lux": 497, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1366420) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1366420) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;33mW (1368420) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1368420) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1368420) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1368430) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1368430) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1370460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.70, "lux": 321, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1375460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.40, "lux": 477, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1380450) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1380450) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1380460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.10, "lux": 332, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1385460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.10, "lux": 557, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1390460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.20, "lux": 471, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1394450) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1394450) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1394450) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1394460) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1394460) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1395460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.80, "lux": 489, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1400460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.70, "lux": 544, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1405460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.90, "lux": 280, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1410460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.80, "lux": 455, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1410480) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1410480) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1415460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.60, "lux": 585, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1420460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.60, "lux": 324, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1424480) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1424480) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1424480) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1424490) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1424490) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1425460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.00, "lux": 449, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1430460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.90, "lux": 686, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1435460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.00, "lux": 248, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1438510) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1438510) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1440460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.10, "lux": 264, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1444510) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1444510) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1444510) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1444520) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1444520) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1445460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.40, "lux": 511, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1450460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.20, "lux": 443, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1452540) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1452540) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1455460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.30, "lux": 367, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1460460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.20, "lux": 331, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1464540) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1464540) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1464540) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1464550) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1464550) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1465460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.90, "lux": 481, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1470460) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.80, "lux": 553, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1472570) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (1472570) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1475460) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.70, "lux": 424, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1480460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.60, "lux": 551, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1485460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.90, "lux": 503, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1490460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.40, "lux": 300, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1495460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.80, "lux": 249, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1500460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.90, "lux": 541, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1505460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.60, "lux": 676, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1510460) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.80, "lux": 309, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1515460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.80, "lux": 461, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1520460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.70, "lux": 229, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1525460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.80, "lux": 625, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (1528570) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (1528570) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1528570) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1528580) VIRTUAL_OLED: ║ Hi Barbiee                         ║[0m
+[0;32mI (1528580) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1530460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.50, "lux": 675, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1535460) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.00, "lux": 597, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1540460) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.00, "lux": 421, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (1545460) SMART_MIRROR: Wysłano telemetrię: {"temp

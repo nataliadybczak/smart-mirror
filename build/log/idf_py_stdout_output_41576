@@ -1,0 +1,770 @@
+Command: D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe D:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM8 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 D:\Studia\smart-mirror\build\esp32-wifi-example.elf D:\Studia\smart-mirror\build\bootloader\bootloader.elf --force-color -m 'D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'D:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Nov 24 2025 15:06:45[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1d824h (120868) map[0m
+[0;32mI (129) esp_image: segment 1: paddr=0002d84c vaddr=3ffbdb60 size=027cch ( 10188) load[0m
+[0;32mI (133) esp_image: segment 2: paddr=00030020 vaddr=400d0020 size=72a44h (469572) map[0m
+[0;32mI (294) esp_image: segment 3: paddr=000a2a6c vaddr=3ffc032c size=02070h (  8304) load[0m
+[0;32mI (297) esp_image: segment 4: paddr=000a4ae4 vaddr=40080000 size=179fch ( 96764) load[0m
+[0;32mI (336) esp_image: segment 5: paddr=000bc4e8 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (347) boot: Loaded app from partition at offset 0x10000[0m
+I (348) boot: Disabling RNG early entropy source...
+[0;32mI (358) cpu_start: Multicore app[0m
+[0;32mI (367) cpu_start: Pro cpu start user code[0m
+[0;32mI (367) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (367) app_init: Application information:[0m
+[0;32mI (367) app_init: Project name:     esp32-wifi-example[0m
+[0;32mI (372) app_init: App version:      5ca7c37[0m
+[0;32mI (375) app_init: Compile time:     Nov 29 2025 11:18:23[0m
+[0;32mI (381) app_init: ELF file SHA256:  9c24df105...[0m
+[0;32mI (385) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (389) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (392) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (396) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (401) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (407) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (412) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (417) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (422) heap_init: At 3FFC6A98 len 00019568 (101 KiB): DRAM[0m
+[0;32mI (427) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (433) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (438) heap_init: At 400979FC len 00008604 (33 KiB): IRAM[0m
+[0;32mI (445) spi_flash: detected chip: generic[0m
+[0;32mI (447) spi_flash: flash io: dio[0m
+[0;33mW (450) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (463) coexist: coex firmware version: b0bcc39[0m
+[0;32mI (467) main_task: Started on CPU0[0m
+[0;32mI (477) main_task: Calling app_main()[0m
+[0;32mI (507) wifi_test: Start systemu...[0m
+[0;32mI (507) BTDM_INIT: BT controller compile version [722c907][0m
+[0;32mI (507) BTDM_INIT: Using main XTAL as clock source[0m
+[0;32mI (507) BTDM_INIT: Bluetooth MAC: 78:ee:4c:01:0f:36[0m
+[0;32mI (517) phy_init: phy_version 4861,b71b5ad,Aug  5 2025,11:16:06[0m
+[0;32mI (917) main_task: Returned from app_main()[0m
+[0;32mI (21137) JABRA_RADAR: Znalazłem Jabrę! Łączenie...[0m
+[0;33mW (51147) BT_APPL: gattc_conn_cb: if=3 st=0 id=3 rsn=0x100[0m
+[1;31mE (51157) JABRA_RADAR: !!! ROZŁĄCZONO - SŁUCHAWKI POZA ZASIĘGIEM !!![0m
+[1;31mE (51157) JABRA_RADAR: Błąd połączenia![0m
+[0;32mI (56967) JABRA_RADAR: Znalazłem Jabrę! Łączenie...[0m
+[0;33mW (86977) BT_APPL: gattc_conn_cb: if=3 st=0 id=3 rsn=0x100[0m
+[1;31mE (86977) JABRA_RADAR: !!! ROZŁĄCZONO - SŁUCHAWKI POZA ZASIĘGIEM !!![0m
+[1;31mE (86977) JABRA_RADAR: Błąd połączenia![0m
+[0;32mI (89057) JABRA_RADAR: Znalazłem Jabrę! Łączenie...[0m
+[0;33mW (119057) BT_APPL: gattc_conn_cb: if=3 st=0 id=3 rsn=0x100[0m
+[1;31mE (119067) JABRA_RADAR: !!! ROZŁĄCZONO - SŁUCHAWKI POZA ZASIĘGIEM !!![0m
+[1;31mE (119067) JABRA_RADAR: Błąd połączenia![0m
+[0;32mI (119677) JABRA_RADAR: Znalazłem Jabrę! Łączenie...[0m
+[0;33mW (149697) BT_APPL: gattc_conn_cb: if=3 st=0 id=3 rsn=0x100[0m
+[1;31mE (149697) JABRA_RADAR: !!! ROZŁĄCZONO - SŁUCHAWKI POZA ZASIĘGIEM !!![0m
+[1;31mE (149697) JABRA_RADAR: Błąd połączenia![0m
+[0;32mI (150207) JABRA_RADAR: Znalazłem Jabrę! Łączenie...[0m
+[0;33mW (150597) JABRA_RADAR: >>> POŁĄCZONO ZE SŁUCHAWKAMI! URUCHAMIAM RADAR... <<<[0m
+[0;32mI (150607) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (151597) JABRA_RADAR: RSSI: -18 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (152597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (153597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (154597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (155597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (156597) JABRA_RADAR: RSSI: -32 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (157597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (158597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (159597) JABRA_RADAR: RSSI: -60 dBm [=============        ] Status: OK[0m
+[0;32mI (160597) JABRA_RADAR: RSSI: -59 dBm [=============        ] Status: OK[0m
+[0;32mI (161597) JABRA_RADAR: RSSI: -60 dBm [=============        ] Status: OK[0m
+[0;32mI (162597) JABRA_RADAR: RSSI: -69 dBm [==========           ] Status: OK[0m
+[0;32mI (163597) JABRA_RADAR: RSSI: -61 dBm [=============        ] Status: OK[0m
+[0;32mI (164597) JABRA_RADAR: RSSI: -62 dBm [============         ] Status: OK[0m
+[0;32mI (165597) JABRA_RADAR: RSSI: -63 dBm [============         ] Status: OK[0m
+[0;32mI (166597) JABRA_RADAR: RSSI: -66 dBm [===========          ] Status: OK[0m
+[0;32mI (167597) JABRA_RADAR: RSSI: -61 dBm [=============        ] Status: OK[0m
+[0;32mI (168597) JABRA_RADAR: RSSI: -49 dBm [=================    ] Status: Bardzo blisko[0m
+[0;32mI (169597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (170597) JABRA_RADAR: RSSI: -18 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (171597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (172597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (173597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (174597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (175597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (176597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (177597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (178597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (179597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (180597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (181597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (182597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (183597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (184597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (185597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (186597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (187597) JABRA_RADAR: RSSI: -40 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (188597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (189597) JABRA_RADAR: RSSI: -34 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (190597) JABRA_RADAR: RSSI: -69 dBm [==========           ] Status: OK[0m
+[0;32mI (191597) JABRA_RADAR: RSSI: -65 dBm [===========          ] Status: OK[0m
+[0;32mI (192597) JABRA_RADAR: RSSI: -61 dBm [=============        ] Status: OK[0m
+[0;32mI (193597) JABRA_RADAR: RSSI: -63 dBm [============         ] Status: OK[0m
+[0;32mI (194597) JABRA_RADAR: RSSI: -62 dBm [============         ] Status: OK[0m
+[0;32mI (195597) JABRA_RADAR: RSSI: -65 dBm [===========          ] Status: OK[0m
+[0;32mI (196597) JABRA_RADAR: RSSI: -65 dBm [===========          ] Status: OK[0m
+[0;32mI (197597) JABRA_RADAR: RSSI: -70 dBm [==========           ] Status: OK[0m
+[0;32mI (198597) JABRA_RADAR: RSSI: -71 dBm [=========            ] Status: OK[0m
+[0;32mI (199597) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (200597) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (201597) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (202597) JABRA_RADAR: RSSI: -71 dBm [=========            ] Status: OK[0m
+[0;32mI (203597) JABRA_RADAR: RSSI: -79 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (204597) JABRA_RADAR: RSSI: -71 dBm [=========            ] Status: OK[0m
+[0;32mI (205597) JABRA_RADAR: RSSI: -69 dBm [==========           ] Status: OK[0m
+[0;32mI (206597) JABRA_RADAR: RSSI: -32 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (207597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (208597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (209597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (210597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (211597) JABRA_RADAR: RSSI: -18 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (212597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (213597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (214597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (215597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (216597) JABRA_RADAR: RSSI: -18 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (217597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (218597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (219597) JABRA_RADAR: RSSI: -20 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (220597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (221597) JABRA_RADAR: RSSI: -17 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (222597) JABRA_RADAR: RSSI: -18 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (223597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (224597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (225597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (226597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (227597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (228597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (229597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (230597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (231597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (232597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (233597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (234597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (235597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (236597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (237597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (238597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (239597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (240597) JABRA_RADAR: RSSI: -18 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (241597) JABRA_RADAR: RSSI: -20 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (242597) JABRA_RADAR: RSSI: -20 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (243597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (244597) JABRA_RADAR: RSSI: -20 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (245597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (246597) JABRA_RADAR: RSSI: -20 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (247597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (248597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (249597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (250597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (251597) JABRA_RADAR: RSSI: -20 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (252597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (253597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (254597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (255597) JABRA_RADAR: RSSI: -43 dBm [===================  ] Status: Bardzo blisko[0m
+[0;32mI (256597) JABRA_RADAR: RSSI: -29 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (257597) JABRA_RADAR: RSSI: -32 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (258597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (259597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (260597) JABRA_RADAR: RSSI: -35 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (261597) JABRA_RADAR: RSSI: -42 dBm [===================  ] Status: Bardzo blisko[0m
+[0;32mI (262597) JABRA_RADAR: RSSI: -49 dBm [=================    ] Status: Bardzo blisko[0m
+[0;32mI (263597) JABRA_RADAR: RSSI: -33 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (264597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (265597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (266597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (267597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (268597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (269597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (270597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (271597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (272597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (273597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (274597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (275597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (276597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (277597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (278597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (279597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (280597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (281597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (282597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (283597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (284597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (285597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (286597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (287597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (288597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (289597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (290597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (291597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (292597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (293597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (294597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (295597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (296597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (297597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (298597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (299597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (300597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (301597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (302597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (303597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (304597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (305597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (306597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (307597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (308597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (309597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (310597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (311597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (312597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (313597) JABRA_RADAR: RSSI: -20 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (314597) JABRA_RADAR: RSSI: -20 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (315597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (316597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (317597) JABRA_RADAR: RSSI: -18 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (318597) JABRA_RADAR: RSSI: -19 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (319597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (320597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (321597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (322597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (323597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (324597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (325597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (326597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (327597) JABRA_RADAR: RSSI: -22 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (328597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (329597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (330597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (331597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (332597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (333597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (334597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (335597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (336597) JABRA_RADAR: RSSI: -29 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (337597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (338597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (339597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (340597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (341597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (342597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (343597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (344597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (345597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (346597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (347597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (348597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (349597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (350597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (351597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (352597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (353597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (354597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (355597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (356597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (357597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (358597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (359597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (360597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (361597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (362597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (363597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (364597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (365597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (366597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (367597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (368597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (369597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (370597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (371597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (372597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (373597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (374597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (375597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (376597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (377597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (378597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (379597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (380597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (381597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (382597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (383597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (384597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (385597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (386597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (387597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (388597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (389597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (390597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (391597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (392597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (393597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (394597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (395597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (396597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (397597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (398597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (399597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (400597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (401597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (402597) JABRA_RADAR: RSSI: -31 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (403597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (404597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (405597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (406597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (407597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (408597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (409597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (410597) JABRA_RADAR: RSSI: -31 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (411597) JABRA_RADAR: RSSI: -31 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (412597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (413597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (414597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (415597) JABRA_RADAR: RSSI: -31 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (416597) JABRA_RADAR: RSSI: -49 dBm [=================    ] Status: Bardzo blisko[0m
+[0;32mI (417597) JABRA_RADAR: RSSI: -64 dBm [============         ] Status: OK[0m
+[0;32mI (418597) JABRA_RADAR: RSSI: -65 dBm [===========          ] Status: OK[0m
+[0;32mI (419597) JABRA_RADAR: RSSI: -72 dBm [=========            ] Status: OK[0m
+[0;32mI (420597) JABRA_RADAR: RSSI: -66 dBm [===========          ] Status: OK[0m
+[0;32mI (421597) JABRA_RADAR: RSSI: -61 dBm [=============        ] Status: OK[0m
+[0;32mI (422597) JABRA_RADAR: RSSI: -66 dBm [===========          ] Status: OK[0m
+[0;32mI (423597) JABRA_RADAR: RSSI: -68 dBm [==========           ] Status: OK[0m
+[0;32mI (424597) JABRA_RADAR: RSSI: -67 dBm [===========          ] Status: OK[0m
+[0;32mI (425597) JABRA_RADAR: RSSI: -72 dBm [=========            ] Status: OK[0m
+[0;32mI (426597) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (427597) JABRA_RADAR: RSSI: -75 dBm [========             ] Status: OK[0m
+[0;32mI (428597) JABRA_RADAR: RSSI: -70 dBm [==========           ] Status: OK[0m
+[0;32mI (429597) JABRA_RADAR: RSSI: -74 dBm [========             ] Status: OK[0m
+[0;32mI (430597) JABRA_RADAR: RSSI: -72 dBm [=========            ] Status: OK[0m
+[0;32mI (431597) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (432597) JABRA_RADAR: RSSI: -71 dBm [=========            ] Status: OK[0m
+[0;32mI (433597) JABRA_RADAR: RSSI: -72 dBm [=========            ] Status: OK[0m
+[0;32mI (434597) JABRA_RADAR: RSSI: -55 dBm [===============      ] Status: OK[0m
+[0;32mI (435597) JABRA_RADAR: RSSI: -66 dBm [===========          ] Status: OK[0m
+[0;32mI (436597) JABRA_RADAR: RSSI: -50 dBm [================     ] Status: OK[0m
+[0;32mI (437597) JABRA_RADAR: RSSI: -47 dBm [=================    ] Status: Bardzo blisko[0m
+[0;32mI (438597) JABRA_RADAR: RSSI: -48 dBm [=================    ] Status: Bardzo blisko[0m
+[0;32mI (439597) JABRA_RADAR: RSSI: -21 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (440597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (441597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (442597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (443597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (444597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (445597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (446597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (447597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (448597) JABRA_RADAR: RSSI: -39 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (449597) JABRA_RADAR: RSSI: -45 dBm [==================   ] Status: Bardzo blisko[0m
+[0;32mI (450597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (451597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (452597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (453597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (454597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (455597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (456597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (457597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (458597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (459597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (460597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (461597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (462597) JABRA_RADAR: RSSI: -31 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (463597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (464597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (465597) JABRA_RADAR: RSSI: -29 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (466597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (467597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (468597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (469597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (470597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (471597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (472597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (473597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (474597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (475597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (476597) JABRA_RADAR: RSSI: -29 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (477597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (478597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (479597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (480597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (481597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (482597) JABRA_RADAR: RSSI: -40 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (483597) JABRA_RADAR: RSSI: -33 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (484597) JABRA_RADAR: RSSI: -31 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (485597) JABRA_RADAR: RSSI: -34 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (486597) JABRA_RADAR: RSSI: -41 dBm [===================  ] Status: Bardzo blisko[0m
+[0;32mI (487597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (488597) JABRA_RADAR: RSSI: -31 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (489597) JABRA_RADAR: RSSI: -32 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (490597) JABRA_RADAR: RSSI: -32 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (491597) JABRA_RADAR: RSSI: -38 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (492597) JABRA_RADAR: RSSI: -53 dBm [===============      ] Status: OK[0m
+[0;32mI (493597) JABRA_RADAR: RSSI: -50 dBm [================     ] Status: OK[0m
+[0;32mI (494597) JABRA_RADAR: RSSI: -51 dBm [================     ] Status: OK[0m
+[0;32mI (495597) JABRA_RADAR: RSSI: -45 dBm [==================   ] Status: Bardzo blisko[0m
+[0;32mI (496597) JABRA_RADAR: RSSI: -40 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (497597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (498597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (499597) JABRA_RADAR: RSSI: -34 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (500597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (501597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (502597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (503597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (504597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (505597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (506597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (507597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (508597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (509597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (510597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (511597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (512597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (513597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (514597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (515597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (516597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (517597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (518597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (519597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (520597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (521597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (522597) JABRA_RADAR: RSSI: -29 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (523597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (524597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (525597) JABRA_RADAR: RSSI: -29 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (526597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (527597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (528597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (529597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (530597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (531597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (532597) JABRA_RADAR: RSSI: -29 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (533597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (534597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (535597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (536597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (537597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (538597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (539597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (540597) JABRA_RADAR: RSSI: -31 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (541597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (542597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (543597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (544597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (545597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (546597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (547597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (548597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (549597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (550597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (551597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (552597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (553597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (554597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (555597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (556597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (557597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (558597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (559597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (560597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (561597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (562597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (563597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (564597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (565597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (566597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (567597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (568597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (569597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (570597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (571597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (572597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (573597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (574597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (575597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (576597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (577597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (578597) JABRA_RADAR: RSSI: -29 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (579597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (580597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (581597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (582597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (583597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (584597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (585597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (586597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (587597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (588597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (589597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (590597) JABRA_RADAR: RSSI: -40 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (591597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (592597) JABRA_RADAR: RSSI: -32 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (593597) JABRA_RADAR: RSSI: -32 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (594597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (595597) JABRA_RADAR: RSSI: -31 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (596597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (597597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (598597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (599597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (600597) JABRA_RADAR: RSSI: -29 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (601597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (602597) JABRA_RADAR: RSSI: -32 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (603597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (604597) JABRA_RADAR: RSSI: -20 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (605597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (606597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (607597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (608597) JABRA_RADAR: RSSI: -30 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (609597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (610597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (611597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (612597) JABRA_RADAR: RSSI: -31 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (613597) JABRA_RADAR: RSSI: -23 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (614597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (615597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (616597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (617597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (618597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (619597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (620597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (621597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (622597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (623597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (624597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (625597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (626597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (627597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (628597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (629597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (630597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (631597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (632597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (633597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (634597) JABRA_RADAR: RSSI: -33 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (635597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (636597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (637597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (638597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (639597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (640597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (641597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (642597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (643597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (644597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (645597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (646597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (647597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (648597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (649597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (650597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (651597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (652597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (653597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (654597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (655597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (656597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (657597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (658597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (659597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (660597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (661597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (662597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (663597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (664597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (665597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (666597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (667597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (668597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (669597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (670597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (671597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (672597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (673597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (674597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (675597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (676597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (677597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (678597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (679597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (680597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (681597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (682597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (683597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (684597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (685597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (686597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (687597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (688597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (689597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (690597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (691597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (692597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (693597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (694597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (695597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (696597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (697597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (698597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (699597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (700597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (701597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (702597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (703597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (704597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (705597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (706597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (707597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (708597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (709597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (710597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (711597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (712597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (713597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (714597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (715597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (716597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (717597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (718597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (719597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (720597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (721597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (722597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (723597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (724597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (725597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (726597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (727597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (728597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (729597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (730597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (731597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (732597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (733597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (734597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (735597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (736597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (737597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (738597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (739597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (740597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (741597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (742597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (743597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (744597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (745597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (746597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (747597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (748597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (749597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (750597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (751597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (752597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (753597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (754597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (755597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (756597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (757597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (758597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (759597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (760597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (761597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (762597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (763597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (764597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (765597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (766597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (767597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (768597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (769597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (770597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (771597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (772597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (773597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (774597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (775597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (776597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (777597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (778597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (779597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (780597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (781597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (782597) JABRA_RADAR: RSSI: -28 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (783597) JABRA_RADAR: RSSI: -24 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (784597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (785597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (786597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (787597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (788597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (789597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (790597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (791597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (792597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (793597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (794597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (795597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (796597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (797597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (798597) JABRA_RADAR: RSSI: -25 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (799597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (800597) JABRA_RADAR: RSSI: -27 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (801597) JABRA_RADAR: RSSI: -26 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (802597) JABRA_RADAR: RSSI: -49 dBm [=================    ] Status: Bardzo blisko[0m
+[0;32mI (803597) JABRA_RADAR: RSSI: -51 dBm [================     ] Status: OK[0m
+[0;32mI (804597) JABRA_RADAR: RSSI: -74 dBm [========             ] Status: OK[0m
+[0;32mI (805597) JABRA_RADAR: RSSI: -69 dBm [==========           ] Status: OK[0m
+[0;32mI (806597) JABRA_RADAR: RSSI: -68 dBm [==========           ] Status: OK[0m
+[0;32mI (807597) JABRA_RADAR: RSSI: -69 dBm [==========           ] Status: OK[0m
+[0;32mI (808597) JABRA_RADAR: RSSI: -66 dBm [===========          ] Status: OK[0m
+[0;32mI (809597) JABRA_RADAR: RSSI: -75 dBm [========             ] Status: OK[0m
+[0;32mI (810597) JABRA_RADAR: RSSI: -68 dBm [==========           ] Status: OK[0m
+[0;32mI (811597) JABRA_RADAR: RSSI: -66 dBm [===========          ] Status: OK[0m
+[0;32mI (812597) JABRA_RADAR: RSSI: -69 dBm [==========           ] Status: OK[0m
+[0;32mI (813597) JABRA_RADAR: RSSI: -68 dBm [==========           ] Status: OK[0m
+[0;32mI (814597) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (815597) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (816597) JABRA_RADAR: RSSI: -84 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (817597) JABRA_RADAR: RSSI: -86 dBm [====                 ] Status: !!! ALARM - ZGUBIONO !!![0m
+[0;32mI (818597) JABRA_RADAR: RSSI: -83 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (819597) JABRA_RADAR: RSSI: -84 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (820597) JABRA_RADAR: RSSI: -86 dBm [====                 ] Status: !!! ALARM - ZGUBIONO !!![0m
+[0;32mI (821597) JABRA_RADAR: RSSI: -85 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (822597) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (823597) JABRA_RADAR: RSSI: -83 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (824597) JABRA_RADAR: RSSI: -71 dBm [=========            ] Status: OK[0m
+[0;32mI (825597) JABRA_RADAR: RSSI: -67 dBm [===========          ] Status: OK[0m
+[0;32mI (826597) JABRA_RADAR: RSSI: -48 dBm [=================    ] Status: Bardzo blisko[0m
+[0;32mI (827597) JABRA_RADAR: RSSI: -52 dBm [================     ] Status: OK[0m
+[0;32mI (828597) JABRA_RADAR: RSSI: -49 dBm [=================    ] Status: Bardzo blisko[0m
+[0;32mI (829597) JABRA_RADAR: RSSI: -37 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (830597) JABRA_RADAR: RSSI: -55 dBm [===============      ] Status: OK[0m
+[0;32mI (831597) JABRA_RADAR: RSSI: -67 dBm [===========          ] Status: OK[0m
+[0;32mI (832597) JABRA_RADAR: RSSI: -57 dBm [==============       ] Status: OK[0m
+[0;32mI (833597) JABRA_RADAR: RSSI: -61 dBm [=============        ] Status: OK[0m
+[0;32mI (834597) JABRA_RADAR: RSSI: -64 dBm [============         ] Status: OK[0m
+[0;32mI (835597) JABRA_RADAR: RSSI: -67 dBm [===========          ] Status: OK[0m

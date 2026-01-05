@@ -1,0 +1,642 @@
+Command: D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe D:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM8 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 D:\Studia\smart-mirror\build\esp32-wifi-example.elf D:\Studia\smart-mirror\build\bootloader\bootloader.elf --force-color -m 'D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'D:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Nov 24 2025 15:06:45[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1ec20h (125984) map[0m
+[0;32mI (131) esp_image: segment 1: paddr=0002ec48 vaddr=3ffbdb60 size=013d0h (  5072) load[0m
+[0;32mI (133) esp_image: segment 2: paddr=00030020 vaddr=400d0020 size=a2ddch (667100) map[0m
+[0;32mI (363) esp_image: segment 3: paddr=000d2e04 vaddr=3ffbef30 size=0401ch ( 16412) load[0m
+[0;32mI (369) esp_image: segment 4: paddr=000d6e28 vaddr=40080000 size=194a4h (103588) load[0m
+[0;32mI (410) esp_image: segment 5: paddr=000f02d4 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (422) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (423) boot: Disabling RNG early entropy source...[0m
+[0;32mI (433) cpu_start: Multicore app[0m
+[0;32mI (441) cpu_start: Pro cpu start user code[0m
+[0;32mI (441) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (442) app_init: Application information:[0m
+[0;32mI (442) app_init: Project name:     esp32-wifi-example[0m
+[0;32mI (446) app_init: App version:      d92293b-dirty[0m
+[0;32mI (451) app_init: Compile time:     Dec 30 2025 13:37:39[0m
+[0;32mI (456) app_init: ELF file SHA256:  f44aaa46b...[0m
+[0;32mI (460) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (464) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (468) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (472) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (476) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (482) heap_init: At 3FFAE6E0 len 0000F480 (61 KiB): DRAM[0m
+[0;32mI (487) heap_init: At 3FFC7668 len 00018998 (98 KiB): DRAM[0m
+[0;32mI (492) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (498) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (503) heap_init: At 400994A4 len 00006B5C (26 KiB): IRAM[0m
+[0;32mI (510) spi_flash: detected chip: generic[0m
+[0;32mI (512) spi_flash: flash io: dio[0m
+[0;33mW (515) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (528) coexist: coex firmware version: b0bcc39[0m
+[0;32mI (532) main_task: Started on CPU0[0m
+[0;32mI (542) main_task: Calling app_main()[0m
+[0;32mI (572) MAIN_CONTROLLER: Start systemu...[0m
+[0;32mI (572) SMART_MIRROR: Device ID: 78EE4C010F34[0m
+[0;32mI (572) VIRTUAL_OLED: ------------------------------------------------[0m
+[0;32mI (582) VIRTUAL_OLED:  INICJALIZACJA EKRANU (TRYB SYMULACJI) [0m
+[0;32mI (582) VIRTUAL_OLED:  Sterownik gotowy. Rozdzielczość 128x64.[0m
+[0;32mI (592) VIRTUAL_OLED: ------------------------------------------------[0m
+[0;32mI (592) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (612) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (612) VIRTUAL_OLED: ║ Booting System...                  ║[0m
+[0;32mI (622) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (642) wifi:wifi driver task: 3ffb8ba4, prio:23, stack:6656, core=0[0m
+[0;32mI (662) wifi:wifi firmware version: 14da9b7[0m
+[0;32mI (662) wifi:wifi certification version: v7.0[0m
+[0;32mI (662) wifi:config NVS flash: enabled[0m
+[0;32mI (662) wifi:config nano formatting: disabled[0m
+[0;32mI (662) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (672) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (672) wifi:Init management short buffer num: 32[0m
+[0;32mI (672) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (682) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (682) wifi:Init static rx buffer num: 10[0m
+[0;32mI (692) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (692) wifi_init: rx ba win: 6[0m
+[0;32mI (692) wifi_init: accept mbox: 6[0m
+[0;32mI (702) wifi_init: tcpip mbox: 32[0m
+[0;32mI (702) wifi_init: udp mbox: 6[0m
+[0;32mI (702) wifi_init: tcp mbox: 6[0m
+[0;32mI (702) wifi_init: tcp tx win: 5760[0m
+[0;32mI (712) wifi_init: tcp rx win: 5760[0m
+[0;32mI (712) wifi_init: tcp mss: 1440[0m
+[0;32mI (712) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (722) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (722) phy_init: phy_version 4861,b71b5ad,Aug  5 2025,11:16:06[0m
+[0;32mI (812) wifi:mode : sta (78:ee:4c:01:0f:34)[0m
+[0;32mI (812) wifi:enable tsf[0m
+[0;32mI (822) wifi:Set ps type: 0, coexist: 0[0m
+
+[0;32mI (832) wifi:new:<11,0>, old:<1,0>, ap:<255,255>, sta:<11,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (832) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (842) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (862) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (922) wifi:connected with kalarepa, aid = 7, channel 11, BW20, bssid = 9a:b8:ba:15:6e:fe[0m
+[0;32mI (922) wifi:security: WPA2-PSK, phy: bgn, rssi: -19[0m
+[0;32mI (932) wifi:pm start, type: 0[0m
+
+[0;32mI (932) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (952) wifi:<ba-add>idx:0 (ifx:0, 9a:b8:ba:15:6e:fe), tid:0, ssn:0, winSize:64[0m
+[0;32mI (1002) wifi:dp: 2, bi: 102400, li: 4, scale listen interval from 307200 us to 409600 us[0m
+[0;32mI (1002) wifi:AP's beacon interval = 102400 us, DTIM period = 2[0m
+[0;32mI (1982) esp_netif_handlers: sta ip: 192.168.43.246, mask: 255.255.255.0, gw: 192.168.43.1[0m
+[0;32mI (1982) main_task: Returned from app_main()[0m
+[0;32mI (2122) wifi:<ba-add>idx:1 (ifx:0, 9a:b8:ba:15:6e:fe), tid:1, ssn:1, winSize:64[0m
+[0;32mI (2242) SMART_MIRROR: MQTT Połączono![0m
+[0;32mI (2242) SMART_MIRROR: Subskrypcja: smartmirror/user_01/78EE4C010F34/cmd[0m
+[0;32mI (11982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.60, "hum": 49.0, "lux_raw": 1672, "led_pwr": 50}[0m
+[0;33mW (14982) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (14982) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (14982) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (14992) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (14992) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (15002) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;33mW (16012) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (16012) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (16012) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (16012) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (21982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.00, "hum": 45.0, "lux_raw": 1816, "led_pwr": 0}[0m
+[0;33mW (30022) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (30022) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (30022) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (30032) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (30032) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (30042) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (31982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 45.0, "lux_raw": 1674, "led_pwr": 50}[0m
+[0;32mI (41982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.90, "hum": 54.0, "lux_raw": 1603, "led_pwr": 50}[0m
+[0;32mI (51982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.90, "hum": 45.0, "lux_raw": 1597, "led_pwr": 50}[0m
+[0;32mI (61982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 54.0, "lux_raw": 1714, "led_pwr": 50}[0m
+[0;32mI (71982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 45.0, "lux_raw": 1769, "led_pwr": 50}[0m
+[0;32mI (81982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.00, "hum": 50.0, "lux_raw": 1768, "led_pwr": 50}[0m
+[0;32mI (91982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.00, "hum": 50.0, "lux_raw": 1941, "led_pwr": 50}[0m
+[0;32mI (101982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.30, "hum": 49.0, "lux_raw": 1783, "led_pwr": 50}[0m
+[0;33mW (109052) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (109052) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (109052) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (109052) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (111982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.80, "hum": 47.0, "lux_raw": 1804, "led_pwr": 0}[0m
+[0;32mI (121982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.10, "hum": 53.0, "lux_raw": 1982, "led_pwr": 0}[0m
+[0;33mW (124062) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (124062) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (124062) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (124072) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (124072) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (124082) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;33mW (126102) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (126102) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (126102) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (126102) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (131982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.60, "hum": 51.0, "lux_raw": 1995, "led_pwr": 0}[0m
+[0;33mW (134112) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (134112) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (134112) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (134122) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (134122) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (134132) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (141982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 51.0, "lux_raw": 1754, "led_pwr": 50}[0m
+[0;33mW (142152) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (142152) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (142152) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (142152) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (151982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.30, "hum": 49.0, "lux_raw": 1783, "led_pwr": 0}[0m
+[0;33mW (155162) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (155162) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (155162) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (155172) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (155172) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (155182) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;33mW (156192) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (156192) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (156192) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (156192) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (161982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.70, "hum": 52.0, "lux_raw": 1967, "led_pwr": 0}[0m
+[0;32mI (171982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.60, "hum": 45.0, "lux_raw": 1750, "led_pwr": 0}[0m
+[0;32mI (181982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.50, "hum": 47.0, "lux_raw": 1909, "led_pwr": 0}[0m
+[0;32mI (191982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.10, "hum": 53.0, "lux_raw": 1550, "led_pwr": 0}[0m
+[0;32mI (199922) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 100 %[0m
+[0;32mI (201982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.00, "hum": 49.0, "lux_raw": 1898, "led_pwr": 100}[0m
+[0;32mI (211982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 49.0, "lux_raw": 1889, "led_pwr": 100}[0m
+[0;32mI (221982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 46.0, "lux_raw": 1690, "led_pwr": 100}[0m
+[0;33mW (225202) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (225202) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (225202) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (225212) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (225212) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (225222) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (231982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.80, "hum": 46.0, "lux_raw": 1694, "led_pwr": 50}[0m
+[0;32mI (241982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.10, "hum": 46.0, "lux_raw": 1701, "led_pwr": 50}[0m
+[0;33mW (248242) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (248242) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (248242) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (248242) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (251982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.20, "hum": 50.0, "lux_raw": 1751, "led_pwr": 0}[0m
+[0;32mI (261982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.70, "hum": 50.0, "lux_raw": 1990, "led_pwr": 0}[0m
+[0;32mI (271982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 45.0, "lux_raw": 1811, "led_pwr": 0}[0m
+[0;32mI (281982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.50, "hum": 47.0, "lux_raw": 1607, "led_pwr": 0}[0m
+[0;32mI (291982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.70, "hum": 54.0, "lux_raw": 1910, "led_pwr": 0}[0m
+[0;33mW (294252) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (294252) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (294252) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (294262) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (294262) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (294272) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (301982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.90, "hum": 46.0, "lux_raw": 1829, "led_pwr": 50}[0m
+[0;32mI (311982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 49.0, "lux_raw": 1707, "led_pwr": 50}[0m
+[0;32mI (321982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.90, "hum": 51.0, "lux_raw": 1800, "led_pwr": 50}[0m
+[0;32mI (331982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 49.0, "lux_raw": 1731, "led_pwr": 50}[0m
+[0;32mI (341982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.40, "hum": 53.0, "lux_raw": 1908, "led_pwr": 50}[0m
+[0;33mW (350292) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (350292) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (350292) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (350292) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (351982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 47.0, "lux_raw": 1665, "led_pwr": 0}[0m
+[0;32mI (361982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 46.0, "lux_raw": 1957, "led_pwr": 0}[0m
+[0;32mI (371982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.00, "hum": 51.0, "lux_raw": 1750, "led_pwr": 0}[0m
+[0;33mW (380302) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (380302) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (380302) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (380312) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (380312) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (380322) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (381982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 48.0, "lux_raw": 1747, "led_pwr": 50}[0m
+[0;33mW (383332) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (383332) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (383332) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (383332) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (389362) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 100 %[0m
+[0;32mI (391982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.70, "hum": 53.0, "lux_raw": 1501, "led_pwr": 100}[0m
+[0;32mI (401982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.10, "hum": 50.0, "lux_raw": 1875, "led_pwr": 100}[0m
+[0;33mW (408342) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (408342) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (408342) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (408352) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (408352) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (408362) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (411982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 53.0, "lux_raw": 1884, "led_pwr": 50}[0m
+[0;33mW (415372) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (415372) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (415372) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (415372) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (421232) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 100 %[0m
+[0;32mI (421982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.40, "hum": 47.0, "lux_raw": 1609, "led_pwr": 100}[0m
+[0;32mI (431982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 51.0, "lux_raw": 1959, "led_pwr": 100}[0m
+[0;33mW (434382) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (434382) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (434382) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (434392) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (434392) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (434402) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (441982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.40, "hum": 50.0, "lux_raw": 1834, "led_pwr": 50}[0m
+[0;33mW (446422) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (446422) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (446422) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (446422) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (451982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.70, "hum": 54.0, "lux_raw": 1617, "led_pwr": 0}[0m
+[0;32mI (461982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.00, "hum": 52.0, "lux_raw": 1595, "led_pwr": 0}[0m
+[0;32mI (471982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.90, "hum": 54.0, "lux_raw": 1887, "led_pwr": 0}[0m
+[0;32mI (481982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.20, "hum": 52.0, "lux_raw": 1544, "led_pwr": 0}[0m
+[0;32mI (491982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 45.0, "lux_raw": 1690, "led_pwr": 0}[0m
+[0;33mW (495432) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (495432) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (495432) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (495442) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (495442) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (495452) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;33mW (498462) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (498462) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (498462) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (498462) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (501982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.20, "hum": 46.0, "lux_raw": 1888, "led_pwr": 0}[0m
+[0;33mW (502472) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (502472) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (502472) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (502482) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (502482) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (502492) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (511982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.40, "hum": 46.0, "lux_raw": 1887, "led_pwr": 50}[0m
+[0;33mW (515502) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (515502) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (515502) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (515502) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (521982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 51.0, "lux_raw": 1870, "led_pwr": 0}[0m
+[0;32mI (531982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.40, "hum": 51.0, "lux_raw": 1592, "led_pwr": 0}[0m
+[0;32mI (541982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.00, "hum": 48.0, "lux_raw": 1641, "led_pwr": 0}[0m
+[0;32mI (551982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.10, "hum": 47.0, "lux_raw": 1620, "led_pwr": 0}[0m
+[0;32mI (561982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.10, "hum": 46.0, "lux_raw": 1863, "led_pwr": 0}[0m
+[0;32mI (571982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 50.0, "lux_raw": 1626, "led_pwr": 0}[0m
+[0;32mI (581982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 54.0, "lux_raw": 1956, "led_pwr": 0}[0m
+[0;33mW (582512) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (582512) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (582512) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (582522) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (582522) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (582532) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (591982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.40, "hum": 48.0, "lux_raw": 1923, "led_pwr": 50}[0m
+[0;32mI (601982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.80, "hum": 52.0, "lux_raw": 1733, "led_pwr": 50}[0m
+[0;32mI (611982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 50.0, "lux_raw": 1673, "led_pwr": 50}[0m
+[0;32mI (621982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.00, "hum": 46.0, "lux_raw": 1746, "led_pwr": 50}[0m
+[0;32mI (631982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.20, "hum": 53.0, "lux_raw": 1852, "led_pwr": 50}[0m
+[0;32mI (641982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 46.0, "lux_raw": 1875, "led_pwr": 50}[0m
+[0;32mI (651982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.10, "hum": 49.0, "lux_raw": 1517, "led_pwr": 50}[0m
+[0;33mW (653552) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (653552) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (653552) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (653552) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (661982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.30, "hum": 46.0, "lux_raw": 1878, "led_pwr": 0}[0m
+[0;32mI (671982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 50.0, "lux_raw": 1630, "led_pwr": 0}[0m
+[0;33mW (675562) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (675562) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (675562) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (675572) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (675572) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (675582) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (681982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.70, "hum": 54.0, "lux_raw": 1820, "led_pwr": 50}[0m
+[0;32mI (691982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.10, "hum": 50.0, "lux_raw": 1870, "led_pwr": 50}[0m
+[0;32mI (701982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.00, "hum": 49.0, "lux_raw": 1912, "led_pwr": 50}[0m
+[0;33mW (710592) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (710592) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (710592) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (710592) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (711982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.20, "hum": 49.0, "lux_raw": 1654, "led_pwr": 0}[0m
+[0;32mI (721982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 51.0, "lux_raw": 1511, "led_pwr": 0}[0m
+[0;32mI (731982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.10, "hum": 46.0, "lux_raw": 1832, "led_pwr": 0}[0m
+[0;32mI (741982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.90, "hum": 51.0, "lux_raw": 1674, "led_pwr": 0}[0m
+[0;32mI (751982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.90, "hum": 54.0, "lux_raw": 1740, "led_pwr": 0}[0m
+[0;32mI (761982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.60, "hum": 54.0, "lux_raw": 1721, "led_pwr": 0}[0m
+[0;32mI (771982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.20, "hum": 45.0, "lux_raw": 1972, "led_pwr": 0}[0m
+[0;33mW (777602) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (777602) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (777602) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (777612) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (777612) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (777622) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (781982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.30, "hum": 45.0, "lux_raw": 1566, "led_pwr": 50}[0m
+[0;33mW (783642) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (783642) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (783642) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (783642) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (791982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 46.0, "lux_raw": 1775, "led_pwr": 0}[0m
+[0;33mW (801652) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (801652) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (801652) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (801662) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (801662) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (801672) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (801982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.60, "hum": 47.0, "lux_raw": 1699, "led_pwr": 50}[0m
+[0;33mW (810692) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (810692) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (810692) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (810692) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (811982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.80, "hum": 48.0, "lux_raw": 1640, "led_pwr": 0}[0m
+[0;32mI (821982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 54.0, "lux_raw": 1979, "led_pwr": 0}[0m
+[0;33mW (826702) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (826702) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (826702) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (826712) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (826712) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (826722) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;33mW (827732) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (827732) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (827732) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (827732) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (831982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 46.0, "lux_raw": 1566, "led_pwr": 0}[0m
+[0;33mW (839742) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (839742) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (839742) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (839752) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (839752) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (839762) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (841982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 54.0, "lux_raw": 1971, "led_pwr": 50}[0m
+[0;32mI (851982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 54.0, "lux_raw": 1547, "led_pwr": 50}[0m
+[0;32mI (861982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 54.0, "lux_raw": 1594, "led_pwr": 50}[0m
+[0;33mW (869782) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (869782) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (869782) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (869782) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (871982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 45.0, "lux_raw": 1611, "led_pwr": 0}[0m
+[0;32mI (881982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.50, "hum": 47.0, "lux_raw": 1684, "led_pwr": 0}[0m
+[0;33mW (883792) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (883792) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (883792) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (883802) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (883802) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (883812) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (891982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.20, "hum": 53.0, "lux_raw": 1959, "led_pwr": 50}[0m
+[0;33mW (895822) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (895822) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (895822) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (895822) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (901982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.70, "hum": 54.0, "lux_raw": 1996, "led_pwr": 0}[0m
+[0;32mI (911982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 54.0, "lux_raw": 1539, "led_pwr": 0}[0m
+[0;33mW (921832) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (921832) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (921832) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (921842) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (921842) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (921852) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (921982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.30, "hum": 49.0, "lux_raw": 1819, "led_pwr": 50}[0m
+[0;32mI (931982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.20, "hum": 53.0, "lux_raw": 1696, "led_pwr": 50}[0m
+[0;32mI (941982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.60, "hum": 49.0, "lux_raw": 1793, "led_pwr": 50}[0m
+[0;32mI (951982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.20, "hum": 45.0, "lux_raw": 1861, "led_pwr": 50}[0m
+[0;32mI (961982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.40, "hum": 50.0, "lux_raw": 1576, "led_pwr": 50}[0m
+[0;32mI (971982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.80, "hum": 49.0, "lux_raw": 1815, "led_pwr": 50}[0m
+[0;32mI (981982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.10, "hum": 51.0, "lux_raw": 1531, "led_pwr": 50}[0m
+[0;32mI (991982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.70, "hum": 50.0, "lux_raw": 1974, "led_pwr": 50}[0m
+[0;33mW (996872) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (996872) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (996872) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (996872) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1001982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.00, "hum": 52.0, "lux_raw": 1959, "led_pwr": 0}[0m
+[0;33mW (1003882) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1003882) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1003882) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1003892) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1003892) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (1003902) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1011982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.00, "hum": 46.0, "lux_raw": 1748, "led_pwr": 50}[0m
+[0;32mI (1021982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.90, "hum": 49.0, "lux_raw": 1883, "led_pwr": 50}[0m
+[0;33mW (1022922) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1022922) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1022922) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1022922) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1031982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.80, "hum": 47.0, "lux_raw": 1621, "led_pwr": 0}[0m
+[0;32mI (1041982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.70, "hum": 50.0, "lux_raw": 1740, "led_pwr": 0}[0m
+[0;33mW (1046932) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1046932) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1046932) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1046942) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1046942) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (1046952) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1051982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.30, "hum": 51.0, "lux_raw": 1771, "led_pwr": 50}[0m
+[0;32mI (1061982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 49.0, "lux_raw": 1774, "led_pwr": 50}[0m
+[0;33mW (1063972) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1063972) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1063972) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1063972) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1071982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 52.0, "lux_raw": 1769, "led_pwr": 0}[0m
+[0;32mI (1081982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 46.0, "lux_raw": 1666, "led_pwr": 0}[0m
+[0;32mI (1091982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 54.0, "lux_raw": 1770, "led_pwr": 0}[0m
+[0;32mI (1101982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 47.0, "lux_raw": 1803, "led_pwr": 0}[0m
+[0;33mW (1106982) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1106982) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1106982) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1106992) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1106992) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (1107002) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1111982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.40, "hum": 49.0, "lux_raw": 1729, "led_pwr": 50}[0m
+[0;33mW (1112022) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1112022) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1112022) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1112022) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;33mW (1118032) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1118032) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1118032) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1118042) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1118042) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (1118052) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1121982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.10, "hum": 47.0, "lux_raw": 1881, "led_pwr": 50}[0m
+[0;33mW (1122072) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1122072) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1122072) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1122072) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;33mW (1128082) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1128082) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1128082) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1128092) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1128092) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (1128102) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1131982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 49.0, "lux_raw": 1531, "led_pwr": 50}[0m
+[0;32mI (1141982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.40, "hum": 51.0, "lux_raw": 1547, "led_pwr": 50}[0m
+[0;32mI (1151982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.00, "hum": 52.0, "lux_raw": 1554, "led_pwr": 50}[0m
+[0;32mI (1161982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 49.0, "lux_raw": 1829, "led_pwr": 50}[0m
+[0;32mI (1171982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.30, "hum": 52.0, "lux_raw": 1564, "led_pwr": 50}[0m
+[0;32mI (1175872) SMART_MIRROR: >>> Otrzymano nowy tekst: Co za noc...[0m
+[0;32mI (1175872) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1175882) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1175882) VIRTUAL_OLED: ║ Co za noc...                       ║[0m
+[0;32mI (1175892) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1181982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.00, "hum": 51.0, "lux_raw": 1885, "led_pwr": 50}[0m
+[0;33mW (1185122) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1185122) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1185122) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1185122) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;33mW (1186132) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1186132) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1186132) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1186142) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1186142) VIRTUAL_OLED: ║ Co za noc...                       ║[0m
+[0;32mI (1186152) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1189462) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 56 %[0m
+[0;32mI (1191982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 46.0, "lux_raw": 1746, "led_pwr": 56}[0m
+[0;32mI (1201982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 48.0, "lux_raw": 1681, "led_pwr": 56}[0m
+[0;33mW (1210172) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1210172) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1210172) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1210172) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;33mW (1211182) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1211182) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1211182) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1211192) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1211192) VIRTUAL_OLED: ║ Co za noc...                       ║[0m
+[0;32mI (1211202) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1211982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 45.0, "lux_raw": 1985, "led_pwr": 50}[0m
+[0;32mI (1221982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.70, "hum": 52.0, "lux_raw": 1878, "led_pwr": 50}[0m
+[0;32mI (1231982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.90, "hum": 48.0, "lux_raw": 1591, "led_pwr": 50}[0m
+[0;32mI (1241982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.20, "hum": 47.0, "lux_raw": 1943, "led_pwr": 50}[0m
+[0;32mI (1251982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 54.0, "lux_raw": 1913, "led_pwr": 50}[0m
+[0;33mW (1257222) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1257222) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1257222) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1257222) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1261982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.80, "hum": 52.0, "lux_raw": 1733, "led_pwr": 0}[0m
+[0;32mI (1271982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.40, "hum": 54.0, "lux_raw": 1993, "led_pwr": 0}[0m
+[0;32mI (1281982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 53.0, "lux_raw": 1615, "led_pwr": 0}[0m
+[0;32mI (1291982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.30, "hum": 54.0, "lux_raw": 1731, "led_pwr": 0}[0m
+[0;33mW (1297232) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1297232) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1297232) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1297242) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1297242) VIRTUAL_OLED: ║ Co za noc...                       ║[0m
+[0;32mI (1297252) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1301982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.70, "hum": 54.0, "lux_raw": 1649, "led_pwr": 50}[0m
+[0;32mI (1311982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.50, "hum": 52.0, "lux_raw": 1671, "led_pwr": 50}[0m
+[0;33mW (1316272) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1316272) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1316272) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1316272) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;33mW (1317282) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1317282) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1317282) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1317292) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1317292) VIRTUAL_OLED: ║ Co za noc...                       ║[0m
+[0;32mI (1317302) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1321982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.40, "hum": 48.0, "lux_raw": 1588, "led_pwr": 50}[0m
+[0;32mI (1331982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 54.0, "lux_raw": 1587, "led_pwr": 50}[0m
+[0;33mW (1335322) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1335322) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1335322) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1335322) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;33mW (1339332) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1339332) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1339332) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1339342) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1339342) VIRTUAL_OLED: ║ Co za noc...                       ║[0m
+[0;32mI (1339352) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1341982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.70, "hum": 50.0, "lux_raw": 1872, "led_pwr": 50}[0m
+[0;32mI (1351982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 45.0, "lux_raw": 1973, "led_pwr": 50}[0m
+[0;32mI (1361982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 53.0, "lux_raw": 1911, "led_pwr": 50}[0m
+[0;33mW (1363362) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1363362) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1363362) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1363362) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1371982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.50, "hum": 53.0, "lux_raw": 1608, "led_pwr": 0}[0m
+[0;32mI (1381982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.00, "hum": 49.0, "lux_raw": 1804, "led_pwr": 0}[0m
+[0;32mI (1391982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.20, "hum": 53.0, "lux_raw": 1612, "led_pwr": 0}[0m
+[0;33mW (1400372) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1400372) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1400372) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1400382) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1400382) VIRTUAL_OLED: ║ Co za noc...                       ║[0m
+[0;32mI (1400392) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1401982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.00, "hum": 48.0, "lux_raw": 1976, "led_pwr": 50}[0m
+[0;32mI (1411982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.10, "hum": 54.0, "lux_raw": 1748, "led_pwr": 50}[0m
+[0;32mI (1421982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 53.0, "lux_raw": 1810, "led_pwr": 50}[0m
+[0;32mI (1431982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.00, "hum": 51.0, "lux_raw": 1780, "led_pwr": 50}[0m
+[0;32mI (1441982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.50, "hum": 48.0, "lux_raw": 1886, "led_pwr": 50}[0m
+[0;32mI (1451982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.30, "hum": 52.0, "lux_raw": 1517, "led_pwr": 50}[0m
+[0;33mW (1459402) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1459402) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1459402) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1459402) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1461982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.40, "hum": 50.0, "lux_raw": 1770, "led_pwr": 0}[0m
+[0;33mW (1466412) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1466412) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1466412) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1466422) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1466422) VIRTUAL_OLED: ║ Co za noc...                       ║[0m
+[0;32mI (1466432) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1471982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 54.0, "lux_raw": 1912, "led_pwr": 50}[0m
+[0;33mW (1476452) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1476452) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1476452) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1476452) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1481982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.80, "hum": 48.0, "lux_raw": 1738, "led_pwr": 0}[0m
+[0;32mI (1491982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.90, "hum": 52.0, "lux_raw": 1563, "led_pwr": 0}[0m
+[0;32mI (1501982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.70, "hum": 50.0, "lux_raw": 1727, "led_pwr": 0}[0m
+[0;33mW (1510462) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1510462) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1510462) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1510472) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1510472) VIRTUAL_OLED: ║ Co za noc...                       ║[0m
+[0;32mI (1510482) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1511982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.00, "hum": 48.0, "lux_raw": 1516, "led_pwr": 50}[0m
+[0;33mW (1518502) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1518502) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1518502) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1518502) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1521982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.80, "hum": 49.0, "lux_raw": 1853, "led_pwr": 0}[0m
+[0;33mW (1529512) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1529512) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1529512) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1529522) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1529522) VIRTUAL_OLED: ║ Co za noc...                       ║[0m
+[0;32mI (1529532) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1531982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 47.0, "lux_raw": 1633, "led_pwr": 50}[0m
+[0;33mW (1535552) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1535552) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1535552) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1535552) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1541982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.10, "hum": 48.0, "lux_raw": 1630, "led_pwr": 0}[0m
+[0;32mI (1551982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.90, "hum": 52.0, "lux_raw": 1869, "led_pwr": 0}[0m
+[0;33mW (1553562) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1553562) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1553562) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1553572) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1553572) VIRTUAL_OLED: ║ Co za noc...                       ║[0m
+[0;32mI (1553582) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;33mW (1561602) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1561602) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1561602) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1561602) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1561982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.80, "hum": 45.0, "lux_raw": 1746, "led_pwr": 0}[0m
+[0;33mW (1566612) SMART_MIRROR: [PIR] RUCH -> Włączam system.[0m
+[0;32mI (1566612) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 50 %[0m
+[0;32mI (1566612) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (1566622) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (1566622) VIRTUAL_OLED: ║ Co za noc...                       ║[0m
+[0;32mI (1566632) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (1571982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.00, "hum": 47.0, "lux_raw": 1651, "led_pwr": 50}[0m
+[0;32mI (1581982) SMART_MIRROR: Telemetria wysłana: {"temp": 24.40, "hum": 54.0, "lux_raw": 1946, "led_pwr": 50}[0m
+[0;32mI (1591982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.60, "hum": 48.0, "lux_raw": 1963, "led_pwr": 50}[0m
+[0;33mW (1601652) SMART_MIRROR: [PIR] Brak ruchu -> Wyłączam system.[0m
+[0;32mI (1601652) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1601652) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (1601652) SMART_MIRROR: [HARDWARE] Ustawiono jasność LED: 0 %[0m
+[0;32mI (1601982) SMART_MIRROR: Telemetria wysłana: {"temp": 22.70, "hum": 53.0, "lux_raw": 1608, "led_pwr": 0}[0m
+[0;32mI (1611982) SMART_MIRROR: Telemetria wysłana: {"temp": 23.00, "hum": 54.0, "lux_raw": 1754, "led_pwr": 0}[0m

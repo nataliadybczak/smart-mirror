@@ -1,3 +1,3 @@
-idf_component_register(SRCS "main.c"
+idf_component_register(SRCS "mqtt_handler.c" "main.c"
                     INCLUDE_DIRS "."
                     REQUIRES ssd1306 driver esp_driver_i2c)

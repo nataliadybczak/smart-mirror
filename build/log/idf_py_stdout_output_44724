@@ -1,0 +1,317 @@
+Command: D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe D:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM8 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 D:\Studia\smart-mirror\build\esp32-wifi-example.elf D:\Studia\smart-mirror\build\bootloader\bootloader.elf --force-color -m 'D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'D:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Nov 24 2025 15:06:45[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1d824h (120868) map[0m
+[0;32mI (129) esp_image: segment 1: paddr=0002d84c vaddr=3ffbdb60 size=027cch ( 10188) load[0m
+[0;32mI (133) esp_image: segment 2: paddr=00030020 vaddr=400d0020 size=72a44h (469572) map[0m
+[0;32mI (294) esp_image: segment 3: paddr=000a2a6c vaddr=3ffc032c size=02070h (  8304) load[0m
+[0;32mI (297) esp_image: segment 4: paddr=000a4ae4 vaddr=40080000 size=179fch ( 96764) load[0m
+[0;32mI (336) esp_image: segment 5: paddr=000bc4e8 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (347) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (348) boot: Disabling RNG early entropy source...[0m
+[0;32mI (358) cpu_start: Multicore app[0m
+[0;32mI (367) cpu_start: Pro cpu start user code[0m
+[0;32mI (367) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (367) app_init: Application information:[0m
+[0;32mI (367) app_init: Project name:     esp32-wifi-example[0m
+[0;32mI (372) app_init: App version:      c5f5f3f-dirty[0m
+[0;32mI (376) app_init: Compile time:     Nov 24 2025 16:07:19[0m
+[0;32mI (381) app_init: ELF file SHA256:  f60bf21f1...[0m
+[0;32mI (385) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (389) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (393) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (397) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (401) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (407) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (412) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (417) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (423) heap_init: At 3FFC6A98 len 00019568 (101 KiB): DRAM[0m
+[0;32mI (428) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (433) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (439) heap_init: At 400979FC len 00008604 (33 KiB): IRAM[0m
+[0;32mI (446) spi_flash: detected chip: generic[0m
+[0;32mI (448) spi_flash: flash io: dio[0m
+[0;33mW (451) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (464) coexist: coex firmware version: b0bcc39[0m
+[0;32mI (468) main_task: Started on CPU0[0m
+[0;32mI (478) main_task: Calling app_main()[0m
+[0;32mI (508) wifi_test: Start systemu...[0m
+[0;32mI (508) BTDM_INIT: BT controller compile version [722c907][0m
+[0;32mI (508) BTDM_INIT: Using main XTAL as clock source[0m
+[0;32mI (508) BTDM_INIT: Bluetooth MAC: 78:ee:4c:01:0f:36[0m
+[0;32mI (518) phy_init: phy_version 4861,b71b5ad,Aug  5 2025,11:16:06[0m
+[0;32mI (918) main_task: Returned from app_main()[0m
+[0;32mI (958) JABRA_RADAR: Znalazłem Jabrę! Łączenie...[0m
+[0;33mW (30968) BT_APPL: gattc_conn_cb: if=3 st=0 id=3 rsn=0x100[0m
+[1;31mE (30968) JABRA_RADAR: !!! ROZŁĄCZONO - SŁUCHAWKI POZA ZASIĘGIEM !!![0m
+[1;31mE (30978) JABRA_RADAR: Błąd połączenia![0m
+[0;32mI (31098) JABRA_RADAR: Znalazłem Jabrę! Łączenie...[0m
+[0;33mW (31378) JABRA_RADAR: >>> POŁĄCZONO ZE SŁUCHAWKAMI! URUCHAMIAM RADAR... <<<[0m
+[0;32mI (31378) JABRA_RADAR: RSSI: -34 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (32378) JABRA_RADAR: RSSI: -33 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (33378) JABRA_RADAR: RSSI: -32 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (34378) JABRA_RADAR: RSSI: -31 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (35378) JABRA_RADAR: RSSI: -33 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (36378) JABRA_RADAR: RSSI: -60 dBm [=============        ] Status: OK[0m
+[0;32mI (37378) JABRA_RADAR: RSSI: -62 dBm [============         ] Status: OK[0m
+[0;32mI (38378) JABRA_RADAR: RSSI: -65 dBm [===========          ] Status: OK[0m
+[0;32mI (39378) JABRA_RADAR: RSSI: -68 dBm [==========           ] Status: OK[0m
+[0;32mI (40378) JABRA_RADAR: RSSI: -70 dBm [==========           ] Status: OK[0m
+[0;32mI (41378) JABRA_RADAR: RSSI: -72 dBm [=========            ] Status: OK[0m
+[0;32mI (42378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (43378) JABRA_RADAR: RSSI: -74 dBm [========             ] Status: OK[0m
+[0;32mI (44378) JABRA_RADAR: RSSI: -72 dBm [=========            ] Status: OK[0m
+[0;32mI (45378) JABRA_RADAR: RSSI: -74 dBm [========             ] Status: OK[0m
+[0;32mI (46378) JABRA_RADAR: RSSI: -69 dBm [==========           ] Status: OK[0m
+[0;32mI (47378) JABRA_RADAR: RSSI: -43 dBm [===================  ] Status: Bardzo blisko[0m
+[0;32mI (48378) JABRA_RADAR: RSSI: -46 dBm [==================   ] Status: Bardzo blisko[0m
+[0;32mI (49378) JABRA_RADAR: RSSI: -35 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (50378) JABRA_RADAR: RSSI: -34 dBm [==================== ] Status: Bardzo blisko[0m
+[0;32mI (51378) JABRA_RADAR: RSSI: -61 dBm [=============        ] Status: OK[0m
+[0;32mI (52378) JABRA_RADAR: RSSI: -61 dBm [=============        ] Status: OK[0m
+[0;32mI (53378) JABRA_RADAR: RSSI: -71 dBm [=========            ] Status: OK[0m
+[0;32mI (54378) JABRA_RADAR: RSSI: -67 dBm [===========          ] Status: OK[0m
+[0;32mI (55378) JABRA_RADAR: RSSI: -71 dBm [=========            ] Status: OK[0m
+[0;32mI (56378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (57378) JABRA_RADAR: RSSI: -68 dBm [==========           ] Status: OK[0m
+[0;32mI (58378) JABRA_RADAR: RSSI: -64 dBm [============         ] Status: OK[0m
+[0;32mI (59378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (60378) JABRA_RADAR: RSSI: -79 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (61378) JABRA_RADAR: RSSI: -79 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (62378) JABRA_RADAR: RSSI: -79 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (63378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (64378) JABRA_RADAR: RSSI: -73 dBm [=========            ] Status: OK[0m
+[0;32mI (65378) JABRA_RADAR: RSSI: -71 dBm [=========            ] Status: OK[0m
+[0;32mI (66378) JABRA_RADAR: RSSI: -70 dBm [==========           ] Status: OK[0m
+[0;32mI (67378) JABRA_RADAR: RSSI: -69 dBm [==========           ] Status: OK[0m
+[0;32mI (68378) JABRA_RADAR: RSSI: -80 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (69378) JABRA_RADAR: RSSI: -73 dBm [=========            ] Status: OK[0m
+[0;32mI (70378) JABRA_RADAR: RSSI: -67 dBm [===========          ] Status: OK[0m
+[0;32mI (71378) JABRA_RADAR: RSSI: -73 dBm [=========            ] Status: OK[0m
+[0;32mI (72378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (73378) JABRA_RADAR: RSSI: -75 dBm [========             ] Status: OK[0m
+[0;32mI (74378) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (75378) JABRA_RADAR: RSSI: -75 dBm [========             ] Status: OK[0m
+[0;32mI (76378) JABRA_RADAR: RSSI: -69 dBm [==========           ] Status: OK[0m
+[0;32mI (77378) JABRA_RADAR: RSSI: -68 dBm [==========           ] Status: OK[0m
+[0;32mI (78378) JABRA_RADAR: RSSI: -72 dBm [=========            ] Status: OK[0m
+[0;32mI (79378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (80378) JABRA_RADAR: RSSI: -82 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (81378) JABRA_RADAR: RSSI: -72 dBm [=========            ] Status: OK[0m
+[0;32mI (82378) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (83378) JABRA_RADAR: RSSI: -79 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (84378) JABRA_RADAR: RSSI: -74 dBm [========             ] Status: OK[0m
+[0;32mI (85378) JABRA_RADAR: RSSI: -83 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (86378) JABRA_RADAR: RSSI: -83 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (87378) JABRA_RADAR: RSSI: -83 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (88378) JABRA_RADAR: RSSI: -83 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (89378) JABRA_RADAR: RSSI: -86 dBm [====                 ] Status: !!! ALARM - ZGUBIONO !!![0m
+[0;32mI (90378) JABRA_RADAR: RSSI: -86 dBm [====                 ] Status: !!! ALARM - ZGUBIONO !!![0m
+[0;32mI (91378) JABRA_RADAR: RSSI: -86 dBm [====                 ] Status: !!! ALARM - ZGUBIONO !!![0m
+[0;32mI (92378) JABRA_RADAR: RSSI: -86 dBm [====                 ] Status: !!! ALARM - ZGUBIONO !!![0m
+[0;32mI (93378) JABRA_RADAR: RSSI: -86 dBm [====                 ] Status: !!! ALARM - ZGUBIONO !!![0m
+[0;32mI (94378) JABRA_RADAR: RSSI: -86 dBm [====                 ] Status: !!! ALARM - ZGUBIONO !!![0m
+[0;33mW (95048) BT_APPL: gattc_conn_cb: if=3 st=0 id=3 rsn=0x8[0m
+[0;33mW (95048) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x8 dev_find 1[0m
+[1;31mE (95048) JABRA_RADAR: !!! ROZŁĄCZONO - SŁUCHAWKI POZA ZASIĘGIEM !!![0m
+[0;32mI (95558) JABRA_RADAR: Znalazłem Jabrę! Łączenie...[0m
+[0;33mW (125568) BT_APPL: gattc_conn_cb: if=3 st=0 id=3 rsn=0x100[0m
+[1;31mE (125578) JABRA_RADAR: !!! ROZŁĄCZONO - SŁUCHAWKI POZA ZASIĘGIEM !!![0m
+[1;31mE (125578) JABRA_RADAR: Błąd połączenia![0m
+[0;32mI (150098) JABRA_RADAR: Znalazłem Jabrę! Łączenie...[0m
+[0;33mW (150278) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[0;33mW (150508) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[0;33mW (150608) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[0;33mW (150708) BT_APPL: gattc_conn_cb: if=3 st=0 id=3 rsn=0x3e[0m
+[0;33mW (150718) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[1;31mE (150718) JABRA_RADAR: !!! ROZŁĄCZONO - SŁUCHAWKI POZA ZASIĘGIEM !!![0m
+[1;31mE (150718) JABRA_RADAR: Błąd połączenia![0m
+I (150838) JABRA_RADAR: Znalazłem Jabrę! Łączenie...
+[0;33mW (151138) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[0;33mW (151238) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[0;33mW (151348) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[0;33mW (151448) BT_APPL: gattc_conn_cb: if=3 st=0 id=3 rsn=0x3e[0m
+[0;33mW (151448) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[1;31mE (151448) JABRA_RADAR: !!! ROZŁĄCZONO - SŁUCHAWKI POZA ZASIĘGIEM !!![0m
+[1;31mE (151448) JABRA_RADAR: Błąd połączenia![0m
+[0;32mI (152518) JABRA_RADAR: Znalazłem Jabrę! Łączenie...[0m
+[0;33mW (152798) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[0;33mW (152908) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[0;33mW (153118) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[0;33mW (153218) BT_APPL: gattc_conn_cb: if=3 st=0 id=3 rsn=0x3e[0m
+[0;33mW (153218) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[1;31mE (153218) JABRA_RADAR: !!! ROZŁĄCZONO - SŁUCHAWKI POZA ZASIĘGIEM !!![0m
+[1;31mE (153218) JABRA_RADAR: Błąd połączenia![0m
+[0;32mI (153238) JABRA_RADAR: Znalazłem Jabrę! Łączenie...[0m
+[0;33mW (153518) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[0;33mW (153638) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x3e dev_find 1[0m
+[0;33mW (153718) JABRA_RADAR: >>> POŁĄCZONO ZE SŁUCHAWKAMI! URUCHAMIAM RADAR... <<<[0m
+[0;32mI (153728) JABRA_RADAR: RSSI: -79 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (154378) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (154718) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (155378) JABRA_RADAR: RSSI: -75 dBm [========             ] Status: OK[0m
+[0;32mI (155718) JABRA_RADAR: RSSI: -82 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (156378) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (156718) JABRA_RADAR: RSSI: -82 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (157378) JABRA_RADAR: RSSI: -66 dBm [===========          ] Status: OK[0m
+[0;32mI (157718) JABRA_RADAR: RSSI: -66 dBm [===========          ] Status: OK[0m
+[0;32mI (158378) JABRA_RADAR: RSSI: -54 dBm [===============      ] Status: OK[0m
+[0;32mI (158718) JABRA_RADAR: RSSI: -58 dBm [==============       ] Status: OK[0m
+[0;32mI (159378) JABRA_RADAR: RSSI: -63 dBm [============         ] Status: OK[0m
+[0;32mI (159718) JABRA_RADAR: RSSI: -58 dBm [==============       ] Status: OK[0m
+[0;32mI (160378) JABRA_RADAR: RSSI: -62 dBm [============         ] Status: OK[0m
+[0;32mI (160718) JABRA_RADAR: RSSI: -66 dBm [===========          ] Status: OK[0m
+[0;32mI (161378) JABRA_RADAR: RSSI: -69 dBm [==========           ] Status: OK[0m
+[0;32mI (161718) JABRA_RADAR: RSSI: -68 dBm [==========           ] Status: OK[0m
+[0;32mI (162378) JABRA_RADAR: RSSI: -55 dBm [===============      ] Status: OK[0m
+[0;32mI (162718) JABRA_RADAR: RSSI: -52 dBm [================     ] Status: OK[0m
+[0;32mI (163378) JABRA_RADAR: RSSI: -57 dBm [==============       ] Status: OK[0m
+[0;32mI (163718) JABRA_RADAR: RSSI: -58 dBm [==============       ] Status: OK[0m
+[0;32mI (164378) JABRA_RADAR: RSSI: -58 dBm [==============       ] Status: OK[0m
+[0;32mI (164718) JABRA_RADAR: RSSI: -57 dBm [==============       ] Status: OK[0m
+[0;32mI (165378) JABRA_RADAR: RSSI: -51 dBm [================     ] Status: OK[0m
+[0;32mI (165718) JABRA_RADAR: RSSI: -69 dBm [==========           ] Status: OK[0m
+[0;32mI (166378) JABRA_RADAR: RSSI: -61 dBm [=============        ] Status: OK[0m
+[0;32mI (166718) JABRA_RADAR: RSSI: -64 dBm [============         ] Status: OK[0m
+[0;32mI (167378) JABRA_RADAR: RSSI: -66 dBm [===========          ] Status: OK[0m
+[0;32mI (167718) JABRA_RADAR: RSSI: -71 dBm [=========            ] Status: OK[0m
+[0;32mI (168378) JABRA_RADAR: RSSI: -67 dBm [===========          ] Status: OK[0m
+[0;32mI (168718) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (169378) JABRA_RADAR: RSSI: -70 dBm [==========           ] Status: OK[0m
+[0;32mI (169718) JABRA_RADAR: RSSI: -82 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (170378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (170718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (171378) JABRA_RADAR: RSSI: -82 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (171718) JABRA_RADAR: RSSI: -82 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (172378) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (172718) JABRA_RADAR: RSSI: -74 dBm [========             ] Status: OK[0m
+[0;32mI (173378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (173718) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (174378) JABRA_RADAR: RSSI: -82 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (174718) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (175378) JABRA_RADAR: RSSI: -73 dBm [=========            ] Status: OK[0m
+[0;32mI (175718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (176378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (176718) JABRA_RADAR: RSSI: -84 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (177378) JABRA_RADAR: RSSI: -82 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (177718) JABRA_RADAR: RSSI: -83 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (178378) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (178718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (179378) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (179718) JABRA_RADAR: RSSI: -83 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (180378) JABRA_RADAR: RSSI: -82 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (180718) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (181378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (181718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (182378) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (182718) JABRA_RADAR: RSSI: -84 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (183378) JABRA_RADAR: RSSI: -85 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (183718) JABRA_RADAR: RSSI: -82 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (184378) JABRA_RADAR: RSSI: -74 dBm [========             ] Status: OK[0m
+[0;32mI (184718) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (185378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (185718) JABRA_RADAR: RSSI: -74 dBm [========             ] Status: OK[0m
+[0;32mI (186378) JABRA_RADAR: RSSI: -80 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (186718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (187378) JABRA_RADAR: RSSI: -82 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (187718) JABRA_RADAR: RSSI: -83 dBm [=====                ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (188378) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (188718) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (189378) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (189718) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (190378) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (190718) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (191378) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (191718) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (192378) JABRA_RADAR: RSSI: -80 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (192718) JABRA_RADAR: RSSI: -80 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (193378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (193718) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (194378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (194718) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (195378) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (195718) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (196378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (196718) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (197378) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (197718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (198378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (198718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (199378) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (199718) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (200378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (200718) JABRA_RADAR: RSSI: -75 dBm [========             ] Status: OK[0m
+[0;32mI (201378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (201718) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (202378) JABRA_RADAR: RSSI: -79 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (202718) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (203378) JABRA_RADAR: RSSI: -75 dBm [========             ] Status: OK[0m
+[0;32mI (203718) JABRA_RADAR: RSSI: -75 dBm [========             ] Status: OK[0m
+[0;32mI (204378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (204718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (205378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (205718) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (206378) JABRA_RADAR: RSSI: -80 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (206718) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (207378) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (207718) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (208378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (208718) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (209378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (209718) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (210378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (210718) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (211378) JABRA_RADAR: RSSI: -73 dBm [=========            ] Status: OK[0m
+[0;32mI (211718) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (212378) JABRA_RADAR: RSSI: -71 dBm [=========            ] Status: OK[0m
+[0;32mI (212718) JABRA_RADAR: RSSI: -71 dBm [=========            ] Status: OK[0m
+[0;32mI (213378) JABRA_RADAR: RSSI: -81 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (213718) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (214378) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (214718) JABRA_RADAR: RSSI: -76 dBm [========             ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (215378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (215718) JABRA_RADAR: RSSI: -79 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (216378) JABRA_RADAR: RSSI: -77 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (216718) JABRA_RADAR: RSSI: -80 dBm [======               ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (217378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (217718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (218378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (218718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (219378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (219718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (220378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (220718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (221378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (221718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (222378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (222718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (223378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (223718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (224378) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;32mI (224718) JABRA_RADAR: RSSI: -78 dBm [=======              ] Status: Ostrzeżenie: Daleko[0m
+[0;33mW (225368) BT_APPL: gattc_conn_cb: if=3 st=0 id=3 rsn=0x8[0m
+[0;33mW (225368) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x8 dev_find 1[0m
+[1;31mE (225368) JABRA_RADAR: !!! ROZŁĄCZONO - SŁUCHAWKI POZA ZASIĘGIEM !!![0m

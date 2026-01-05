@@ -1,0 +1,254 @@
+Command: D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe D:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM7 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 D:\Studia\smart-mirror\build\esp32-wifi-example.elf D:\Studia\smart-mirror\build\bootloader\bootloader.elf --force-color -m 'D:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'D:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Nov 22 2025 17:23:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1e000h (122880) map[0m
+[0;32mI (130) esp_image: segment 1: paddr=0002e028 vaddr=3ffb0000 size=01ff0h (  8176) load[0m
+[0;32mI (133) esp_image: segment 2: paddr=00030020 vaddr=400d0020 size=9eef4h (650996) map[0m
+[0;32mI (356) esp_image: segment 3: paddr=000cef1c vaddr=3ffb1ff0 size=01efch (  7932) load[0m
+[0;32mI (359) esp_image: segment 4: paddr=000d0e20 vaddr=40080000 size=17f48h ( 98120) load[0m
+[0;32mI (398) esp_image: segment 5: paddr=000e8d70 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (410) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (410) boot: Disabling RNG early entropy source...[0m
+[0;32mI (421) cpu_start: Multicore app[0m
+[0;32mI (429) cpu_start: Pro cpu start user code[0m
+[0;32mI (429) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (429) app_init: Application information:[0m
+[0;32mI (429) app_init: Project name:     esp32-wifi-example[0m
+[0;32mI (434) app_init: App version:      c5f5f3f-dirty[0m
+[0;32mI (439) app_init: Compile time:     Nov 22 2025 17:18:17[0m
+[0;32mI (444) app_init: ELF file SHA256:  db7c205dd...[0m
+[0;32mI (448) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (452) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (456) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (460) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (464) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (470) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (475) heap_init: At 3FFB85D0 len 00027A30 (158 KiB): DRAM[0m
+[0;32mI (480) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (486) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (491) heap_init: At 40097F48 len 000080B8 (32 KiB): IRAM[0m
+[0;32mI (498) spi_flash: detected chip: generic[0m
+[0;32mI (500) spi_flash: flash io: dio[0m
+[0;33mW (503) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (516) main_task: Started on CPU0[0m
+[0;32mI (526) main_task: Calling app_main()[0m
+[0;32mI (576) wifi:wifi driver task: 3ffc120c, prio:23, stack:6656, core=0[0m
+[0;32mI (596) wifi:wifi firmware version: 14da9b7[0m
+[0;32mI (596) wifi:wifi certification version: v7.0[0m
+[0;32mI (596) wifi:config NVS flash: enabled[0m
+[0;32mI (596) wifi:config nano formatting: disabled[0m
+[0;32mI (596) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (606) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (606) wifi:Init management short buffer num: 32[0m
+[0;32mI (606) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (616) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (616) wifi:Init static rx buffer num: 10[0m
+[0;32mI (626) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (626) wifi_init: rx ba win: 6[0m
+[0;32mI (626) wifi_init: accept mbox: 6[0m
+[0;32mI (636) wifi_init: tcpip mbox: 32[0m
+[0;32mI (636) wifi_init: udp mbox: 6[0m
+[0;32mI (636) wifi_init: tcp mbox: 6[0m
+[0;32mI (636) wifi_init: tcp tx win: 5760[0m
+[0;32mI (646) wifi_init: tcp rx win: 5760[0m
+[0;32mI (646) wifi_init: tcp mss: 1440[0m
+[0;32mI (646) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (656) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (666) phy_init: phy_version 4861,b71b5ad,Aug  5 2025,11:16:06[0m
+[0;32mI (746) wifi:mode : sta (78:ee:4c:01:0f:34)[0m
+[0;32mI (746) wifi:enable tsf[0m
+[0;32mI (866) wifi:new:<6,0>, old:<1,0>, ap:<255,255>, sta:<6,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (866) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (876) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (916) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (1006) wifi:state: run -> init (0x2a0)[0m
+[0;32mI (1016) wifi:new:<6,0>, old:<6,0>, ap:<255,255>, sta:<6,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (1016) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;33mW (1216) wifi:tx null, bss is null[0m
+[0;32mI (3436) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (3526) wifi:new:<6,0>, old:<6,0>, ap:<255,255>, sta:<6,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (3526) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (3536) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (3586) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (3676) wifi:connected with kalarepa, aid = 3, channel 6, BW20, bssid = 9a:b8:ba:15:6e:fe[0m
+[0;32mI (3676) wifi:security: WPA2-PSK, phy: bgn, rssi: -41[0m
+[0;32mI (3676) wifi:pm start, type: 1[0m
+
+[0;32mI (3676) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (3726) wifi:dp: 2, bi: 102400, li: 4, scale listen interval from 307200 us to 409600 us[0m
+[0;32mI (3726) wifi:AP's beacon interval = 102400 us, DTIM period = 2[0m
+[0;32mI (3946) wifi:<ba-add>idx:0 (ifx:0, 9a:b8:ba:15:6e:fe), tid:0, ssn:0, winSize:64[0m
+[0;32mI (4966) esp_netif_handlers: sta ip: 192.168.43.246, mask: 255.255.255.0, gw: 192.168.43.1[0m
+[0;32mI (4966) main_task: Returned from app_main()[0m
+[0;32mI (5576) SMART_MIRROR: MQTT_EVENT_CONNECTED[0m
+[0;32mI (5576) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 22.60, "unit": "C"}[0m
+[0;32mI (10586) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 22.70, "unit": "C"}[0m
+[0;32mI (15596) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 23.30, "unit": "C"}[0m
+[0;32mI (20606) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 23.00, "unit": "C"}[0m
+[0;32mI (25616) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 22.80, "unit": "C"}[0m
+[0;32mI (30626) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 23.50, "unit": "C"}[0m
+[0;32mI (35636) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 22.70, "unit": "C"}[0m
+[0;32mI (40646) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 21.80, "unit": "C"}[0m
+[0;32mI (45656) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 22.60, "unit": "C"}[0m
+[0;32mI (50666) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 22.30, "unit": "C"}[0m
+[0;32mI (55676) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 22.20, "unit": "C"}[0m
+[0;32mI (60686) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 21.20, "unit": "C"}[0m
+[0;32mI (65696) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.90, "unit": "C"}[0m
+[0;32mI (70706) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.00, "unit": "C"}[0m
+[0;32mI (75716) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.90, "unit": "C"}[0m
+[0;32mI (80726) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.10, "unit": "C"}[0m
+[0;32mI (85736) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.20, "unit": "C"}[0m
+[0;32mI (90746) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.20, "unit": "C"}[0m
+[0;32mI (95756) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.00, "unit": "C"}[0m
+[0;32mI (100766) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.00, "unit": "C"}[0m
+[0;32mI (105776) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.10, "unit": "C"}[0m
+[0;32mI (110786) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.00, "unit": "C"}[0m
+[0;32mI (115796) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.00, "unit": "C"}[0m
+[0;32mI (120806) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.00, "unit": "C"}[0m
+[0;32mI (125816) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.50, "unit": "C"}[0m
+[0;32mI (130826) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.80, "unit": "C"}[0m
+[0;32mI (135836) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.00, "unit": "C"}[0m
+[0;32mI (140846) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.90, "unit": "C"}[0m
+[0;32mI (145856) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.30, "unit": "C"}[0m
+[0;32mI (150866) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.00, "unit": "C"}[0m
+[0;32mI (155876) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.80, "unit": "C"}[0m
+[0;32mI (160886) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.60, "unit": "C"}[0m
+[0;32mI (165896) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.30, "unit": "C"}[0m
+[0;32mI (170906) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.80, "unit": "C"}[0m
+[0;32mI (175916) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.80, "unit": "C"}[0m
+[0;32mI (180926) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.20, "unit": "C"}[0m
+[0;32mI (185936) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.90, "unit": "C"}[0m
+[0;32mI (190946) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.60, "unit": "C"}[0m
+[0;32mI (195956) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.60, "unit": "C"}[0m
+[0;32mI (200966) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.60, "unit": "C"}[0m
+[0;32mI (205976) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.10, "unit": "C"}[0m
+[0;32mI (210986) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.30, "unit": "C"}[0m
+[0;32mI (215996) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.00, "unit": "C"}[0m
+[0;32mI (221006) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.90, "unit": "C"}[0m
+[0;32mI (226016) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.50, "unit": "C"}[0m
+[0;32mI (231026) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.70, "unit": "C"}[0m
+[0;32mI (236036) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.00, "unit": "C"}[0m
+[0;32mI (241046) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.90, "unit": "C"}[0m
+[0;32mI (246056) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.60, "unit": "C"}[0m
+[0;32mI (251066) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.20, "unit": "C"}[0m
+[0;32mI (256076) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.20, "unit": "C"}[0m
+[0;32mI (261086) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.20, "unit": "C"}[0m
+[0;32mI (266096) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.80, "unit": "C"}[0m
+[0;32mI (271106) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.80, "unit": "C"}[0m
+[0;32mI (276116) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.60, "unit": "C"}[0m
+[0;32mI (281126) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.00, "unit": "C"}[0m
+[0;32mI (286136) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.60, "unit": "C"}[0m
+[0;32mI (291146) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.10, "unit": "C"}[0m
+[0;32mI (296156) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.80, "unit": "C"}[0m
+[0;32mI (301166) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.20, "unit": "C"}[0m
+[0;32mI (306176) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.30, "unit": "C"}[0m
+[0;32mI (311186) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.90, "unit": "C"}[0m
+[0;32mI (316196) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.20, "unit": "C"}[0m
+[0;32mI (321206) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.00, "unit": "C"}[0m
+[0;32mI (326216) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.40, "unit": "C"}[0m
+[0;32mI (331226) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.00, "unit": "C"}[0m
+[0;32mI (336236) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.90, "unit": "C"}[0m
+[0;32mI (341246) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.80, "unit": "C"}[0m
+[0;32mI (346256) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.40, "unit": "C"}[0m
+[0;32mI (351266) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.00, "unit": "C"}[0m
+[0;32mI (356276) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.60, "unit": "C"}[0m
+[0;32mI (361286) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.00, "unit": "C"}[0m
+[0;32mI (366296) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.60, "unit": "C"}[0m
+[0;32mI (371306) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.70, "unit": "C"}[0m
+[0;32mI (376316) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.40, "unit": "C"}[0m
+[0;32mI (381326) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.80, "unit": "C"}[0m
+[0;32mI (386336) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.30, "unit": "C"}[0m
+[0;32mI (391346) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.30, "unit": "C"}[0m
+[0;32mI (396356) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.30, "unit": "C"}[0m
+[0;32mI (401366) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.90, "unit": "C"}[0m
+[0;32mI (406376) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.30, "unit": "C"}[0m
+[0;32mI (411386) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.50, "unit": "C"}[0m
+[0;32mI (416396) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.20, "unit": "C"}[0m
+[0;32mI (421406) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.50, "unit": "C"}[0m
+[0;32mI (426416) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.60, "unit": "C"}[0m
+[0;32mI (431426) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.30, "unit": "C"}[0m
+[0;32mI (436426) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.80, "unit": "C"}[0m
+[0;32mI (441436) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.40, "unit": "C"}[0m
+[0;32mI (446446) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.60, "unit": "C"}[0m
+[0;32mI (451456) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 21.00, "unit": "C"}[0m
+[0;32mI (456466) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.90, "unit": "C"}[0m
+[0;32mI (461476) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.10, "unit": "C"}[0m
+[0;32mI (466486) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.70, "unit": "C"}[0m
+[0;32mI (471496) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.70, "unit": "C"}[0m
+[0;32mI (476506) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.70, "unit": "C"}[0m
+[0;32mI (481516) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.50, "unit": "C"}[0m
+[0;32mI (486526) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.30, "unit": "C"}[0m
+[0;32mI (491536) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 21.20, "unit": "C"}[0m
+[0;32mI (496546) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 21.70, "unit": "C"}[0m
+[0;32mI (501556) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 21.60, "unit": "C"}[0m
+[0;32mI (506566) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 21.70, "unit": "C"}[0m
+[0;32mI (511576) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.70, "unit": "C"}[0m
+[0;32mI (516586) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 21.40, "unit": "C"}[0m
+[0;32mI (521596) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.80, "unit": "C"}[0m
+[0;32mI (526606) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.10, "unit": "C"}[0m
+[0;32mI (531616) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.10, "unit": "C"}[0m
+[0;32mI (536626) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.00, "unit": "C"}[0m
+[0;32mI (541636) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.50, "unit": "C"}[0m
+[0;32mI (546646) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.70, "unit": "C"}[0m
+[0;32mI (551656) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 18.20, "unit": "C"}[0m
+[0;32mI (556666) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.10, "unit": "C"}[0m
+[0;32mI (561676) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.00, "unit": "C"}[0m
+[0;32mI (566686) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.50, "unit": "C"}[0m
+[0;32mI (571696) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 19.80, "unit": "C"}[0m
+[0;32mI (576706) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 20.50, "unit": "C"}[0m
+[0;32mI (581716) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 21.20, "unit": "C"}[0m
+[0;32mI (586726) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 21.70, "unit": "C"}[0m
+[0;32mI (591736) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 22.10, "unit": "C"}[0m
+[0;32mI (596746) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 21.40, "unit": "C"}[0m
+[0;32mI (601756) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 21.90, "unit": "C"}[0m
+[0;32mI (606766) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 22.80, "unit": "C"}[0m
+[0;32mI (611776) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 23.00, "unit": "C"}[0m
+[0;32mI (616786) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 23.60, "unit": "C"}[0m
+[0;32mI (621796) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.30, "unit": "C"}[0m
+[0;32mI (626806) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.20, "unit": "C"}[0m
+[0;32mI (631816) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.40, "unit": "C"}[0m
+[0;32mI (636826) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 25.30, "unit": "C"}[0m
+[0;32mI (641836) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.70, "unit": "C"}[0m
+[0;32mI (646846) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.00, "unit": "C"}[0m
+[0;32mI (651856) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.20, "unit": "C"}[0m
+[0;32mI (656866) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 23.70, "unit": "C"}[0m
+[0;32mI (661876) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.50, "unit": "C"}[0m
+[0;32mI (666886) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.40, "unit": "C"}[0m
+[0;32mI (671896) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.20, "unit": "C"}[0m
+[0;32mI (676906) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.40, "unit": "C"}[0m
+[0;32mI (681916) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.50, "unit": "C"}[0m
+[0;32mI (686926) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 23.60, "unit": "C"}[0m
+[0;32mI (691936) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 23.90, "unit": "C"}[0m
+[0;32mI (696946) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.20, "unit": "C"}[0m
+[0;32mI (701956) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 25.00, "unit": "C"}[0m
+[0;32mI (706966) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.30, "unit": "C"}[0m
+[0;32mI (711976) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 23.80, "unit": "C"}[0m
+[0;32mI (716986) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.00, "unit": "C"}[0m
+[0;32mI (721996) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 23.90, "unit": "C"}[0m
+[0;32mI (727006) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.80, "unit": "C"}[0m
+[0;32mI (732016) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 24.20, "unit": "C"}[0m
+[0;32mI (737026) SMART_MIRROR: Wyslano TEMP: smartmirror/user_01/010F34/sensor/temp -> {"val": 25.10, "unit": "C"}[0m
+[0
