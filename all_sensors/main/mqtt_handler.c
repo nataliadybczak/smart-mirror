@@ -171,22 +171,32 @@ void motion_task(void *pvParameters) {
     char topic[128];
     snprintf(topic, sizeof(topic), "%s/%s/event", TOPIC_ROOT, esp_mac_str);
     bool last_motion = false;
+
     while(1) {
         bool motion_detected = gpio_get_level(PIR_PIN);
+        
         if (motion_detected != last_motion) {
             last_motion = motion_detected;
+            
+            // Logika lokalna (Ekran/LED)
             if (motion_detected) {
                 is_screen_on = true; set_led_brightness(100); refresh_oled();
             } else {
                 is_screen_on = false; set_led_brightness(0); refresh_oled();
             }
+
+            // Logika MQTT (Wysyłanie zdarzenia)
             if (xEventGroupGetBits(s_wifi_event_group) & MQTT_CONNECTED_BIT) {
                 char payload[64];
-                snprintf(payload, sizeof(payload), "{\"type\": \"motion\", \"val\": %s}", motion_detected?"true":"false");
-                esp_mqtt_client_publish(client, topic, payload, 0,0,0);
+                // Klucz "val" określa czy ruch jest (true) czy go nie ma (false)
+                snprintf(payload, sizeof(payload), "{\"type\": \"motion\", \"val\": %s}", 
+                    motion_detected ? "true" : "false");
+                
+                esp_mqtt_client_publish(client, topic, payload, 0, 0, 0);
+                ESP_LOGI(TAG, "EVENT RUCHU: %s", payload);
             }
         }
-        vTaskDelay(pdMS_TO_TICKS(500));
+        vTaskDelay(pdMS_TO_TICKS(200)); // Sprawdzaj często (responsywność)
     }
 }
 
