@@ -93,23 +93,41 @@ void handle_command_json(const char *json_str) {
 
     cJSON *action = cJSON_GetObjectItem(root, "action");
     if (cJSON_IsString(action)) {
+        
+        // --- PRZYPADEK 1: TEKST ---
         if (strcmp(action->valuestring, "update_text") == 0) {
             cJSON *msg = cJSON_GetObjectItem(root, "msg");
             if (cJSON_IsString(msg)) {
                 snprintf(current_display_text, sizeof(current_display_text), "%s", msg->valuestring);
+                
+                ESP_LOGI(TAG, "🙀 NOWY TEKST NA EKRAN: %s", current_display_text);
+                
                 refresh_oled();
             }
         }
+        // --- PRZYPADEK 2: WŁ/WYŁ EKRAN ---
         else if (strcmp(action->valuestring, "set_screen") == 0) {
             cJSON *state = cJSON_GetObjectItem(root, "state");
             if (cJSON_IsString(state)) {
                 is_screen_on = (strcmp(state->valuestring, "ON") == 0);
+                ESP_LOGI(TAG, "🙀 ZMIANA STANU EKRANU: %s", is_screen_on ? "ON" : "OFF");
                 refresh_oled();
             }
         }
+        // --- PRZYPADEK 3: JASNOŚĆ LED ---
         else if (strcmp(action->valuestring, "set_light") == 0) {
              cJSON *val = cJSON_GetObjectItem(root, "value");
-             if (cJSON_IsNumber(val)) set_led_brightness(val->valueint);
+             if (cJSON_IsNumber(val)) {
+                 ESP_LOGI(TAG, "🙀 ZMIANA LED: %d%%", val->valueint);
+                 set_led_brightness(val->valueint);
+             }
+        }
+        // --- PRZYPADEK 4: GŁOŚNOŚĆ (Tylko logowanie, bo nwm jak glosnik dziala na razie poza Skolimkiem) ---
+        else if (strcmp(action->valuestring, "set_volume") == 0) {
+             cJSON *val = cJSON_GetObjectItem(root, "value");
+             if (cJSON_IsNumber(val)) {
+                 ESP_LOGI(TAG, "🙀 ZMIANA GŁOŚNOŚCI: %d%% (Odebrano, czekam na hardware)", val->valueint);
+             }
         }
     }
     cJSON_Delete(root);
