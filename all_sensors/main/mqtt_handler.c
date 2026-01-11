@@ -48,6 +48,8 @@ static bool is_mirror_on = true;
 static bool is_party_mode = false; 
 static int default_on_time = 600; 
 
+static bool lux_music_played = false;
+
 // --- PROTOTYPY ---
 void refresh_oled(void);
 void set_led_brightness(int percent);
@@ -106,9 +108,9 @@ void refresh_oled(void) {
             ssd1306_display_text(&dev, 0, "--- SWIATLO ---", 15, false);
             snprintf(buf, sizeof(buf), "Lux: %.0f", g_lux);
             ssd1306_display_text(&dev, 2, buf, strlen(buf), false);
-            if (g_lux > 600) ssd1306_display_text(&dev, 5, "ZA JASNO!", 9, true);
+            if (g_lux > 300) ssd1306_display_text(&dev, 5, "ZA JASNO!", 9, true);
             else if (g_lux < 50) ssd1306_display_text(&dev, 5, "ZA CIEMNO...", 12, false);
-            else ssd1306_display_text(&dev, 5, "SLAY QUEEN!", 11, false);
+            else ssd1306_display_text(&dev, 5, "Idealnie!", 11, false);
             break;
 
         case 3: // KOTEK
@@ -170,7 +172,7 @@ void button_task(void *pvParameters) {
             if (is_party_mode) {
                 uint16_t songs[] = {4, 5, 6};
                 int idx = esp_random() % 3;
-                send_dfplayer_cmd(0x01, songs[idx]);
+                send_dfplayer_cmd(0x12, songs[idx]);
             } else {
                 send_dfplayer_cmd(0x0E, 0);
             }
@@ -203,12 +205,24 @@ void telemetry_task(void *pvParameters) {
             mirror_timer = default_on_time;
         }
 
-        if (g_lux > 600.0 && music_11s_timer == 0) {
-            send_dfplayer_cmd(0x12, 1); music_11s_timer = 11;
+        if (g_lux > 600.0) {
+            if (music_11s_timer == 0 && !lux_music_played) {
+                send_dfplayer_cmd(0x12, 1); // Graj piosenkę nr 1 (Skolim?)
+                music_11s_timer = 9;
+                lux_music_played = true; // Zaznacz, że już raz zagrano przy tym świetle
+                ESP_LOGI(TAG, "Za jasno! Gram muzyke przez 11s");
+            }
+        } else if (g_lux < 550.0) {
+            // Histereza - jeśli światło spadnie, pozwól zagrać ponownie przy następnym rozjaśnieniu
+            lux_music_played = false;
         }
+
         if (music_11s_timer > 0) {
             music_11s_timer--;
-            if (music_11s_timer == 0) send_dfplayer_cmd(0x0E, 0);
+            if (music_11s_timer == 0) {
+                send_dfplayer_cmd(0x16, 0); // Stop po 11 sekundach
+                ESP_LOGI(TAG, "Koniec 11s muzyki");
+            }
         }
 
         if (xEventGroupGetBits(s_wifi_event_group) & MQTT_CONNECTED_BIT) {
