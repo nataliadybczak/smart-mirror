@@ -127,16 +127,29 @@ void refresh_oled(void) {
 
 void system_timer_task(void *pvParameters) {
     while(1) {
+        // Logika wygaszania lustra
         if (mirror_timer > 0) {
             mirror_timer--;
             if (mirror_timer == 0) {
                 is_mirror_on = false;
-                send_dfplayer_cmd(0x0E, 0); // Pauza muzyki
+                send_dfplayer_cmd(0x0E, 0); // Pauza
                 refresh_oled();
             }
         }
+        
+        // Logika blokady PIR
         if (lockout_timer > 0) lockout_timer--;
-        vTaskDelay(pdMS_TO_TICKS(1000));
+
+        // --- NOWOŚĆ: Logika Muzyki 11s (Tu działa co 1 sekundę) ---
+        if (music_11s_timer > 0) {
+            music_11s_timer--;
+            if (music_11s_timer == 0) {
+                send_dfplayer_cmd(0x16, 0); // Stop
+                ESP_LOGI(TAG, "Koniec muzyki (minelo 11s)");
+            }
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(1000)); // To jest pętla 1-sekundowa
     }
 }
 
@@ -193,81 +206,75 @@ void button_task(void *pvParameters) {
 
 // --- ODCZYT SENSORÓW (Rzeczywisty) ---
 void telemetry_task(void *pvParameters) {
-    // UWAGA: Inicjalizacja BME280 raz przed pętlą!
-    // Zakładamy, że main.c zainicjował driver I2C na porcie 0.
-    // Jeśli biblioteka bme280_init próbuje instalować sterownik ponownie, może wystąpić błąd.
-    // W takim wypadku należy użyć funkcji z biblioteki, która tylko ustawia adres, bez instalacji drivera.
-    // Tutaj zakładamy standardową implementację.
     bme280_init(I2C_PORT_NUM, BME_ADDR);
     
-    static int music_11s_timer = 0;
+    // Licznik do wysyłania MQTT rzadziej niż sprawdzania czujników
+    static int mqtt_send_counter = 0; 
 
     while (1) {
-        // 1. Odczyt BME280
+        // 1. Odczyt BME280 (Szybki odczyt co 1s)
         if (bme280_read_float_data(I2C_PORT_NUM, BME_ADDR, &g_temp, &g_press, &g_hum) != ESP_OK) {
-            ESP_LOGW(TAG, "Błąd odczytu BME280");
-            // Nie ustawiamy mocków, zostawiamy stare wartości lub 0
+             // Obsługa błędu (opcjonalna)
         }
 
-        // 2. Odczyt BH1750 (Raw I2C)
-        uint8_t cmd = 0x10; // Start High Res Mode 1
+        // 2. Odczyt BH1750 (To trwa ok 180ms, więc jest bezpieczne co 1s)
+        uint8_t cmd = 0x10; 
         i2c_master_write_to_device(I2C_PORT_NUM, BH1750_ADDR, &cmd, 1, 100 / portTICK_PERIOD_MS);
         vTaskDelay(pdMS_TO_TICKS(180)); // Czekamy na pomiar
         
         uint8_t d[2];
         if (i2c_master_read_from_device(I2C_PORT_NUM, BH1750_ADDR, d, 2, 100 / portTICK_PERIOD_MS) == ESP_OK) {
             g_lux = ((d[0] << 8) | d[1]) / 1.2;
-        } else {
-            ESP_LOGW(TAG, "Błąd odczytu BH1750");
         }
 
-        // 3. Logika PIR (Ruch)
+        // 3. Logika PIR (Ruch) - sprawdzamy co sekundę
         if (gpio_get_level(PIR_PIN) && lockout_timer == 0) {
             if (!is_mirror_on) { 
                 is_mirror_on = true; 
-                // send_dfplayer_cmd(0x0D, 0); // Opcjonalnie dźwięk powitania
             }
             mirror_timer = default_on_time;
         }
 
-        // 4. Logika Muzyki zależnej od światła (Twoja logika)
-       // Logika Muzyki 11s (Światło)
+        // 4. Logika Muzyki (Teraz bardzo responsywna!)
         if (g_lux > 600.0) {
+            // Jeśli jasno I jeszcze nie graliśmy w tej sesji jasności I timer jest 0
             if (music_11s_timer == 0 && !lux_music_played) {
-                send_dfplayer_cmd(0x12, 1); // Graj piosenkę nr 1 (Skolim?)
-                music_11s_timer = 9;
-                lux_music_played = true; // Zaznacz, że już raz zagrano przy tym świetle
-                ESP_LOGI(TAG, "Za jasno! Gram muzyke przez 11s");
+                send_dfplayer_cmd(0x12, 1); // Graj
+                music_11s_timer = 11;       // Ustaw timer na 11s
+                lux_music_played = true;    // Zablokuj ponowne granie
+                ESP_LOGI(TAG, "Za jasno! Start Skolima na 11s");
             }
         } else if (g_lux < 550.0) {
-            // jeśli światło spadnie, pozwól zagrać ponownie przy następnym rozjaśnieniu
-            lux_music_played = false;
-        }
-
-        if (music_11s_timer > 0) {
-            music_11s_timer--;
-            if (music_11s_timer == 0) {
-                send_dfplayer_cmd(0x16, 0); // Stop po 11 sekundach
-                ESP_LOGI(TAG, "Koniec 11s muzyki");
+            // RESET: Jeśli światło spadnie, odblokuj możliwość grania
+            if (lux_music_played) {
+                lux_music_played = false;
+                ESP_LOGI(TAG, "Ciemno - reset blokady muzyki");
             }
         }
 
-        // 5. Wysyłanie MQTT (Prawdziwe dane!)
-        if (xEventGroupGetBits(s_wifi_event_group) & MQTT_CONNECTED_BIT) {
-            char p[256];
-            snprintf(p, sizeof(p), 
-                    "{\"temp\": %.1f, \"hum\": %.1f, \"lux\": %.1f, \"press\": %.1f, \"time\": %d}", 
-                    g_temp, g_hum, g_lux, g_press, mirror_timer);
-                    
-            char pub_topic[128];
-            snprintf(pub_topic, sizeof(pub_topic), "%s/%s/telemetry", TOPIC_ROOT, esp_mac_str);
-            
-            esp_mqtt_client_publish(client, pub_topic, p, 0, 0, 0);
-            ESP_LOGI(TAG, "Wysłano telemetrię: %s", p);
+        // 5. Wysyłanie MQTT (Tylko co 5. obrót pętli = co 5 sekund)
+        mqtt_send_counter++;
+        if (mqtt_send_counter >= 5) {
+            mqtt_send_counter = 0; // Reset licznika
+
+            if (xEventGroupGetBits(s_wifi_event_group) & MQTT_CONNECTED_BIT) {
+                char p[256];
+                snprintf(p, sizeof(p), 
+                        "{\"temp\": %.1f, \"hum\": %.1f, \"lux\": %.1f, \"press\": %.1f, \"time\": %d}", 
+                        g_temp, g_hum, g_lux, g_press, mirror_timer);
+                        
+                char pub_topic[128];
+                snprintf(pub_topic, sizeof(pub_topic), "%s/%s/telemetry", TOPIC_ROOT, esp_mac_str);
+                
+                esp_mqtt_client_publish(client, pub_topic, p, 0, 0, 0);
+                ESP_LOGI(TAG, "Wysłano telemetrię: %s", p);
+            }
         }
         
         refresh_oled();
-        vTaskDelay(pdMS_TO_TICKS(5000)); // Co 5 sekund odczyt i wysyłka
+        
+        // ZMIANA: Czekamy tylko 1 sekundę, a nie 5!
+        vTaskDelay(pdMS_TO_TICKS(1000)); 
     }
 }
 
