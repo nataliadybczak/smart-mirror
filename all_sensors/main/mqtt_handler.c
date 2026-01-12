@@ -55,6 +55,7 @@ static bool is_mirror_on = true;
 static bool is_party_mode = false; 
 static int default_on_time = 600; 
 static bool lux_music_played = false;
+static int music_11s_timer = 0;
 
 // Zmienne zewnętrzne z main.c
 extern SSD1306_t dev;
@@ -169,15 +170,15 @@ void button_task(void *pvParameters) {
             }
         } else { pwr_hold = 0; }
 
-        // Przycisk 3: Party Mode
+        // Kabelek 3: Party Mode
         if (v3 < TOUCH_THRESH) {
             is_party_mode = !is_party_mode;
             if (is_party_mode) {
-                uint16_t songs[] = {1, 2, 3}; // Zakładamy pliki 001, 002, 003 na karcie SD
+                uint16_t songs[] = {4, 5, 6}; // Tylko te trzy numery
                 int idx = esp_random() % 3;
-                send_dfplayer_cmd(0x03, songs[idx]); // Play specific track
+                send_dfplayer_cmd(0x12, songs[idx]); // Losuje 4, 5 lub 6
             } else {
-                send_dfplayer_cmd(0x0E, 0); // Pauza
+                send_dfplayer_cmd(0x16, 0); // Stop
             }
             vTaskDelay(pdMS_TO_TICKS(500));
         }
@@ -230,22 +231,24 @@ void telemetry_task(void *pvParameters) {
         }
 
         // 4. Logika Muzyki zależnej od światła (Twoja logika)
+       // Logika Muzyki 11s (Światło)
         if (g_lux > 600.0) {
             if (music_11s_timer == 0 && !lux_music_played) {
-                send_dfplayer_cmd(0x03, 1); // Graj utwór 001
-                music_11s_timer = 9; // ok 9-11 sek
-                lux_music_played = true;
-                ESP_LOGI(TAG, "Za jasno! Start muzyki.");
+                send_dfplayer_cmd(0x12, 1); // Graj piosenkę nr 1 (Skolim?)
+                music_11s_timer = 9;
+                lux_music_played = true; // Zaznacz, że już raz zagrano przy tym świetle
+                ESP_LOGI(TAG, "Za jasno! Gram muzyke przez 11s");
             }
         } else if (g_lux < 550.0) {
-            lux_music_played = false; // Reset flagi
+            // jeśli światło spadnie, pozwól zagrać ponownie przy następnym rozjaśnieniu
+            lux_music_played = false;
         }
 
         if (music_11s_timer > 0) {
             music_11s_timer--;
             if (music_11s_timer == 0) {
-                send_dfplayer_cmd(0x0E, 0); // Pauza
-                ESP_LOGI(TAG, "Koniec muzyki.");
+                send_dfplayer_cmd(0x16, 0); // Stop po 11 sekundach
+                ESP_LOGI(TAG, "Koniec 11s muzyki");
             }
         }
 
@@ -270,7 +273,7 @@ void telemetry_task(void *pvParameters) {
 
 // --- ODBIÓR KOMEND Z SERWERA ---
 void handle_command_json(const char *json_str) {
-    ESP_LOGI(TAG, "Odebrano JSON: %s", json_str); // Loguj co przyszło
+    ESP_LOGI(TAG, "Odebrano JSON: %s", json_str); 
 
     cJSON *root = cJSON_Parse(json_str);
     if (root == NULL) return;
@@ -278,36 +281,50 @@ void handle_command_json(const char *json_str) {
     cJSON *action = cJSON_GetObjectItem(root, "action");
     if (cJSON_IsString(action)) {
         
-        // 1. Zmiana tekstu
-        if (strcmp(action->valuestring, "update_text") == 0) {
+        // --- NOWA OBSŁUGA ZBIORCZA (TO ROZWIĄŻE PROBLEM) ---
+        if (strcmp(action->valuestring, "configure_all") == 0) {
+            ESP_LOGI(TAG, "Konfiguracja zbiorcza...");
+
+            // 1. Wyciągamy Tekst
+            cJSON *txt = cJSON_GetObjectItem(root, "text");
+            if (cJSON_IsString(txt)) {
+                snprintf(current_display_text, sizeof(current_display_text), "%s", txt->valuestring);
+                ESP_LOGI(TAG, "-> Tekst: %s", current_display_text);
+            }
+
+            // 2. Wyciągamy Jasność
+            cJSON *lgt = cJSON_GetObjectItem(root, "light");
+            if (cJSON_IsNumber(lgt)) {
+                set_led_brightness(lgt->valueint);
+                ESP_LOGI(TAG, "-> LED: %d", lgt->valueint);
+            }
+
+            // 3. Wyciągamy Głośność
+            cJSON *vol = cJSON_GetObjectItem(root, "volume");
+            if (cJSON_IsNumber(vol)) {
+                send_dfplayer_cmd(0x06, (uint16_t)vol->valueint);
+                ESP_LOGI(TAG, "-> Volume: %d", vol->valueint);
+            }
+            
+            // Odświeżamy ekran na końcu
+            refresh_oled();
+        }
+        // --- STARA OBSŁUGA (DLA KOMPATYBILNOŚCI) ---
+        else if (strcmp(action->valuestring, "update_text") == 0) {
             cJSON *msg = cJSON_GetObjectItem(root, "msg");
             if (cJSON_IsString(msg)) {
                 snprintf(current_display_text, sizeof(current_display_text), "%s", msg->valuestring);
-                refresh_oled(); // Aktualizuj ekran natychmiast
-            }
-        }
-        // 2. Włącz/Wyłącz ekran
-        else if (strcmp(action->valuestring, "set_screen") == 0) {
-            cJSON *state = cJSON_GetObjectItem(root, "state");
-            if (cJSON_IsString(state)) {
-                is_mirror_on = (strcmp(state->valuestring, "ON") == 0);
-                if(is_mirror_on) { mirror_timer = default_on_time; lockout_timer=0; }
-                else { mirror_timer = 0; lockout_timer=600; send_dfplayer_cmd(0x0E, 0); }
                 refresh_oled();
             }
         }
-        // 3. Jasność LED
         else if (strcmp(action->valuestring, "set_light") == 0) {
              cJSON *val = cJSON_GetObjectItem(root, "value");
-             if (cJSON_IsNumber(val)) {
-                 set_led_brightness(val->valueint); // To już działa sprzętowo!
-             }
+             if (cJSON_IsNumber(val)) set_led_brightness(val->valueint);
         }
-        // 4. Głośność
         else if (strcmp(action->valuestring, "set_volume") == 0) {
              cJSON *val = cJSON_GetObjectItem(root, "value");
              if (cJSON_IsNumber(val)) {
-                 send_dfplayer_cmd(0x06, (uint16_t)val->valueint); // To wysyła UART do DFPlayera
+                 send_dfplayer_cmd(0x06, (uint16_t)val->valueint);
                  ESP_LOGI(TAG, "Ustawiono glosnosc: %d", val->valueint);
              }
         }
