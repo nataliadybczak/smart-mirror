@@ -50,11 +50,11 @@ static float g_temp = 0, g_hum = 0, g_press = 0, g_lux = 0;
 static bool cat_blink = false;
 char current_display_text[64] = "Lusterko aktywne"; 
 
-static int mirror_timer = 10; 
+static int mirror_timer = 10; // tu jest do zmiany, po jakim czasie lusterko się wygasza
 static int lockout_timer = 0; 
 static bool is_mirror_on = true; 
 static bool is_party_mode = false; 
-static int default_on_time = 30; 
+static int default_on_time = 30; //tutaj ile trzyma po wyłączeniu ręcznym żeby móc szybko wyskoczyć z łazienki
 static bool lux_music_played = false;
 static int music_11s_timer = 0;
 
@@ -224,10 +224,10 @@ void button_task(void *pvParameters) {
             pwr_hold++;
             if (pwr_hold == 20) { // ok 2 sekundy trzymania
                 if (is_mirror_on) {
-                    is_mirror_on = false; mirror_timer = 0; lockout_timer = 600;
+                    is_mirror_on = false; mirror_timer = 0; lockout_timer = default_on_time;
                     send_dfplayer_cmd(0x12, 3); // Pauza
                 } else {
-                    is_mirror_on = true; mirror_timer = default_on_time; lockout_timer = 0;
+                    is_mirror_on = true; mirror_timer = mirror_timer; lockout_timer = 0;
                     send_dfplayer_cmd(0x12, 2); // Start play
                 }
                 refresh_oled();
@@ -389,6 +389,22 @@ void handle_command_json(const char *json_str) {
                  send_dfplayer_cmd(0x06, (uint16_t)val->valueint);
                  ESP_LOGI(TAG, "Ustawiono glosnosc: %d", val->valueint);
              }
+        }
+        // --- Wewnątrz handle_command_json ---
+        else if (strcmp(action->valuestring, "set_timers") == 0) {
+            cJSON *on_val = cJSON_GetObjectItem(root, "on_time");
+            cJSON *lock_val = cJSON_GetObjectItem(root, "lock_time");
+
+            if (cJSON_IsNumber(on_val)) {
+                mirror_timer = on_val->valueint;
+                if (is_mirror_on) mirror_timer = mirror_timer;
+                ESP_LOGI(TAG, " Nowy czas świecenia: %d s", default_on_time);
+            }
+
+            if (cJSON_IsNumber(lock_val)) {
+                default_on_time = lock_val->valueint;
+                ESP_LOGI(TAG, "Nowy czas blokady wyjścia: %d s", default_on_time);
+            }
         }
     }
     cJSON_Delete(root);
