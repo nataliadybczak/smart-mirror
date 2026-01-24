@@ -50,11 +50,12 @@ static float g_temp = 0, g_hum = 0, g_press = 0, g_lux = 0;
 static bool cat_blink = false;
 char current_display_text[64] = "Lusterko aktywne"; 
 
-static int mirror_timer = 10; // tu jest do zmiany, po jakim czasie lusterko się wygasza
-static int lockout_timer = 0; 
+static int mirror_timer = 10; // pozostały czas świecenia lusterka (sekundy)
+static int default_mirror_timeout = 30; // domyślny czas do wygaszenia lusterka
+static int lockout_timer = 0; // licznik blokady PIR (sekundy)
+static int pir_lockout_duration = 5; // czas blokady PIR po ręcznym wyłączeniu
 static bool is_mirror_on = true; 
 static bool is_party_mode = false; 
-static int default_on_time = 30; //tutaj ile trzyma po wyłączeniu ręcznym żeby móc szybko wyskoczyć z łazienki
 static bool lux_music_played = false;
 static int music_11s_timer = 0;
 
@@ -224,10 +225,10 @@ void button_task(void *pvParameters) {
             pwr_hold++;
             if (pwr_hold == 20) { // ok 2 sekundy trzymania
                 if (is_mirror_on) {
-                    is_mirror_on = false; mirror_timer = 0; lockout_timer = default_on_time;
+                    is_mirror_on = false; mirror_timer = 0; lockout_timer = pir_lockout_duration;
                     send_dfplayer_cmd(0x12, 3); // Pauza
                 } else {
-                    is_mirror_on = true; mirror_timer = mirror_timer; lockout_timer = 0;
+                    is_mirror_on = true; mirror_timer = default_mirror_timeout; lockout_timer = 0;
                     send_dfplayer_cmd(0x12, 2); // Start play
                 }
                 refresh_oled();
@@ -287,7 +288,7 @@ void telemetry_task(void *pvParameters) {
                 ESP_LOGI(TAG, "Auto-wybudzenie: Gra 0002.mp3");
             }
             // Zawsze resetuj licznik do wartości domyślnej, gdy jest ruch
-            mirror_timer = default_on_time; 
+            mirror_timer = default_mirror_timeout; 
         }
 
         // 4. Logika Muzyki (Teraz bardzo responsywna!)
@@ -343,71 +344,54 @@ void handle_command_json(const char *json_str) {
     cJSON *action = cJSON_GetObjectItem(root, "action");
     if (cJSON_IsString(action)) {
         
-        // --- NOWA OBSŁUGA ZBIORCZA (TO ROZWIĄŻE PROBLEM) ---
+        // 1. Obsługa configure_all (tekst, jasność, głośność)
         if (strcmp(action->valuestring, "configure_all") == 0) {
-            ESP_LOGI(TAG, "Konfiguracja zbiorcza...");
-
-            // 1. Wyciągamy Tekst
             cJSON *txt = cJSON_GetObjectItem(root, "text");
             if (cJSON_IsString(txt)) {
                 snprintf(current_display_text, sizeof(current_display_text), "%s", txt->valuestring);
-                ESP_LOGI(TAG, "-> Tekst: %s", current_display_text);
+                
+                // --- LOGIKA UNPAIR ---
+                // Jeśli tekst to "Ready to pair", czyścimy WiFi i restartujemy
+                if (strcmp(txt->valuestring, "Ready to pair") == 0) {
+                    ESP_LOGW(TAG, "Otrzymano sygnał Unpair! Czyszczenie WiFi...");
+                    esp_wifi_restore(); // Kasuje dane WiFi z pamięci NVS
+                    esp_restart();      // Restartuje urządzenie
+                }
             }
 
-            // 2. Wyciągamy Jasność
             cJSON *lgt = cJSON_GetObjectItem(root, "light");
-            if (cJSON_IsNumber(lgt)) {
-                set_led_brightness(lgt->valueint);
-                ESP_LOGI(TAG, "-> LED: %d", lgt->valueint);
-            }
+            if (cJSON_IsNumber(lgt)) set_led_brightness(lgt->valueint);
 
-            // 3. Wyciągamy Głośność
             cJSON *vol = cJSON_GetObjectItem(root, "volume");
-            if (cJSON_IsNumber(vol)) {
-                send_dfplayer_cmd(0x06, (uint16_t)vol->valueint);
-                ESP_LOGI(TAG, "-> Volume: %d", vol->valueint);
-            }
-            
-            // Odświeżamy ekran na końcu
-            refresh_oled();
+            if (cJSON_IsNumber(vol)) send_dfplayer_cmd(0x06, (uint16_t)vol->valueint);
         }
-        // --- STARA OBSŁUGA (DLA KOMPATYBILNOŚCI) ---
-        else if (strcmp(action->valuestring, "update_text") == 0) {
-            cJSON *msg = cJSON_GetObjectItem(root, "msg");
-            if (cJSON_IsString(msg)) {
-                snprintf(current_display_text, sizeof(current_display_text), "%s", msg->valuestring);
-                refresh_oled();
-            }
-        }
-        else if (strcmp(action->valuestring, "set_light") == 0) {
-             cJSON *val = cJSON_GetObjectItem(root, "value");
-             if (cJSON_IsNumber(val)) set_led_brightness(val->valueint);
-        }
-        else if (strcmp(action->valuestring, "set_volume") == 0) {
-             cJSON *val = cJSON_GetObjectItem(root, "value");
-             if (cJSON_IsNumber(val)) {
-                 send_dfplayer_cmd(0x06, (uint16_t)val->valueint);
-                 ESP_LOGI(TAG, "Ustawiono glosnosc: %d", val->valueint);
-             }
-        }
-        // --- Wewnątrz handle_command_json ---
-        else if (strcmp(action->valuestring, "set_timers") == 0) {
-            cJSON *on_val = cJSON_GetObjectItem(root, "on_time");
-            cJSON *lock_val = cJSON_GetObjectItem(root, "lock_time");
+        
+        // 2. Obsługa set_timer
+        else if (strcmp(action->valuestring, "set_timer") == 0 || strcmp(action->valuestring, "set_timers") == 0) {
+            // Zmieniamy nazwy kluczy na zgodne z odebranym JSONem
+            cJSON *timeout_val = cJSON_GetObjectItem(root, "on_time"); 
+            cJSON *lockout_val = cJSON_GetObjectItem(root, "lock_time");
 
-            if (cJSON_IsNumber(on_val)) {
-                mirror_timer = on_val->valueint;
-                if (is_mirror_on) mirror_timer = mirror_timer;
-                ESP_LOGI(TAG, " Nowy czas świecenia: %d s", default_on_time);
+            if (cJSON_IsNumber(timeout_val)) {
+                default_mirror_timeout = timeout_val->valueint;
+                if (is_mirror_on) {
+                    mirror_timer = default_mirror_timeout;
+                }
+                ESP_LOGI(TAG, "Ustawiono timeout świecenia (on_time): %d", default_mirror_timeout);
+            } else {
+                ESP_LOGW(TAG, "Nie znaleziono pola 'on_time' lub nie jest liczbą");
             }
 
-            if (cJSON_IsNumber(lock_val)) {
-                default_on_time = lock_val->valueint;
-                ESP_LOGI(TAG, "Nowy czas blokady wyjścia: %d s", default_on_time);
+            if (cJSON_IsNumber(lockout_val)) {
+                pir_lockout_duration = lockout_val->valueint;
+                ESP_LOGI(TAG, "Ustawiono blokadę PIR (lock_time): %d", pir_lockout_duration);
+            } else {
+                ESP_LOGW(TAG, "Nie znaleziono pola 'lock_time' lub nie jest liczbą");
             }
         }
     }
     cJSON_Delete(root);
+    refresh_oled();
 }
 
 // --- SETUP SIECI (Poprawiony - usunięto podwójną inicjalizację) ---
