@@ -16,10 +16,12 @@
 #include "driver/touch_pad.h"
 #include "driver/ledc.h"
 #include "mqtt_handler.h"
+#include "wifi_provisioning/manager.h"
+#include "wifi_provisioning/scheme_softap.h"
 
 // --- KONFIGURACJA ---
-#define ESP_WIFI_SSID       "marco"
-#define ESP_WIFI_PASS       "polo1234"
+#define PROV_WIFI_EVENT_BIT BIT3
+static bool is_provisioning = false;
 #define ESP_MQTT_BROKER_URL "mqtt://srv38.mikr.us:40133"
 #define TOPIC_ROOT          "smartmirror/user_01"
 
@@ -58,10 +60,15 @@ static bool is_mirror_on = true;
 static bool is_party_mode = false; 
 static bool lux_music_played = false;
 static int music_11s_timer = 0;
+static char generated_pin[9];
 
 // Zmienne zewnętrzne z main.c
 extern SSD1306_t dev;
 extern void send_dfplayer_cmd(uint8_t cmd, uint16_t dat);
+
+// --- PROTOTYPY FUNKCJI (Aby uniknąć błędów implicit declaration) ---
+static void mqtt_app_start(void);
+void refresh_oled(void);
 
 // Konwersja formatów dla zegarka
 uint8_t dec_to_bcd(int val) { return (uint8_t)((val / 10 << 4) | (val % 10)); }
@@ -76,6 +83,20 @@ void rtc_set_time(int h, int m, int s, int d, int mo, int y) {
         dec_to_bcd(d), dec_to_bcd(mo), dec_to_bcd(y - 2000)
     };
     i2c_master_write_to_device(I2C_NUM_0, RTC_ADDR, data, 8, 100);
+}
+
+// --- EVENT HANDLERY ---
+
+static void provisioning_event_handler(void* arg, esp_event_base_t event_base,
+                                      int32_t event_id, void* event_data) {
+    if (event_id == WIFI_PROV_START) {
+        ESP_LOGI(TAG, "Rozpoczęto tryb parowania...");
+        is_provisioning = true;
+    } else if (event_id == WIFI_PROV_END) {
+        ESP_LOGI(TAG, "Koniec parowania.");
+        is_provisioning = false;
+        wifi_prov_mgr_deinit();
+    }
 }
 
 // Synchronizacja czasu systemowego ESP32 z modułu RTC
@@ -111,19 +132,25 @@ void set_led_brightness(int percent) {
 
 // --- EKRAN OLED (Sprzętowy) ---
 void refresh_oled(void) {
-    // Zmienna statyczna pamięta stan między wywołaniami funkcji
     static int last_screen = -1;
     static bool last_is_mirror_on = true;
 
-    // 1. Jeśli lusterko zostało wyłączone/włączone - czyścimy raz
     if (is_mirror_on != last_is_mirror_on) {
         ssd1306_clear_screen(&dev, false);
         last_is_mirror_on = is_mirror_on;
     }
-
     if (!is_mirror_on) return;
 
-    // 2. Czyścimy cały ekran TYLKO przy przełączaniu między widokami (0, 1, 2, 3)
+    if (is_provisioning) {
+        ssd1306_display_text(&dev, 0, " TRYB PAROWANIA", 15, true);
+        ssd1306_display_text(&dev, 2, "Siec: PROV_LUST", 15, false);
+        char pin_buf[20];
+        snprintf(pin_buf, sizeof(pin_buf), "PIN: %s", generated_pin);
+        ssd1306_display_text(&dev, 4, pin_buf, strlen(pin_buf), false);
+        ssd1306_display_text(&dev, 6, "Uzyj aplikacji", 14, false);
+        return; 
+    }
+
     if (current_screen != last_screen) {
         ssd1306_clear_screen(&dev, false);
         last_screen = current_screen;
@@ -131,30 +158,16 @@ void refresh_oled(void) {
 
     char buf[32];
     switch(current_screen) {
-        case 0: // CZAS + KOMUNIKAT
+        case 0: // CZAS
             time_t now; struct tm ti; time(&now); localtime_r(&now, &ti);
             strftime(buf, sizeof(buf), "%H:%M:%S", &ti);
-            
             ssd1306_display_text(&dev, 1, "    GODZINA", 11, false);
-            // Wyświetlamy czas - nadpisuje stary bez migania
             ssd1306_display_text(&dev, 3, buf, strlen(buf), true); 
-
             EventBits_t bits = xEventGroupGetBits(s_wifi_event_group);
-            if (!(bits & WIFI_CONNECTED_BIT)) {
-                ssd1306_display_text(&dev, 0, " [ BRAK WIFI ] ", 15, true); // Inwersja kolorów dla ostrzeżenia
-            } else {
-                ssd1306_display_text(&dev, 0, "   POLACZONO   ", 15, false);
-            }
-            
-            // --- case 0 ---
-            if (gpio_get_level(PIR_PIN) && lockout_timer == 0) {
-                ssd1306_display_text(&dev, 6, "  WIDZE CIE!  ", 14, false);
-            } else {
-                // %-16.16s gwarantuje, że weźmiemy dokładnie 16 znaków (ani mniej, ani więcej)
-                // To uciszy kompilator i idealnie wyczyści linię na OLEDzie
-                snprintf(buf, sizeof(buf), "%-16.16s", current_display_text);
-                ssd1306_display_text(&dev, 6, buf, 16, false);
-            }
+            if (!(bits & WIFI_CONNECTED_BIT)) ssd1306_display_text(&dev, 0, " [ BRAK WIFI ] ", 15, true);
+            else ssd1306_display_text(&dev, 0, "   POLACZONO   ", 15, false);
+            snprintf(buf, sizeof(buf), "%-16.16s", current_display_text);
+            ssd1306_display_text(&dev, 6, buf, 16, false);
             break;
 
         case 1: // POGODA
@@ -406,14 +419,18 @@ static void wifi_event_handler(void* arg, esp_event_base_t base, int32_t id, voi
     if (base == WIFI_EVENT && id == WIFI_EVENT_STA_START) {
         esp_wifi_connect();
     } else if (base == WIFI_EVENT && id == WIFI_EVENT_STA_DISCONNECTED) {
-        // CZYŚCIMY BITY - teraz OLED od razu pokaże "BRAK WIFI"
         xEventGroupClearBits(s_wifi_event_group, WIFI_CONNECTED_BIT | MQTT_CONNECTED_BIT);
-        
-        ESP_LOGW(TAG, "Połączenie przerwane. Próba ponownego łączenia...");
-        esp_wifi_connect(); // To jest kluczowe! Próbuje połączyć ponownie.
+        esp_wifi_connect();
     } else if (base == IP_EVENT && id == IP_EVENT_STA_GOT_IP) {
         ESP_LOGI(TAG, "Otrzymano IP!");
         xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+
+        // Start MQTT po uzyskaniu IP
+        static bool mqtt_started = false;
+        if (!mqtt_started) {
+            mqtt_app_start();
+            mqtt_started = true;
+        }
     }
 }
 
@@ -446,29 +463,59 @@ static void mqtt_event_handler(void* arg, esp_event_base_t base, int32_t id, voi
 
 void wifi_init_sta(void) {
     s_wifi_event_group = xEventGroupCreate();
-    // USUNIĘTO: esp_netif_init() i esp_event_loop_create_default() - to robi main.c!
-    
+
+    // 1. Inicjalizacja bazowa WiFi (Musi być przed managerem!)
     esp_netif_create_default_wifi_sta();
+    // SoftAP jest potrzebny do parowania
+    esp_netif_create_default_wifi_ap(); 
+
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    esp_wifi_init(&cfg);
+    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+
+    // 2. Generowanie PINu (MAC)
+    uint8_t mac[6];
+    esp_read_mac(mac, ESP_MAC_WIFI_STA);
+    snprintf(generated_pin, sizeof(generated_pin), "%02X%02X%02X%02X", mac[2], mac[3], mac[4], mac[5]);
+
+    // 3. Konfiguracja managera
+    wifi_prov_mgr_config_t config = {
+        .scheme = wifi_prov_scheme_softap,
+        .scheme_event_handler = WIFI_PROV_EVENT_HANDLER_NONE,
+        .app_event_handler = WIFI_PROV_EVENT_HANDLER_NONE
+    };
     
+    ESP_ERROR_CHECK(wifi_prov_mgr_init(config));
+
+    // 4. Rejestracja eventów
+    esp_event_handler_instance_register(WIFI_PROV_EVENT, ESP_EVENT_ANY_ID, &provisioning_event_handler, NULL, NULL);
     esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL, NULL);
     esp_event_handler_instance_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL, NULL);
-    
-    wifi_config_t wifi_cfg = { .sta = { .ssid = ESP_WIFI_SSID, .password = ESP_WIFI_PASS } };
-    esp_wifi_set_mode(WIFI_MODE_STA);
-    esp_wifi_set_config(WIFI_IF_STA, &wifi_cfg);
-    esp_wifi_start();
-    
-    // Czekamy na IP przed startem MQTT
-    // xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT, pdFALSE, pdFALSE, portMAX_DELAY);
-    ESP_LOGI(TAG, "Proces laczenia z WiFi wystartowal w tle...");
+
+    // 5. Sprawdzenie stanu parowania
+    bool provisioned = false;
+    wifi_prov_mgr_is_provisioned(&provisioned);
+
+    if (!provisioned) {
+        ESP_LOGI(TAG, "STARTUJE TRYB PAROWANIA... PIN: %s", generated_pin);
+        is_provisioning = true;
+        refresh_oled(); 
+
+        char service_name[] = "PROV_LUSTERKO"; 
+        ESP_ERROR_CHECK(wifi_prov_mgr_start_provisioning(WIFI_PROV_SECURITY_1, generated_pin, service_name, NULL));
+    } else {
+        ESP_LOGI(TAG, "URZADZENIE SPAROWANE. LACZE...");
+        is_provisioning = false;
+        wifi_prov_mgr_deinit();
+        
+        esp_wifi_set_mode(WIFI_MODE_STA);
+        esp_wifi_start();
+    }
 }
 
 static void mqtt_app_start(void) {
     esp_mqtt_client_config_t mc = { .broker.address.uri = ESP_MQTT_BROKER_URL };
     client = esp_mqtt_client_init(&mc);
-    esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
+    esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL); // Upewnij się że masz mqtt_event_handler zdefiniowany
     esp_mqtt_client_start(client);
 }
 
@@ -477,19 +524,18 @@ void start_mqtt_handler(void) {
     esp_read_mac(mac, ESP_MAC_WIFI_STA);
     snprintf(esp_mac_str, sizeof(esp_mac_str), "%02X%02X%02X%02X%02X%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
-    // 1. Inicjalizacja hardware (LED, GPIO)
+    // 1. Inicjalizacja hardware
     ledc_timer_config_t lt = { .speed_mode=LEDC_LOW_SPEED_MODE, .timer_num=LEDC_TIMER_0, .duty_resolution=LEDC_TIMER_13_BIT, .freq_hz=5000, .clk_cfg=LEDC_AUTO_CLK };
     ledc_timer_config(&lt);
     ledc_channel_config_t lc = { .speed_mode=LEDC_LOW_SPEED_MODE, .channel=LEDC_CHANNEL_0, .timer_sel=LEDC_TIMER_0, .intr_type=LEDC_INTR_DISABLE, .gpio_num=LED_PIN, .duty=0 };
     ledc_channel_config(&lc);
     gpio_set_direction(PIR_PIN, GPIO_MODE_INPUT);
 
-    // 2. Start Tasków (OLED i czujniki zaczną działać natychmiast)
+    // 2. Start Tasków (OLED i czujniki)
     xTaskCreate(button_task, "button", 4096, NULL, 10, NULL);
     xTaskCreate(telemetry_task, "telemetry", 4096, NULL, 5, NULL);
     xTaskCreate(system_timer_task, "sys_timer", 2048, NULL, 5, NULL);
     
-    // 3. Start sieci w tle
-    wifi_init_sta(); 
-    mqtt_app_start(); 
+    // 3. Start parowania/WiFi (MQTT wystartuje samo przez event handler)
+    wifi_init_sta();
 }

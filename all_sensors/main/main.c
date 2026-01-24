@@ -10,8 +10,9 @@
 
 #define TXD_PIN 17
 #define RXD_PIN 16
+#define I2C_PORT_NUM I2C_NUM_0
 
-// Globalna zmienna ekranu
+// Globalna zmienna ekranu (używana przez mqtt_handler.c jako extern)
 SSD1306_t dev; 
 
 // Funkcja wysyłająca komendę do DFPlayer
@@ -27,9 +28,12 @@ void send_dfplayer_cmd(uint8_t cmd, uint16_t dat) {
 
 void init_uart() {
     uart_config_t uart_config = {
-        .baud_rate = 9600, .data_bits = UART_DATA_8_BITS,
-        .parity = UART_PARITY_DISABLE, .stop_bits = UART_STOP_BITS_1,
-        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE
+        .baud_rate = 9600, 
+        .data_bits = UART_DATA_8_BITS,
+        .parity = UART_PARITY_DISABLE, 
+        .stop_bits = UART_STOP_BITS_1,
+        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
+        .source_clk = UART_SCLK_DEFAULT,
     };
     uart_param_config(UART_NUM_2, &uart_config);
     uart_set_pin(UART_NUM_2, TXD_PIN, RXD_PIN, -1, -1);
@@ -37,7 +41,7 @@ void init_uart() {
 }
 
 void app_main(void) {
-    // 1. Inicjalizacja NVS
+    // 1. INICJALIZACJA PAMIĘCI NVS (Krytyczne dla Provisioningu!)
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         ESP_ERROR_CHECK(nvs_flash_erase());
@@ -45,31 +49,30 @@ void app_main(void) {
     }
     ESP_ERROR_CHECK(ret);
 
-    // 2. Fundamenty sieci (Netif i Event Loop) - TYLKO RAZ TUTAJ
+    // 2. Fundamenty sieci (Netif i Event Loop)
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
 
-    // 3. Inicjalizacja sprzętu
+    // 3. Inicjalizacja UART (DFPlayer)
     init_uart();
-    vTaskDelay(pdMS_TO_TICKS(1000)); // Daj mu chwilę na start
+    vTaskDelay(pdMS_TO_TICKS(100)); // Krótka zwłoka na stabilizację
 
-    // // ESP_OK("TEST", "Ustawiam glosnosc na 25 (max 30)");
-    // send_dfplayer_cmd(0x06, 10); // 0x06 = Volume, 25 = Głośno
-    // vTaskDelay(pdMS_TO_TICKS(500));
-
-    // // ESP_OK("TEST", "Probuje zagrac plik 0001.mp3");
-    // send_dfplayer_cmd(0x03, 1);  // 0x03 = Play, 1 = Plik 0001.mp3
-
-
-
+    // 4. Inicjalizacja I2C i OLED
+    // Resetujemy sterownik na wypadek "hang-up" magistrali
+    i2c_driver_delete(I2C_PORT_NUM); 
+    
+    // Inicjalizacja biblioteki SSD1306 (piny 21 SDA, 22 SCL)
     i2c_master_init(&dev, 21, 22, -1); 
     dev._address = 0x3C; 
     ssd1306_init(&dev, 128, 64);
     ssd1306_clear_screen(&dev, false);
+    ssd1306_display_text(&dev, 2, "STARTOWANIE...", 14, false);
 
-    // 4. Start logiki Smart
+    // 5. Start logiki Smart (Taski, WiFi, MQTT)
+    // Ta funkcja uruchomi provisioning jeśli nie ma danych WiFi
     start_mqtt_handler();
 
+    // Pętla główna może zostać pusta, wszystko dzieje się w taskach
     while (1) {
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
