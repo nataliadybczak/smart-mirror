@@ -29,6 +29,7 @@
 #define T_POWER_CH          TOUCH_PAD_NUM6 // GPIO 14
 #define T_PARTY_CH          TOUCH_PAD_NUM5 // GPIO 12
 #define TOUCH_THRESH        450
+#define RTC_ADDR 0x68
 
 static const char *TAG = "SMART_MIRROR";
 static char esp_mac_str[13];
@@ -74,48 +75,105 @@ void set_led_brightness(int percent) {
     ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
 }
 
+// Konwersja formatów dla zegarka
+uint8_t dec_to_bcd(int val) { return (uint8_t)((val / 10 << 4) | (val % 10)); }
+int bcd_to_dec(uint8_t val) { return (int)(((val >> 4) * 10) + (val & 0x0F)); }
+
+// Ustawianie czasu w module RTC
+void rtc_set_time(int h, int m, int s, int d, int mo, int y) {
+    uint8_t data[8] = {
+        0x00, // Rejestr startowy
+        dec_to_bcd(s), dec_to_bcd(m), dec_to_bcd(h),
+        0x01, // Dzień tygodnia (pominiecie)
+        dec_to_bcd(d), dec_to_bcd(mo), dec_to_bcd(y - 2000)
+    };
+    i2c_master_write_to_device(I2C_NUM_0, RTC_ADDR, data, 8, 100);
+}
+
+// Synchronizacja czasu systemowego ESP32 z modułu RTC
+void sync_system_time_from_rtc() {
+    uint8_t reg = 0x00;
+    uint8_t data[7];
+    if (i2c_master_write_read_device(I2C_NUM_0, RTC_ADDR, &reg, 1, data, 7, 100) == ESP_OK) {
+        struct tm tm;
+        tm.tm_sec = bcd_to_dec(data[0]);
+        tm.tm_min = bcd_to_dec(data[1]);
+        tm.tm_hour = bcd_to_dec(data[2]);
+        tm.tm_mday = bcd_to_dec(data[4]);
+        tm.tm_mon = bcd_to_dec(data[5]) - 1;
+        tm.tm_year = bcd_to_dec(data[6]) + 100;
+
+        struct timeval tv = { .tv_sec = mktime(&tm) };
+        settimeofday(&tv, NULL);
+        ESP_LOGI(TAG, "Zsynchronizowano czas z RTC: %02d:%02d:%02d", tm.tm_hour, tm.tm_min, tm.tm_sec);
+    }
+}
+
 // --- FUNKCJA WYSWIETLANIA ---
 void refresh_oled(void) {
-    ssd1306_clear_screen(&dev, false);
+    // Zmienna statyczna pamięta stan między wywołaniami funkcji
+    static int last_screen = -1;
+    static bool last_is_mirror_on = true;
+
+    // 1. Jeśli lusterko zostało wyłączone/włączone - czyścimy raz
+    if (is_mirror_on != last_is_mirror_on) {
+        ssd1306_clear_screen(&dev, false);
+        last_is_mirror_on = is_mirror_on;
+    }
+
     if (!is_mirror_on) return;
+
+    // 2. Czyścimy cały ekran TYLKO przy przełączaniu między widokami (0, 1, 2, 3)
+    if (current_screen != last_screen) {
+        ssd1306_clear_screen(&dev, false);
+        last_screen = current_screen;
+    }
 
     char buf[32];
     switch(current_screen) {
         case 0: // CZAS + KOMUNIKAT
             time_t now; struct tm ti; time(&now); localtime_r(&now, &ti);
             strftime(buf, sizeof(buf), "%H:%M:%S", &ti);
+            
             ssd1306_display_text(&dev, 1, "    GODZINA", 11, false);
-            ssd1306_display_text(&dev, 3, buf, strlen(buf), true);
+            // Wyświetlamy czas - nadpisuje stary bez migania
+            ssd1306_display_text(&dev, 3, buf, strlen(buf), true); 
             
             if (gpio_get_level(PIR_PIN) && lockout_timer == 0) {
                 ssd1306_display_text(&dev, 6, "  WIDZE CIE!  ", 14, false);
             } else {
-                ssd1306_display_text(&dev, 6, current_display_text, strlen(current_display_text), false);
+                // %-16.16s gwarantuje, że weźmiemy dokładnie 16 znaków (ani mniej, ani więcej)
+                // To uciszy kompilator i idealnie wyczyści linię na OLEDzie
+                snprintf(buf, sizeof(buf), "%-16.16s", current_display_text);
+                ssd1306_display_text(&dev, 6, buf, 16, false);
             }
             break;
 
         case 1: // POGODA
             ssd1306_display_text(&dev, 0, "--- POGODA ---", 14, false);
-            snprintf(buf, sizeof(buf), "Temp: %.1f C", g_temp);
+            snprintf(buf, sizeof(buf), "Temp: %.1f C   ", g_temp); // Spacje na końcu czyszczą resztę linii
             ssd1306_display_text(&dev, 2, buf, strlen(buf), false);
-            snprintf(buf, sizeof(buf), "Wilg: %.1f %%", g_hum);
+            snprintf(buf, sizeof(buf), "Wilg: %.1f %%   ", g_hum);
             ssd1306_display_text(&dev, 4, buf, strlen(buf), false);
-            snprintf(buf, sizeof(buf), "Cisn: %.0f hPa", g_press);
+            snprintf(buf, sizeof(buf), "Cisn: %.0f hPa  ", g_press);
             ssd1306_display_text(&dev, 6, buf, strlen(buf), false);
             break;
 
         case 2: // SWIATLO
             ssd1306_display_text(&dev, 0, "--- SWIATLO ---", 15, false);
-            snprintf(buf, sizeof(buf), "Lux: %.0f", g_lux);
+            snprintf(buf, sizeof(buf), "Lux: %.0f      ", g_lux);
             ssd1306_display_text(&dev, 2, buf, strlen(buf), false);
-            if (g_lux > 300) ssd1306_display_text(&dev, 5, "ZA JASNO!", 9, true);
-            else if (g_lux < 50) ssd1306_display_text(&dev, 5, "ZA CIEMNO...", 12, false);
-            else ssd1306_display_text(&dev, 5, "Idealnie!", 11, false);
+            
+            if (g_lux > 300)      ssd1306_display_text(&dev, 5, "ZA JASNO!   ", 12, true);
+            else if (g_lux < 50)  ssd1306_display_text(&dev, 5, "ZA CIEMNO... ", 12, false);
+            else                 ssd1306_display_text(&dev, 5, "Idealnie!    ", 12, false);
             break;
 
         case 3: // KOTEK
+            // Tutaj blink musi czyścić linię, żeby uszy nie zostawały
             if (cat_blink) ssd1306_display_text(&dev, 1, "   (=^~~^=)   ", 14, false);
             else           ssd1306_display_text(&dev, 1, "   (=^..^=)   ", 14, false);
+            
             ssd1306_display_text(&dev, 4, "Jestes piekna!", 15, false);
             ssd1306_display_text(&dev, 6, "  MILEGO DNIA!", 14, false);
             break;
@@ -342,7 +400,6 @@ void start_mqtt_handler(void) {
 
     gpio_set_direction(PIR_PIN, GPIO_MODE_INPUT);
     esp_sntp_setoperatingmode(SNTP_OPMODE_POLL); esp_sntp_setservername(0, "pool.ntp.org");
-    esp_sntp_init(); setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0/3", 1); tzset();
 
     wifi_init_sta(); mqtt_app_start();
     

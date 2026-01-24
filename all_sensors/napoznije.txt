@@ -1,0 +1,256 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "esp_wifi.h"
+#include "esp_system.h"
+#include "esp_event.h"
+#include "esp_log.h"
+#include "esp_mac.h"
+#include "esp_timer.h"
+#include "esp_netif.h"
+#include "esp_random.h"
+#include "nvs_flash.h"
+
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/event_groups.h"
+
+#include "driver/i2c.h"
+#include "driver/gpio.h"
+#include "driver/ledc.h"
+
+#include "mqtt_client.h"
+#include "cJSON.h"
+#include "ssd1306.h"
+#include "mqtt_handler.h"
+#include "bme280.h" 
+
+// --- PROTOTYPY ---
+static void wifi_event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data);
+static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data);
+void wifi_init_sta(void);
+static void mqtt_app_start(void);
+void telemetry_task(void *pvParameters);
+void motion_task(void *pvParameters);
+void status_task(void *pvParameters);
+void handle_command_json(const char *json_str);
+void refresh_oled();
+void set_led_brightness(int percent);
+
+// --- ZEWNĘTRZNE ---
+extern SSD1306_t dev;
+extern void send_dfplayer_cmd(uint8_t cmd, uint16_t dat);
+
+// --- KONFIGURACJA ---
+#define ESP_WIFI_SSID       "marco"
+#define ESP_WIFI_PASS       "polo1234"
+#define ESP_MQTT_BROKER_URL "mqtt://srv38.mikr.us:40133"
+#define ESP_MQTT_USER       "guest"
+#define ESP_MQTT_PASS       "guest"
+#define TOPIC_ROOT          "smartmirror/user_01"
+
+#define I2C_PORT            I2C_NUM_0
+#define BH1750_ADDR         0x23
+#define BME280_ADDR         0x76 
+#define PIR_PIN             27
+#define LED_PIN             2
+
+#define LEDC_MODE           LEDC_LOW_SPEED_MODE
+#define LEDC_CHANNEL        LEDC_CHANNEL_0
+#define LEDC_DUTY_RES       LEDC_TIMER_13_BIT 
+#define LEDC_FREQUENCY      5000 
+
+static const char *TAG = "MQTT_HANDLER";
+static char esp_mac_str[13];
+static esp_mqtt_client_handle_t client = NULL;
+static EventGroupHandle_t s_wifi_event_group = NULL;
+static int s_retry_num = 0;
+
+#define WIFI_CONNECTED_BIT  BIT0
+#define MQTT_CONNECTED_BIT  BIT2
+
+char current_display_text[64] = "Lusterko aktywne";
+bool is_screen_on = true;
+
+// --- EKRAN ---
+void refresh_oled() {
+    ssd1306_clear_screen(&dev, false);
+    if (is_screen_on) {
+        ssd1306_display_text(&dev, 2, current_display_text, strlen(current_display_text), false);
+    }
+}
+
+// --- LED PWM ---
+void set_led_brightness(int percent) {
+    uint32_t duty = (percent * 8191) / 100;
+    ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, duty);
+    ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
+}
+
+// --- LOGIKA KOMEND ---
+void handle_command_json(const char *json_str) {
+    cJSON *root = cJSON_Parse(json_str);
+    if (root == NULL) return;
+    cJSON *action = cJSON_GetObjectItem(root, "action");
+    if (cJSON_IsString(action)) {
+        if (strcmp(action->valuestring, "update_text") == 0) {
+            cJSON *msg = cJSON_GetObjectItem(root, "msg");
+            if (cJSON_IsString(msg)) {
+                snprintf(current_display_text, sizeof(current_display_text), "%s", msg->valuestring);
+                refresh_oled();
+            }
+        } else if (strcmp(action->valuestring, "set_screen") == 0) {
+            cJSON *state = cJSON_GetObjectItem(root, "state");
+            if (cJSON_IsString(state)) {
+                is_screen_on = (strcmp(state->valuestring, "ON") == 0);
+                refresh_oled();
+            }
+        } else if (strcmp(action->valuestring, "set_light") == 0) {
+             cJSON *val = cJSON_GetObjectItem(root, "value");
+             if (cJSON_IsNumber(val)) set_led_brightness(val->valueint);
+        }
+    }
+    cJSON_Delete(root);
+}
+
+// --- ZADANIE 1: TELEMETRIA ---
+void telemetry_task(void *pvParameters) {
+    bme280_init(I2C_PORT, BME280_ADDR);
+    char topic[128];
+    snprintf(topic, sizeof(topic), "%s/%s/telemetry", TOPIC_ROOT, esp_mac_str);
+    uint8_t d[2];
+
+    while (1) {
+        float temp=0, press=0, hum=0, lux=0;
+        bme280_read_float_data(I2C_PORT, BME280_ADDR, &temp, &press, &hum);
+        
+        uint8_t cmd = 0x10;
+        i2c_master_write_to_device(I2C_PORT, BH1750_ADDR, &cmd, 1, 100);
+        vTaskDelay(pdMS_TO_TICKS(180));
+        if (i2c_master_read_from_device(I2C_PORT, BH1750_ADDR, d, 2, 100) == ESP_OK) {
+            lux = ((d[0] << 8) | d[1]) / 1.2;
+        }
+
+        ESP_LOGI(TAG, "Odczyt: T:%.1f, L:%.1f", temp, lux);
+
+        if (lux > 600.0) {
+            send_dfplayer_cmd(0x12, 1);
+            vTaskDelay(pdMS_TO_TICKS(10000));
+            send_dfplayer_cmd(0x0E, 0);
+        }
+
+        if (s_wifi_event_group && (xEventGroupGetBits(s_wifi_event_group) & MQTT_CONNECTED_BIT)) {
+            char payload[256];
+            snprintf(payload, sizeof(payload), "{\"temp\": %.2f, \"hum\": %.1f, \"lux_raw\": %.1f}", temp, hum, lux);
+            esp_mqtt_client_publish(client, topic, payload, 0, 0, 0);
+        }
+        vTaskDelay(pdMS_TO_TICKS(5000));
+    }
+}
+
+// --- ZADANIE 2: RUCH ---
+void motion_task(void *pvParameters) {
+    gpio_set_direction(PIR_PIN, GPIO_MODE_INPUT);
+    char topic[128];
+    snprintf(topic, sizeof(topic), "%s/%s/event", TOPIC_ROOT, esp_mac_str);
+    bool last_m = false;
+    while(1) {
+        bool m = gpio_get_level(PIR_PIN);
+        if (m != last_m) {
+            last_m = m;
+            is_screen_on = m;
+            set_led_brightness(m ? 100 : 0);
+            refresh_oled();
+            if (s_wifi_event_group && (xEventGroupGetBits(s_wifi_event_group) & MQTT_CONNECTED_BIT)) {
+                char p[64];
+                snprintf(p, sizeof(p), "{\"type\": \"motion\", \"val\": %s}", m ? "true" : "false");
+                esp_mqtt_client_publish(client, topic, p, 0, 0, 0);
+            }
+        }
+        vTaskDelay(pdMS_TO_TICKS(500));
+    }
+}
+
+// --- ZADANIE 3: STATUS ---
+void status_task(void *pvParameters) {
+    char topic[128];
+    snprintf(topic, sizeof(topic), "%s/%s/status", TOPIC_ROOT, esp_mac_str);
+    while (1) {
+        if (s_wifi_event_group && (xEventGroupGetBits(s_wifi_event_group) & MQTT_CONNECTED_BIT)) {
+            int64_t up = esp_timer_get_time() / 1000000;
+            char p[128];
+            snprintf(p, sizeof(p), "{\"uptime\": %lld, \"online\": true}", up);
+            esp_mqtt_client_publish(client, topic, p, 0, 0, 0);
+        }
+        vTaskDelay(pdMS_TO_TICKS(60000));
+    }
+}
+
+// --- HANDLERY SIECI ---
+static void wifi_event_handler(void* arg, esp_event_base_t base, int32_t id, void* data) {
+    if (id == WIFI_EVENT_STA_START) esp_wifi_connect();
+    else if (id == WIFI_EVENT_STA_DISCONNECTED) {
+        if (s_retry_num < 10) { esp_wifi_connect(); s_retry_num++; }
+        if (s_wifi_event_group) xEventGroupClearBits(s_wifi_event_group, MQTT_CONNECTED_BIT);
+    } else if (id == IP_EVENT_STA_GOT_IP) {
+        s_retry_num = 0;
+        if (s_wifi_event_group) xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+    }
+}
+
+static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t id, void *data) {
+    esp_mqtt_event_handle_t e = data;
+    if (id == MQTT_EVENT_CONNECTED) {
+        if (s_wifi_event_group) xEventGroupSetBits(s_wifi_event_group, MQTT_CONNECTED_BIT);
+        char t[128]; snprintf(t, sizeof(t), "%s/%s/cmd", TOPIC_ROOT, esp_mac_str);
+        esp_mqtt_client_subscribe(client, t, 0);
+    } else if (id == MQTT_EVENT_DATA) {
+        char *b = malloc(e->data_len + 1);
+        memcpy(b, e->data, e->data_len); b[e->data_len] = 0;
+        handle_command_json(b); free(b);
+    }
+}
+
+void wifi_init_sta(void) {
+    esp_netif_create_default_wifi_sta();
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    esp_wifi_init(&cfg);
+    esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL, NULL);
+    esp_event_handler_instance_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL, NULL);
+    wifi_config_t w_cfg = { .sta = { .ssid = ESP_WIFI_SSID, .password = ESP_WIFI_PASS } };
+    esp_wifi_set_mode(WIFI_MODE_STA);
+    esp_wifi_set_config(WIFI_IF_STA, &w_cfg);
+    esp_wifi_start();
+}
+
+static void mqtt_app_start(void) {
+    esp_mqtt_client_config_t m_cfg = { .broker.address.uri = ESP_MQTT_BROKER_URL };
+    client = esp_mqtt_client_init(&m_cfg);
+    esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
+    esp_mqtt_client_start(client);
+}
+
+void start_mqtt_handler(void) {
+    uint8_t mac[6];
+    esp_read_mac(mac, ESP_MAC_WIFI_STA);
+    snprintf(esp_mac_str, sizeof(esp_mac_str), "%02X%02X%02X%02X%02X%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+
+    // 1. STWORZENIE GRUPY ZDARZEŃ (Naprawia crash!)
+    s_wifi_event_group = xEventGroupCreate();
+
+    ledc_timer_config_t lt = { .speed_mode=0, .timer_num=0, .duty_resolution=13, .freq_hz=5000 };
+    ledc_timer_config(&lt);
+    ledc_channel_config_t lc = { .speed_mode=0, .channel=0, .gpio_num=LED_PIN, .duty=0 };
+    ledc_channel_config(&lc);
+
+    ssd1306_display_text(&dev, 0, "System Start...", 15, false);
+
+    // 2. START ZADAŃ
+    xTaskCreate(telemetry_task, "telemetry", 4096, NULL, 5, NULL);
+    xTaskCreate(motion_task, "motion", 4096, NULL, 5, NULL);
+    xTaskCreate(status_task, "status", 4096, NULL, 5, NULL);
+
+    // 3. START SIECI
+    wifi_init_sta(); 
+    mqtt_app_start();
+}
