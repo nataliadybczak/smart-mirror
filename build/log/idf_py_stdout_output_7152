@@ -1,0 +1,203 @@
+�ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7176
+load:0x40078000,len:15564
+ho 0 tail 12 room 4
+load:0x40080400,len:4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.3.1-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Nov 30 2025 11:52:38[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (85) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=24f50h (151376) map[0m
+[0;32mI (157) esp_image: segment 1: paddr=00034f78 vaddr=3ffb0000 size=03fb0h ( 16304) load[0m
+[0;32mI (163) esp_image: segment 2: paddr=00038f30 vaddr=40080000 size=070e8h ( 28904) load[0m
+[0;32mI (175) esp_image: segment 3: paddr=00040020 vaddr=400d0020 size=9e1c4h (647620) map[0m
+[0;32mI (397) esp_image: segment 4: paddr=000de1ec vaddr=400870e8 size=103a8h ( 66472) load[0m
+[0;32mI (435) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (435) boot: Disabling RNG early entropy source...[0m
+[0;32mI (447) cpu_start: Multicore app[0m
+[0;32mI (455) cpu_start: Pro cpu start user code[0m
+[0;32mI (455) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (455) app_init: Application information:[0m
+[0;32mI (458) app_init: Project name:     esp32-wifi-example[0m
+[0;32mI (464) app_init: App version:      d92293b[0m
+[0;32mI (469) app_init: Compile time:     Nov 30 2025 11:52:11[0m
+[0;32mI (475) app_init: ELF file SHA256:  8080f7fb7...[0m
+[0;32mI (480) app_init: ESP-IDF:          v5.3.1-dirty[0m
+[0;32mI (485) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (490) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (495) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (500) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (507) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (513) heap_init: At 3FFB87E0 len 00027820 (158 KiB): DRAM[0m
+[0;32mI (519) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (526) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (532) heap_init: At 40097490 len 00008B70 (34 KiB): IRAM[0m
+[0;32mI (540) spi_flash: detected chip: generic[0m
+[0;32mI (543) spi_flash: flash io: dio[0m
+[0;33mW (547) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (561) main_task: Started on CPU0[0m
+[0;32mI (571) main_task: Calling app_main()[0m
+[0;32mI (601) MAIN_CONTROLLER: Start systemu...[0m
+[0;32mI (601) SMART_MIRROR: Device ID: 78EE4C010F34[0m
+[0;32mI (601) VIRTUAL_OLED: ------------------------------------------------[0m
+[0;32mI (611) VIRTUAL_OLED:  INICJALIZACJA EKRANU (TRYB SYMULACJI) [0m
+[0;32mI (611) VIRTUAL_OLED:  Sterownik gotowy. Rozdzielczość 128x64.[0m
+[0;32mI (621) VIRTUAL_OLED: ------------------------------------------------[0m
+[0;32mI (631) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (641) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (651) VIRTUAL_OLED: ║ Booting System...                  ║[0m
+[0;32mI (651) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (681) wifi:wifi driver task: 3ffc1470, prio:23, stack:6656, core=0[0m
+[0;32mI (691) wifi:wifi firmware version: ccaebfa[0m
+[0;32mI (691) wifi:wifi certification version: v7.0[0m
+[0;32mI (691) wifi:config NVS flash: enabled[0m
+[0;32mI (691) wifi:config nano formating: disabled[0m
+[0;32mI (701) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (701) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (711) wifi:Init management short buffer num: 32[0m
+[0;32mI (711) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (721) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (721) wifi:Init static rx buffer num: 10[0m
+[0;32mI (721) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (731) wifi_init: rx ba win: 6[0m
+[0;32mI (731) wifi_init: accept mbox: 6[0m
+[0;32mI (741) wifi_init: tcpip mbox: 32[0m
+[0;32mI (741) wifi_init: udp mbox: 6[0m
+[0;32mI (741) wifi_init: tcp mbox: 6[0m
+[0;32mI (751) wifi_init: tcp tx win: 5760[0m
+[0;32mI (751) wifi_init: tcp rx win: 5760[0m
+[0;32mI (761) wifi_init: tcp mss: 1440[0m
+[0;32mI (761) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (761) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (771) phy_init: phy_version 4830,54550f7,Jun 20 2024,14:22:08[0m
+[0;32mI (861) wifi:mode : sta (78:ee:4c:01:0f:34)[0m
+[0;32mI (861) wifi:enable tsf[0m
+[0;32mI (861) wifi:Set ps type: 0, coexist: 0[0m
+
+[0;32mI (1121) wifi:new:<3,0>, old:<1,0>, ap:<255,255>, sta:<3,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (1121) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (1131) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (1141) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (1201) wifi:connected with kalarepa, aid = 1, channel 3, BW20, bssid = 9a:b8:ba:15:6e:fe[0m
+[0;32mI (1201) wifi:security: WPA2-PSK, phy: bgn, rssi: -50[0m
+[0;32mI (1221) wifi:pm start, type: 0[0m
+
+[0;32mI (1221) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (1231) wifi:<ba-add>idx:0 (ifx:0, 9a:b8:ba:15:6e:fe), tid:0, ssn:0, winSize:64[0m
+[0;32mI (1281) wifi:dp: 2, bi: 102400, li: 4, scale listen interval from 307200 us to 409600 us[0m
+[0;32mI (1281) wifi:AP's beacon interval = 102400 us, DTIM period = 2[0m
+[0;32mI (2221) esp_netif_handlers: sta ip: 192.168.43.246, mask: 255.255.255.0, gw: 192.168.43.1[0m
+[0;32mI (2221) main_task: Returned from app_main()[0m
+[0;32mI (2401) wifi:<ba-add>idx:1 (ifx:0, 9a:b8:ba:15:6e:fe), tid:1, ssn:0, winSize:64[0m
+[0;32mI (2531) SMART_MIRROR: MQTT Połączono![0m
+[0;32mI (2541) SMART_MIRROR: Subskrypcja: smartmirror/user_01/78EE4C010F34/cmd[0m
+[0;32mI (7221) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.60, "lux": 695, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (12221) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.60, "lux": 585, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (17221) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.30, "lux": 484, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (22221) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.40, "lux": 423, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (27221) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.40, "lux": 688, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (30221) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (30221) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (30221) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (30231) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (30241) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (32221) SMART_MIRROR: Wysłano telemetrię: {"temp": 22.80, "lux": 549, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (37221) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.50, "lux": 619, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (42221) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.00, "lux": 362, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (47221) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.70, "lux": 442, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (48021) wifi:state: run -> init (0xec0)[0m
+[0;32mI (48041) wifi:pm stop, total sleep time: 0 us / 46819053 us[0m
+
+[0;32mI (48041) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (48041) wifi:<ba-del>idx:1, tid:1[0m
+[0;32mI (48041) wifi:new:<3,0>, old:<3,0>, ap:<255,255>, sta:<3,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (48051) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;31mE (48051) transport_base: poll_read select error 113, errno = Software caused connection abort, fd = 54[0m
+[0;31mE (48061) mqtt_client: Poll read error: 119, aborting connection[0m
+[0;33mW (48071) SMART_MIRROR: MQTT Rozłączono[0m
+[0;32mI (50471) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (52881) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (55301) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (57711) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (60131) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (62541) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;31mE (63071) esp-tls: [sock=54] connect() error: Host is unreachable[0m
+[0;31mE (63071) transport_base: Failed to open a new connection: 32772[0m
+[0;31mE (63071) mqtt_client: Error transport connect[0m
+[0;33mW (63081) SMART_MIRROR: MQTT Rozłączono[0m
+[0;32mI (64961) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (67371) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (69791) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (72201) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (74621) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;33mW (76251) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (76251) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (77031) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;31mE (78081) esp-tls: [sock=54] connect() error: Host is unreachable[0m
+[0;31mE (78081) transport_base: Failed to open a new connection: 32772[0m
+[0;31mE (78081) mqtt_client: Error transport connect[0m
+[0;33mW (78091) SMART_MIRROR: MQTT Rozłączono[0m
+[0;32mI (79451) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (81861) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (84281) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (86691) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (89111) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (91531) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;31mE (93091) esp-tls: [sock=54] connect() error: Host is unreachable[0m
+[0;31mE (93091) transport_base: Failed to open a new connection: 32772[0m
+[0;31mE (93091) mqtt_client: Error transport connect[0m
+[0;33mW (93101) SMART_MIRROR: MQTT Rozłączono[0m
+[0;32mI (93941) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;33mW (94251) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (94251) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (94251) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (94261) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (94271) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (96361) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (98771) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (101191) SMART_MIRROR: Ponawiam WiFi...[0m
+[0;32mI (101201) wifi:new:<3,0>, old:<3,0>, ap:<255,255>, sta:<3,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (101201) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (101211) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (101251) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (101261) wifi:connected with kalarepa, aid = 1, channel 3, BW20, bssid = 9a:b8:ba:15:6e:fe[0m
+[0;32mI (101271) wifi:security: WPA2-PSK, phy: bgn, rssi: -41[0m
+[0;32mI (101271) wifi:pm start, type: 0[0m
+
+[0;32mI (101271) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (101291) wifi:<ba-add>idx:0 (ifx:0, 9a:b8:ba:15:6e:fe), tid:0, ssn:0, winSize:64[0m
+[0;32mI (101331) wifi:dp: 2, bi: 102400, li: 4, scale listen interval from 307200 us to 409600 us[0m
+[0;32mI (101331) wifi:AP's beacon interval = 102400 us, DTIM period = 2[0m
+[0;32mI (102281) esp_netif_handlers: sta ip: 192.168.43.246, mask: 255.255.255.0, gw: 192.168.43.1[0m
+[0;32mI (108231) wifi:<ba-add>idx:1 (ifx:0, 9a:b8:ba:15:6e:fe), tid:1, ssn:0, winSize:64[0m
+[0;32mI (108351) SMART_MIRROR: MQTT Połączono![0m
+[0;32mI (108351) SMART_MIRROR: Subskrypcja: smartmirror/user_01/78EE4C010F34/cmd[0m
+[0;32mI (112221) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.40, "lux": 239, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (114281) SMART_MIRROR: [PIR] Brak ruchu. -> Wyłączam ekran.[0m
+[0;32mI (114281) SMART_MIRROR: [EDGE] Ekran wygaszony (oszczędzanie energii)[0m
+[0;32mI (117221) SMART_MIRROR: Wysłano telemetrię: {"temp": 21.40, "lux": 622, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (122221) SMART_MIRROR: Wysłano telemetrię: {"temp": 25.90, "lux": 510, "unit_t": "C", "unit_l": "lx"}[0m
+[0;32mI (127221) SMART_MIRROR: Wysłano telemetrię: {"temp": 23.80, "lux": 241, "unit_t": "C", "unit_l": "lx"}[0m
+[0;33mW (130281) SMART_MIRROR: [PIR] RUCH WYKRYTY! -> Włączam ekran.[0m
+[0;32mI (130281) VIRTUAL_OLED: ╔════════════════════════════════════╗[0m
+[0;32mI (130281) VIRTUAL_OLED: ║ OLED DISPLAY:                      ║[0m
+[0;32mI (130291) VIRTUAL_OLED: ║ Czesc Piekna, czekam na dane...    ║[0m
+[0;32mI (130301) VIRTUAL_OLED: ╚════════════════════════════════════╝[0m
+[0;32mI (132221) SMART_MIRROR: Wysłano telemetrię: {"temp": 24.80, "lux": 426, "unit_t": "C", "unit_l": "lx"}[0m

@@ -51,8 +51,16 @@ void app_main(void) {
 
     // 3. Inicjalizacja sprzętu
     init_uart();
-    vTaskDelay(pdMS_TO_TICKS(500));
-    send_dfplayer_cmd(0x06, 20); // Głośność
+    vTaskDelay(pdMS_TO_TICKS(1000)); // Daj mu chwilę na start
+
+    // // ESP_OK("TEST", "Ustawiam glosnosc na 25 (max 30)");
+    // send_dfplayer_cmd(0x06, 10); // 0x06 = Volume, 25 = Głośno
+    // vTaskDelay(pdMS_TO_TICKS(500));
+
+    // // ESP_OK("TEST", "Probuje zagrac plik 0001.mp3");
+    // send_dfplayer_cmd(0x03, 1);  // 0x03 = Play, 1 = Plik 0001.mp3
+
+
 
     i2c_master_init(&dev, 21, 22, -1); 
     dev._address = 0x3C; 
