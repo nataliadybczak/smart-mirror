@@ -16,12 +16,9 @@
 #include "driver/touch_pad.h"
 #include "driver/ledc.h"
 #include "mqtt_handler.h"
-#include "wifi_provisioning/manager.h"
-#include "wifi_provisioning/scheme_softap.h"
+
 
 // --- KONFIGURACJA ---
-#define PROV_WIFI_EVENT_BIT BIT3
-static bool is_provisioning = false;
 #define ESP_MQTT_BROKER_URL "mqtt://srv38.mikr.us:40133"
 #define TOPIC_ROOT          "smartmirror/user_01"
 
@@ -60,14 +57,13 @@ static bool is_mirror_on = true;
 static bool is_party_mode = false; 
 static bool lux_music_played = false;
 static int music_11s_timer = 0;
-static char generated_pin[9];
 
 // Zmienne zewnętrzne z main.c
 extern SSD1306_t dev;
 extern void send_dfplayer_cmd(uint8_t cmd, uint16_t dat);
 
 // --- PROTOTYPY FUNKCJI (Aby uniknąć błędów implicit declaration) ---
-static void mqtt_app_start(void);
+void mqtt_app_start(void);
 void refresh_oled(void);
 
 // Konwersja formatów dla zegarka
@@ -87,17 +83,17 @@ void rtc_set_time(int h, int m, int s, int d, int mo, int y) {
 
 // --- EVENT HANDLERY ---
 
-static void provisioning_event_handler(void* arg, esp_event_base_t event_base,
-                                      int32_t event_id, void* event_data) {
-    if (event_id == WIFI_PROV_START) {
-        ESP_LOGI(TAG, "Rozpoczęto tryb parowania...");
-        is_provisioning = true;
-    } else if (event_id == WIFI_PROV_END) {
-        ESP_LOGI(TAG, "Koniec parowania.");
-        is_provisioning = false;
-        wifi_prov_mgr_deinit();
-    }
-}
+// static void provisioning_event_handler(void* arg, esp_event_base_t event_base,
+//                                       int32_t event_id, void* event_data) {
+//     if (event_id == WIFI_PROV_START) {
+//         ESP_LOGI(TAG, "Rozpoczęto tryb parowania...");
+//         is_provisioning = true;
+//     } else if (event_id == WIFI_PROV_END) {
+//         ESP_LOGI(TAG, "Koniec parowania.");
+//         is_provisioning = false;
+//         wifi_prov_mgr_deinit();
+//     }
+// }
 
 // Synchronizacja czasu systemowego ESP32 z modułu RTC
 void sync_system_time_from_rtc() {
@@ -141,15 +137,15 @@ void refresh_oled(void) {
     }
     if (!is_mirror_on) return;
 
-    if (is_provisioning) {
-        ssd1306_display_text(&dev, 0, " TRYB PAROWANIA", 15, true);
-        ssd1306_display_text(&dev, 2, "Siec: PROV_LUST", 15, false);
-        char pin_buf[20];
-        snprintf(pin_buf, sizeof(pin_buf), "PIN: %s", generated_pin);
-        ssd1306_display_text(&dev, 4, pin_buf, strlen(pin_buf), false);
-        ssd1306_display_text(&dev, 6, "Uzyj aplikacji", 14, false);
-        return; 
-    }
+    // if (is_provisioning) {
+    //     ssd1306_display_text(&dev, 0, " TRYB PAROWANIA", 15, true);
+    //     ssd1306_display_text(&dev, 2, "Siec: PROV_LUST", 15, false);
+    //     char pin_buf[20];
+    //     snprintf(pin_buf, sizeof(pin_buf), "PIN: %s", generated_pin);
+    //     ssd1306_display_text(&dev, 4, pin_buf, strlen(pin_buf), false);
+    //     ssd1306_display_text(&dev, 6, "Uzyj aplikacji", 14, false);
+    //     return; 
+    // }
 
     if (current_screen != last_screen) {
         ssd1306_clear_screen(&dev, false);
@@ -461,58 +457,58 @@ static void mqtt_event_handler(void* arg, esp_event_base_t base, int32_t id, voi
     }
 }
 
-void wifi_init_sta(void) {
-    s_wifi_event_group = xEventGroupCreate();
+// void wifi_init_sta(void) {
+//     s_wifi_event_group = xEventGroupCreate();
 
-    // 1. Inicjalizacja bazowa WiFi (Musi być przed managerem!)
-    esp_netif_create_default_wifi_sta();
-    // SoftAP jest potrzebny do parowania
-    esp_netif_create_default_wifi_ap(); 
+//     // 1. Inicjalizacja bazowa WiFi (Musi być przed managerem!)
+//     esp_netif_create_default_wifi_sta();
+//     // SoftAP jest potrzebny do parowania
+//     esp_netif_create_default_wifi_ap(); 
 
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+//     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+//     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
 
-    // 2. Generowanie PINu (MAC)
-    uint8_t mac[6];
-    esp_read_mac(mac, ESP_MAC_WIFI_STA);
-    snprintf(generated_pin, sizeof(generated_pin), "%02X%02X%02X%02X", mac[2], mac[3], mac[4], mac[5]);
+//     // 2. Generowanie PINu (MAC)
+//     uint8_t mac[6];
+//     esp_read_mac(mac, ESP_MAC_WIFI_STA);
+//     snprintf(generated_pin, sizeof(generated_pin), "%02X%02X%02X%02X", mac[2], mac[3], mac[4], mac[5]);
 
-    // 3. Konfiguracja managera
-    wifi_prov_mgr_config_t config = {
-        .scheme = wifi_prov_scheme_softap,
-        .scheme_event_handler = WIFI_PROV_EVENT_HANDLER_NONE,
-        .app_event_handler = WIFI_PROV_EVENT_HANDLER_NONE
-    };
+//     // 3. Konfiguracja managera
+//     wifi_prov_mgr_config_t config = {
+//         .scheme = wifi_prov_scheme_softap,
+//         .scheme_event_handler = WIFI_PROV_EVENT_HANDLER_NONE,
+//         .app_event_handler = WIFI_PROV_EVENT_HANDLER_NONE
+//     };
     
-    ESP_ERROR_CHECK(wifi_prov_mgr_init(config));
+//     ESP_ERROR_CHECK(wifi_prov_mgr_init(config));
 
-    // 4. Rejestracja eventów
-    esp_event_handler_instance_register(WIFI_PROV_EVENT, ESP_EVENT_ANY_ID, &provisioning_event_handler, NULL, NULL);
-    esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL, NULL);
-    esp_event_handler_instance_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL, NULL);
+//     // 4. Rejestracja eventów
+//     esp_event_handler_instance_register(WIFI_PROV_EVENT, ESP_EVENT_ANY_ID, &provisioning_event_handler, NULL, NULL);
+//     esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL, NULL);
+//     esp_event_handler_instance_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL, NULL);
 
-    // 5. Sprawdzenie stanu parowania
-    bool provisioned = false;
-    wifi_prov_mgr_is_provisioned(&provisioned);
+//     // 5. Sprawdzenie stanu parowania
+//     bool provisioned = false;
+//     wifi_prov_mgr_is_provisioned(&provisioned);
 
-    if (!provisioned) {
-        ESP_LOGI(TAG, "STARTUJE TRYB PAROWANIA... PIN: %s", generated_pin);
-        is_provisioning = true;
-        refresh_oled(); 
+//     if (!provisioned) {
+//         ESP_LOGI(TAG, "STARTUJE TRYB PAROWANIA... PIN: %s", generated_pin);
+//         is_provisioning = true;
+//         refresh_oled(); 
 
-        char service_name[] = "PROV_LUSTERKO"; 
-        ESP_ERROR_CHECK(wifi_prov_mgr_start_provisioning(WIFI_PROV_SECURITY_1, generated_pin, service_name, NULL));
-    } else {
-        ESP_LOGI(TAG, "URZADZENIE SPAROWANE. LACZE...");
-        is_provisioning = false;
-        wifi_prov_mgr_deinit();
+//         char service_name[] = "PROV_LUSTERKO"; 
+//         ESP_ERROR_CHECK(wifi_prov_mgr_start_provisioning(WIFI_PROV_SECURITY_1, generated_pin, service_name, NULL));
+//     } else {
+//         ESP_LOGI(TAG, "URZADZENIE SPAROWANE. LACZE...");
+//         is_provisioning = false;
+//         wifi_prov_mgr_deinit();
         
-        esp_wifi_set_mode(WIFI_MODE_STA);
-        esp_wifi_start();
-    }
-}
+//         esp_wifi_set_mode(WIFI_MODE_STA);
+//         esp_wifi_start();
+//     }
+// }
 
-static void mqtt_app_start(void) {
+void mqtt_app_start(void) {
     esp_mqtt_client_config_t mc = { .broker.address.uri = ESP_MQTT_BROKER_URL };
     client = esp_mqtt_client_init(&mc);
     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL); // Upewnij się że masz mqtt_event_handler zdefiniowany
@@ -537,5 +533,6 @@ void start_mqtt_handler(void) {
     xTaskCreate(system_timer_task, "sys_timer", 2048, NULL, 5, NULL);
     
     // 3. Start parowania/WiFi (MQTT wystartuje samo przez event handler)
-    wifi_init_sta();
+    // wifi_init_sta();
+    s_wifi_event_group = xEventGroupCreate();
 }

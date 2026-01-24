@@ -7,6 +7,7 @@
 #include "driver/uart.h"
 #include "ssd1306.h"
 #include "mqtt_handler.h"
+#include "wifi_ble_manager.h"
 
 #define TXD_PIN 17
 #define RXD_PIN 16
@@ -41,38 +42,27 @@ void init_uart() {
 }
 
 void app_main(void) {
-    // 1. INICJALIZACJA PAMIĘCI NVS (Krytyczne dla Provisioningu!)
-    esp_err_t ret = nvs_flash_init();
-    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        ESP_ERROR_CHECK(nvs_flash_erase());
-        ret = nvs_flash_init();
-    }
-    ESP_ERROR_CHECK(ret);
-
-    // 2. Fundamenty sieci (Netif i Event Loop)
-    ESP_ERROR_CHECK(esp_netif_init());
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
-
-    // 3. Inicjalizacja UART (DFPlayer)
+    // 1. Inicjalizacja UART (DFPlayer) - to zostaje, bo jest niezależne
     init_uart();
-    vTaskDelay(pdMS_TO_TICKS(100)); // Krótka zwłoka na stabilizację
+    vTaskDelay(pdMS_TO_TICKS(100));
 
-    // 4. Inicjalizacja I2C i OLED
-    // Resetujemy sterownik na wypadek "hang-up" magistrali
+    // 2. Inicjalizacja I2C i OLED - to zostaje
     i2c_driver_delete(I2C_PORT_NUM); 
-    
-    // Inicjalizacja biblioteki SSD1306 (piny 21 SDA, 22 SCL)
     i2c_master_init(&dev, 21, 22, -1); 
     dev._address = 0x3C; 
     ssd1306_init(&dev, 128, 64);
     ssd1306_clear_screen(&dev, false);
-    ssd1306_display_text(&dev, 2, "STARTOWANIE...", 14, false);
+    ssd1306_display_text(&dev, 2, "START SYSTEMU...", 14, false);
 
-    // 5. Start logiki Smart (Taski, WiFi, MQTT)
-    // Ta funkcja uruchomi provisioning jeśli nie ma danych WiFi
+    // 3. Start Tasków Smart Mirror (OLED, Czujniki)
+    // To przygotuje zmienne i taski, ale NIE włączy WiFi
     start_mqtt_handler();
 
-    // Pętla główna może zostać pusta, wszystko dzieje się w taskach
+    // 4. URUCHOMIENIE NOWEGO MODUŁU SIECIOWEGO (NVS + WiFi + BLE)
+    // Ta funkcja zajmie się inicjalizacją NVS, WiFi i po połączeniu odpali MQTT
+    wifi_ble_init(); 
+
+    // Pętla główna
     while (1) {
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
