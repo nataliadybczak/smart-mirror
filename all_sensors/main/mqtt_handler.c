@@ -138,6 +138,13 @@ void refresh_oled(void) {
             ssd1306_display_text(&dev, 1, "    GODZINA", 11, false);
             // Wyświetlamy czas - nadpisuje stary bez migania
             ssd1306_display_text(&dev, 3, buf, strlen(buf), true); 
+
+            EventBits_t bits = xEventGroupGetBits(s_wifi_event_group);
+            if (!(bits & WIFI_CONNECTED_BIT)) {
+                ssd1306_display_text(&dev, 0, " [ BRAK WIFI ] ", 15, true); // Inwersja kolorów dla ostrzeżenia
+            } else {
+                ssd1306_display_text(&dev, 0, "   POLACZONO   ", 15, false);
+            }
             
             // --- case 0 ---
             if (gpio_get_level(PIR_PIN) && lockout_timer == 0) {
@@ -396,23 +403,44 @@ void handle_command_json(const char *json_str) {
 
 // --- SETUP SIECI (Poprawiony - usunięto podwójną inicjalizację) ---
 static void wifi_event_handler(void* arg, esp_event_base_t base, int32_t id, void* data) {
-    if (id == WIFI_EVENT_STA_START) esp_wifi_connect();
-    else if (id == IP_EVENT_STA_GOT_IP) xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+    if (base == WIFI_EVENT && id == WIFI_EVENT_STA_START) {
+        esp_wifi_connect();
+    } else if (base == WIFI_EVENT && id == WIFI_EVENT_STA_DISCONNECTED) {
+        // CZYŚCIMY BITY - teraz OLED od razu pokaże "BRAK WIFI"
+        xEventGroupClearBits(s_wifi_event_group, WIFI_CONNECTED_BIT | MQTT_CONNECTED_BIT);
+        
+        ESP_LOGW(TAG, "Połączenie przerwane. Próba ponownego łączenia...");
+        esp_wifi_connect(); // To jest kluczowe! Próbuje połączyć ponownie.
+    } else if (base == IP_EVENT && id == IP_EVENT_STA_GOT_IP) {
+        ESP_LOGI(TAG, "Otrzymano IP!");
+        xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+    }
 }
 
 static void mqtt_event_handler(void* arg, esp_event_base_t base, int32_t id, void* data) {
     esp_mqtt_event_handle_t e = data;
-    if (id == MQTT_EVENT_CONNECTED) {
-        xEventGroupSetBits(s_wifi_event_group, MQTT_CONNECTED_BIT);
-        char sub_topic[128];
-        snprintf(sub_topic, sizeof(sub_topic), "%s/%s/cmd", TOPIC_ROOT, esp_mac_str);
-        esp_mqtt_client_subscribe(client, sub_topic, 0);
-        ESP_LOGI(TAG, "Subskrypcja: %s", sub_topic);
-    } else if (id == MQTT_EVENT_DATA) {
-        char *b = malloc(e->data_len + 1);
-        memcpy(b, e->data, e->data_len); b[e->data_len] = 0;
-        handle_command_json(b);
-        free(b);
+    switch (id) {
+        case MQTT_EVENT_CONNECTED:
+            xEventGroupSetBits(s_wifi_event_group, MQTT_CONNECTED_BIT);
+            char sub_topic[128];
+            snprintf(sub_topic, sizeof(sub_topic), "%s/%s/cmd", TOPIC_ROOT, esp_mac_str);
+            esp_mqtt_client_subscribe(client, sub_topic, 0);
+            break;
+            
+        case MQTT_EVENT_DISCONNECTED:
+            // Czyścimy bit MQTT, żeby telemetria przestała próbować wysyłać dane
+            xEventGroupClearBits(s_wifi_event_group, MQTT_CONNECTED_BIT);
+            ESP_LOGW(TAG, "MQTT Rozłączone!");
+            break;
+            
+        case MQTT_EVENT_DATA:
+            char *b = malloc(e->data_len + 1);
+            memcpy(b, e->data, e->data_len); b[e->data_len] = 0;
+            handle_command_json(b);
+            free(b);
+            break;
+        default:
+            break;
     }
 }
 
@@ -433,7 +461,8 @@ void wifi_init_sta(void) {
     esp_wifi_start();
     
     // Czekamy na IP przed startem MQTT
-    xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT, pdFALSE, pdFALSE, portMAX_DELAY);
+    // xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT, pdFALSE, pdFALSE, portMAX_DELAY);
+    ESP_LOGI(TAG, "Proces laczenia z WiFi wystartowal w tle...");
 }
 
 static void mqtt_app_start(void) {
@@ -444,25 +473,23 @@ static void mqtt_app_start(void) {
 }
 
 void start_mqtt_handler(void) {
-    uint8_t mac[6]; esp_read_mac(mac, ESP_MAC_WIFI_STA);
+    uint8_t mac[6]; 
+    esp_read_mac(mac, ESP_MAC_WIFI_STA);
     snprintf(esp_mac_str, sizeof(esp_mac_str), "%02X%02X%02X%02X%02X%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
-    ESP_LOGI(TAG, "ID URZADZENIA: %s", esp_mac_str);
 
-    // PWM LED - Konfiguracja sprzętowa
+    // 1. Inicjalizacja hardware (LED, GPIO)
     ledc_timer_config_t lt = { .speed_mode=LEDC_LOW_SPEED_MODE, .timer_num=LEDC_TIMER_0, .duty_resolution=LEDC_TIMER_13_BIT, .freq_hz=5000, .clk_cfg=LEDC_AUTO_CLK };
     ledc_timer_config(&lt);
     ledc_channel_config_t lc = { .speed_mode=LEDC_LOW_SPEED_MODE, .channel=LEDC_CHANNEL_0, .timer_sel=LEDC_TIMER_0, .intr_type=LEDC_INTR_DISABLE, .gpio_num=LED_PIN, .duty=0 };
     ledc_channel_config(&lc);
-
-    // Konfiguracja PIR
     gpio_set_direction(PIR_PIN, GPIO_MODE_INPUT);
-    
-    // Start WiFi i MQTT
-    wifi_init_sta(); 
-    mqtt_app_start();
-    
-    // Start Tasków
+
+    // 2. Start Tasków (OLED i czujniki zaczną działać natychmiast)
     xTaskCreate(button_task, "button", 4096, NULL, 10, NULL);
     xTaskCreate(telemetry_task, "telemetry", 4096, NULL, 5, NULL);
     xTaskCreate(system_timer_task, "sys_timer", 2048, NULL, 5, NULL);
+    
+    // 3. Start sieci w tle
+    wifi_init_sta(); 
+    mqtt_app_start(); 
 }
