@@ -543,7 +543,8 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t id, voi
     switch (id)
     {
     case MQTT_EVENT_CONNECTED:
-        xEventGroupSetBits(s_wifi_event_group, MQTT_CONNECTED_BIT);
+        // xEventGroupSetBits(s_wifi_event_group, MQTT_CONNECTED_BIT);
+        xEventGroupSetBits(s_wifi_event_group, MQTT_CONNECTED_BIT | WIFI_CONNECTED_BIT);
         char sub_topic[128];
         snprintf(sub_topic, sizeof(sub_topic), "%s/%s/cmd", TOPIC_ROOT, esp_mac_str);
         esp_mqtt_client_subscribe(client, sub_topic, 0);
