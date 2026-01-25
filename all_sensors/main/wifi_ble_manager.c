@@ -13,6 +13,7 @@
 #include "esp_gatt_common_api.h"
 #include "esp_bt_main.h"
 #include "mqtt_handler.h"
+#include "esp_mac.h"
 
 extern void mqtt_app_start(void);
 
@@ -62,11 +63,11 @@ static void button_task(void *arg);
 static const char *TAG = "WIFI_BLE_CFG";
 
 /* ==========================  TIMEOUT  ==================================== */
-#define WIFI_CONNECT_TIMEOUT_MS 15000 // 15 sekund
+#define WIFI_CONNECT_TIMEOUT_MS 20000 // 15 sekund
 static int64_t wifi_connect_start_time = 0;
 
 static int64_t ble_start_time = 0;
-#define BLE_TIMEOUT_MS 60000 // 60 sekund
+#define BLE_TIMEOUT_MS 900000 // 60 sekund
 static bool ble_active = false;
 
 /* ==========================  GPIO / BUTTON  =============================== */
@@ -116,21 +117,46 @@ static uint16_t pass_enc_len = 0;
 
 static bool ssid_locked = false;
 
-static esp_err_t nvs_save_wifi_credentials(const char *ssid_enc, const char *pass_enc)
+// static esp_err_t nvs_save_wifi_credentials(const char *ssid_enc, const char *pass_enc)
+// {
+//     nvs_handle_t nvs;
+//     esp_err_t err = nvs_open(WIFI_NVS_NAMESPACE, NVS_READWRITE, &nvs);
+//     if (err != ESP_OK)
+//         return err;
+
+//     err = nvs_set_str(nvs, WIFI_NVS_KEY_SSID, ssid_enc);
+//     if (err != ESP_OK)
+//     {
+//         nvs_close(nvs);
+//         return err;
+//     }
+
+//     err = nvs_set_str(nvs, WIFI_NVS_KEY_PASS, pass_enc);
+//     if (err != ESP_OK)
+//     {
+//         nvs_close(nvs);
+//         return err;
+//     }
+
+//     err = nvs_commit(nvs);
+//     nvs_close(nvs);
+//     return err;
+// }
+static esp_err_t nvs_save_wifi_credentials(const char *ssid_plain, const char *pass_plain)
 {
     nvs_handle_t nvs;
     esp_err_t err = nvs_open(WIFI_NVS_NAMESPACE, NVS_READWRITE, &nvs);
     if (err != ESP_OK)
         return err;
 
-    err = nvs_set_str(nvs, WIFI_NVS_KEY_SSID, ssid_enc);
+    err = nvs_set_str(nvs, WIFI_NVS_KEY_SSID, ssid_plain);
     if (err != ESP_OK)
     {
         nvs_close(nvs);
         return err;
     }
 
-    err = nvs_set_str(nvs, WIFI_NVS_KEY_PASS, pass_enc);
+    err = nvs_set_str(nvs, WIFI_NVS_KEY_PASS, pass_plain);
     if (err != ESP_OK)
     {
         nvs_close(nvs);
@@ -268,6 +294,39 @@ static void wifi_stack_init(void)
     wifi_initialized = true;
 }
 
+// static void wifi_start_with_credentials(const char *ssid, const char *pass)
+// {
+//     if (!wifi_initialized)
+//     {
+//         wifi_stack_init();
+//     }
+
+//     wifi_config_t wifi_cfg = {0};
+//     strncpy((char *)wifi_cfg.sta.ssid, ssid, sizeof(wifi_cfg.sta.ssid) - 1);
+//     strncpy((char *)wifi_cfg.sta.password, pass, sizeof(wifi_cfg.sta.password) - 1);
+
+//     wifi_cfg.sta.threshold.authmode = WIFI_AUTH_WPA2_PSK;
+//     wifi_cfg.sta.pmf_cfg.capable = true;
+//     wifi_cfg.sta.pmf_cfg.required = false;
+
+//     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
+//     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_cfg));
+
+//     if (!wifi_started)
+//     {
+//         ESP_ERROR_CHECK(esp_wifi_start());
+//         wifi_started = true;
+//     }
+//     else
+//     {
+//         esp_wifi_disconnect();
+//     }
+
+//     ESP_LOGI(TAG, "Connecting to Wi-Fi: SSID=\"%s\"", ssid);
+//     wifi_connect_start_time = esp_timer_get_time() / 1000; // ms
+
+//     // ESP_ERROR_CHECK(esp_wifi_connect());
+// }
 static void wifi_start_with_credentials(const char *ssid, const char *pass)
 {
     if (!wifi_initialized)
@@ -291,15 +350,21 @@ static void wifi_start_with_credentials(const char *ssid, const char *pass)
         ESP_ERROR_CHECK(esp_wifi_start());
         wifi_started = true;
     }
-    else
-    {
-        esp_wifi_disconnect();
-    }
 
-    ESP_LOGI(TAG, "Connecting to Wi-Fi: SSID=\"%s\"", ssid);
-    wifi_connect_start_time = esp_timer_get_time() / 1000; // ms
+    // ESP_LOGI(TAG, "Connecting to Wi-Fi: SSID=\"%s\"", ssid);
+    // wifi_connect_start_time = esp_timer_get_time() / 1000;
 
     // ESP_ERROR_CHECK(esp_wifi_connect());
+    ESP_LOGI(TAG, "Connecting to Wi-Fi: SSID=\"%s\"", ssid);
+    wifi_connect_start_time = esp_timer_get_time() / 1000;
+
+    // Usuwamy ESP_ERROR_CHECK. Jeśli zwróci błąd, to znaczy że już się łączy
+    // (przez Event Handler), więc ignorujemy to.
+    esp_err_t err = esp_wifi_connect();
+    if (err != ESP_OK)
+    {
+        ESP_LOGW(TAG, "esp_wifi_connect failed (probably already connecting): %s", esp_err_to_name(err));
+    }
 }
 
 /* Reklama BLE */
@@ -332,7 +397,8 @@ static esp_ble_adv_data_t adv_data = {
 
 #define GATTS_TAG "GATTS_WIFI_CFG"
 
-#define DEVICE_NAME "ESP32_WIFI_CFG"
+// #define DEVICE_NAME "ESP32_WIFI_CFG"
+static char ble_name[32];
 
 #define GATTS_SERVICE_UUID_TEST 0x00FF
 #define GATTS_CHAR_UUID_SSID 0xFF01
@@ -388,7 +454,19 @@ static void gatts_event_handler(esp_gatts_cb_event_t event,
 
         gatts_if_global = gatts_if;
 
-        esp_err_t set_dev_name_ret = esp_ble_gap_set_device_name(DEVICE_NAME);
+        // esp_err_t set_dev_name_ret = esp_ble_gap_set_device_name(DEVICE_NAME);
+        uint8_t mac[6];
+        esp_read_mac(mac, ESP_MAC_WIFI_STA);
+
+        snprintf(
+            ble_name,
+            sizeof(ble_name),
+            "SmartMirror_%02X%02X%02X%02X%02X%02X",
+            mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+
+        ESP_LOGI(GATTS_TAG, "BLE NAME = %s", ble_name);
+
+        esp_err_t set_dev_name_ret = esp_ble_gap_set_device_name(ble_name);
         if (set_dev_name_ret)
         {
             ESP_LOGE(GATTS_TAG, "set device name failed, error code = %x", set_dev_name_ret);
@@ -532,10 +610,23 @@ static void gatts_event_handler(esp_gatts_cb_event_t event,
                 memcpy(ssid_value, param->write.value, ssid_value_len);
                 ssid_value[ssid_value_len] = '\0';
 
+                trim((char *)ssid_value);                    // Usuń spacje z końca
+                ssid_value_len = strlen((char *)ssid_value); // Zaktualizuj długość
+
                 memcpy(ssid_enc, ssid_value, ssid_value_len + 1);
                 xor_crypt(ssid_enc, ssid_value_len);
+                // ssid_enc_len = ssid_value_len;
+                // esp_ble_gatts_set_attr_value(ssid_char_handle, ssid_enc_len, ssid_enc);
                 ssid_enc_len = ssid_value_len;
-                esp_ble_gatts_set_attr_value(ssid_char_handle, ssid_enc_len, ssid_enc);
+
+                if (ssid_enc_len > 0)
+                {
+                    esp_ble_gatts_set_attr_value(ssid_char_handle, ssid_enc_len, ssid_enc);
+                }
+                else
+                {
+                    ESP_LOGW(TAG, "SSID empty -> not setting attr value");
+                }
 
                 ESP_LOGI(TAG, "SSID ENCRYPTED FOR READ = %.*s", ssid_enc_len, ssid_enc);
 
@@ -559,14 +650,27 @@ static void gatts_event_handler(esp_gatts_cb_event_t event,
                 memcpy(pass_value, param->write.value, pass_value_len);
                 pass_value[pass_value_len] = '\0';
 
+                trim((char *)pass_value);                    // Usuń spacje z końca
+                pass_value_len = strlen((char *)pass_value); // Zaktualizuj długość
+
                 // 🔥 utwórz zaszyfrowaną wersję
                 memcpy(pass_enc, pass_value, pass_value_len + 1);
                 xor_crypt(pass_enc, pass_value_len);
+                // pass_enc_len = pass_value_len;
+                // esp_ble_gatts_set_attr_value(
+                //     pass_char_handle,
+                //     pass_enc_len,
+                //     pass_enc);
                 pass_enc_len = pass_value_len;
-                esp_ble_gatts_set_attr_value(
-                    pass_char_handle,
-                    pass_enc_len,
-                    pass_enc);
+
+                if (pass_enc_len > 0)
+                {
+                    esp_ble_gatts_set_attr_value(pass_char_handle, pass_enc_len, pass_enc);
+                }
+                else
+                {
+                    ESP_LOGW(TAG, "PASS empty -> not setting attr value");
+                }
                 ESP_LOGI(TAG, "PASS ENCRYPTED FOR READ = %.*s", pass_enc_len, pass_enc);
             }
 
@@ -580,9 +684,57 @@ static void gatts_event_handler(esp_gatts_cb_event_t event,
                                             NULL);
             }
             /* --- Po obu wartościach: ZAPISZ DO NVS + POŁĄCZ Z WIFI --- */
+            // if (ssid_value_len > 0 && pass_value_len > 0)
+            // {
+            //     ESP_LOGE(TAG, "BOTH RECEIVED! Connecting to Wi-Fi...");
+
+            //     /* zapis do NVS w postaci zaszyfrowanej */
+            //     uint8_t enc_ssid[32];
+            //     uint8_t enc_pass[64];
+
+            //     memcpy(enc_ssid, ssid_value, ssid_value_len + 1);
+            //     memcpy(enc_pass, pass_value, pass_value_len + 1);
+
+            //     xor_crypt(enc_ssid, ssid_value_len);
+            //     xor_crypt(enc_pass, pass_value_len);
+
+            //     ESP_LOGI(TAG, "Encrypted SSID (%d bytes):", ssid_value_len);
+            //     for (int i = 0; i < ssid_value_len; i++)
+            //     {
+            //         printf("%02X ", enc_ssid[i]);
+            //     }
+            //     printf("\n");
+
+            //     ESP_LOGI(TAG, "Encrypted PASS (%d bytes):", pass_value_len);
+            //     for (int i = 0; i < pass_value_len; i++)
+            //     {
+            //         printf("%02X ", enc_pass[i]);
+            //     }
+            //     printf("\n");
+
+            //     // nvs_save_wifi_credentials((char *)enc_ssid, (char *)enc_pass);
+
+            //     // /* odszyfrowane kopie do wifi_start */
+            //     // wifi_start_with_credentials((char *)ssid_value, (char *)pass_value);
+            //     nvs_save_wifi_credentials((char *)ssid_value, (char *)pass_value);
+            //     wifi_start_with_credentials((char *)ssid_value, (char *)pass_value);
+            // }
             if (ssid_value_len > 0 && pass_value_len > 0)
             {
-                ESP_LOGE(TAG, "BOTH RECEIVED! Connecting to Wi-Fi...");
+                ESP_LOGE(TAG, "BOTH RECEIVED! Stopping BLE & Connecting to Wi-Fi...");
+
+                // 1. ZATRZYMAJ BLE, ABY ZWOLNIĆ ANTENĘ DLA WI-FI (Naprawia błąd wifi:Coexist)
+                esp_ble_gap_stop_advertising();
+                // Opcjonalnie można ubić cały kontroler, ale stop advertising zazwyczaj wystarcza:
+                // esp_bluedroid_disable();
+
+                // 2. DEBUGOWANIE HASŁA (Sprawdź w logach, czy nie ma dziwnych znaków na końcu)
+                ESP_LOGI(TAG, "Checking PASS (HEX):");
+                for (int i = 0; i < pass_value_len; i++)
+                {
+                    printf("%02X ", pass_value[i]);
+                }
+                printf("\n");
 
                 /* zapis do NVS w postaci zaszyfrowanej */
                 uint8_t enc_ssid[32];
@@ -594,40 +746,33 @@ static void gatts_event_handler(esp_gatts_cb_event_t event,
                 xor_crypt(enc_ssid, ssid_value_len);
                 xor_crypt(enc_pass, pass_value_len);
 
-                ESP_LOGI(TAG, "Encrypted SSID (%d bytes):", ssid_value_len);
-                for (int i = 0; i < ssid_value_len; i++)
-                {
-                    printf("%02X ", enc_ssid[i]);
-                }
-                printf("\n");
+                nvs_save_wifi_credentials((char *)ssid_value, (char *)pass_value);
 
-                ESP_LOGI(TAG, "Encrypted PASS (%d bytes):", pass_value_len);
-                for (int i = 0; i < pass_value_len; i++)
-                {
-                    printf("%02X ", enc_pass[i]);
-                }
-                printf("\n");
-
-                nvs_save_wifi_credentials((char *)enc_ssid, (char *)enc_pass);
-
-                /* odszyfrowane kopie do wifi_start */
+                // Teraz, gdy BLE nie przeszkadza, Wi-Fi powinno się połączyć
                 wifi_start_with_credentials((char *)ssid_value, (char *)pass_value);
             }
+            // else if (pass_value_len > 0)
+            // {
+            //     ESP_LOGW(TAG, "New password received — updating only password");
+
+            //     uint8_t enc_ssid[32];
+            //     uint8_t enc_pass[64];
+
+            //     memcpy(enc_ssid, ssid_value, ssid_value_len + 1);
+            //     memcpy(enc_pass, pass_value, pass_value_len + 1);
+
+            //     xor_crypt(enc_ssid, ssid_value_len);
+            //     xor_crypt(enc_pass, pass_value_len);
+
+            //     nvs_save_wifi_credentials((char *)enc_ssid, (char *)enc_pass);
+
+            //     wifi_start_with_credentials((char *)ssid_value, (char *)pass_value);
+            // }
             else if (pass_value_len > 0)
             {
                 ESP_LOGW(TAG, "New password received — updating only password");
 
-                uint8_t enc_ssid[32];
-                uint8_t enc_pass[64];
-
-                memcpy(enc_ssid, ssid_value, ssid_value_len + 1);
-                memcpy(enc_pass, pass_value, pass_value_len + 1);
-
-                xor_crypt(enc_ssid, ssid_value_len);
-                xor_crypt(enc_pass, pass_value_len);
-
-                nvs_save_wifi_credentials((char *)enc_ssid, (char *)enc_pass);
-
+                nvs_save_wifi_credentials((char *)ssid_value, (char *)pass_value);
                 wifi_start_with_credentials((char *)ssid_value, (char *)pass_value);
             }
         }
@@ -847,8 +992,8 @@ void wifi_ble_init(void)
         ssid_locked = false; // ← UNLOCK SSID on boot
                              //    (tylko do momentu udanego Wi-Fi)
 
-        xor_crypt((uint8_t *)ssid, strlen(ssid));
-        xor_crypt((uint8_t *)pass, strlen(pass));
+        // xor_crypt((uint8_t *)ssid, strlen(ssid));
+        // xor_crypt((uint8_t *)pass, strlen(pass));
 
         trim(ssid);
         trim(pass);
