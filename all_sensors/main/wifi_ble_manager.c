@@ -251,20 +251,35 @@ static void wifi_event_handler(void *arg,
         ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
         ESP_LOGI(TAG, "Got IP: " IPSTR, IP2STR(&event->ip_info.ip));
         wifi_connected = true;
+        wifi_connect_start_time = 0;
         xEventGroupSetBits(wifi_event_group, WIFI_CONNECTED_BIT);
 
         ESP_LOGW(TAG, "Wi-Fi connected — disabling BLE to hide device");
 
         // DO BLOKOWANIA BLE PO POŁĄCZENIU WI-FI:
         esp_ble_gap_stop_advertising();
-        esp_bluedroid_disable();
-        esp_bt_controller_disable();
+
+        // esp_bluedroid_disable();
+        // esp_bt_controller_disable();
 
         ssid_locked = true;
         ESP_LOGW(TAG, "SSID LOCKED — Wi-Fi connected successfully.");
 
-        ESP_LOGI(TAG, "WiFi Connected! Starting MQTT...");
-        mqtt_app_start();
+        // ESP_LOGI(TAG, "WiFi Connected! Starting MQTT...");
+        // mqtt_app_start();
+        static bool mqtt_was_started = false; // Zmienna pamiętająca stan
+
+        if (!mqtt_was_started)
+        {
+            ESP_LOGI(TAG, "WiFi Connected! Starting MQTT for the first time...");
+            mqtt_app_start();
+            mqtt_was_started = true;
+        }
+        else
+        {
+            ESP_LOGI(TAG, "WiFi Reconnected! MQTT client will reconnect automatically (no need to restart).");
+            // Nie wywołujemy mqtt_app_start(), biblioteka sama wznowi połączenie
+        }
     }
 }
 
@@ -1179,7 +1194,7 @@ void wifi_ble_init(void)
                     wifi_connect_start_time = 0; // Reset licznika
 
                     // B. Usuń BŁĘDNE dane z NVS (żeby po resecie nie próbował znowu)
-                    nvs_erase_wifi_credentials();
+                    // nvs_erase_wifi_credentials();
 
                     // C. Wyczyść bufory w pamięci RAM
                     memset(ssid_value, 0, sizeof(ssid_value));

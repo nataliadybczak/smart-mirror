@@ -65,6 +65,7 @@ extern void wifi_ble_force_erase_credentials(void);
 // --- PROTOTYPY FUNKCJI (Aby uniknąć błędów implicit declaration) ---
 void mqtt_app_start(void);
 void refresh_oled(void);
+void initialize_sntp(void);
 
 // Konwersja formatów dla zegarka
 uint8_t dec_to_bcd(int val) { return (uint8_t)((val / 10 << 4) | (val % 10)); }
@@ -545,6 +546,14 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t id, voi
     case MQTT_EVENT_CONNECTED:
         // xEventGroupSetBits(s_wifi_event_group, MQTT_CONNECTED_BIT);
         xEventGroupSetBits(s_wifi_event_group, MQTT_CONNECTED_BIT | WIFI_CONNECTED_BIT);
+
+        static bool sntp_started = false;
+        if (!sntp_started)
+        {
+            initialize_sntp();
+            sntp_started = true;
+        }
+
         char sub_topic[128];
         snprintf(sub_topic, sizeof(sub_topic), "%s/%s/cmd", TOPIC_ROOT, esp_mac_str);
         esp_mqtt_client_subscribe(client, sub_topic, 0);
@@ -619,6 +628,69 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t id, voi
 //     }
 // }
 
+// --- OBSŁUGA CZASU (SNTP + RTC) ---
+
+// Callback wywoływany automatycznie, gdy ESP32 pobierze czas z internetu
+void time_sync_notification_cb(struct timeval *tv)
+{
+    ESP_LOGI(TAG, "Pobrano czas z NTP! Aktualizacja sprzętowego RTC...");
+
+    time_t now;
+    struct tm timeinfo;
+    time(&now);
+    localtime_r(&now, &timeinfo);
+
+    // Zapisujemy czas do modułu RTC (DS3231/DS1307)
+    // rtc_set_time oczekuje: h, m, s, d, mo, y
+    // timeinfo.tm_year to lata od 1900 (np. 124 dla 2024), więc dodajemy 1900
+    rtc_set_time(
+        timeinfo.tm_hour,
+        timeinfo.tm_min,
+        timeinfo.tm_sec,
+        timeinfo.tm_mday,
+        timeinfo.tm_mon + 1,    // tm_mon jest 0-11, rtc_set_time pewnie chce 1-12
+        timeinfo.tm_year + 1900 // przekazujemy pełny rok, np. 2024
+    );
+
+    ESP_LOGI(TAG, "RTC zaktualizowany: %02d:%02d:%02d",
+             timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
+}
+
+// void initialize_sntp(void)
+// {
+//     ESP_LOGI(TAG, "Inicjalizacja SNTP (Polska strefa czasowa)...");
+
+//     // Ustawienie strefy czasowej dla Polski (uwzględnia czas letni/zimowy)
+//     // CET-1CEST,M3.5.0,M10.5.0/3 to standardowy ciąg POSIX dla Europy Centralnej
+//     setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0/3", 1);
+//     tzset();
+
+//     sntp_setoperatingmode(SNTP_OPMODE_POLL);
+//     sntp_setservername(0, "pool.ntp.org");
+
+//     // Rejestracja funkcji, która wykona się po pobraniu czasu
+//     sntp_set_time_sync_notification_cb(time_sync_notification_cb);
+
+//     sntp_init();
+// }
+void initialize_sntp(void)
+{
+    ESP_LOGI(TAG, "Inicjalizacja SNTP (Polska strefa czasowa)...");
+
+    // Ustawienie strefy czasowej
+    setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0/3", 1);
+    tzset();
+
+    // Nowe nazwy funkcji w ESP-IDF v5+
+    esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
+    esp_sntp_setservername(0, "pool.ntp.org");
+
+    // Rejestracja funkcji, która wykona się po pobraniu czasu
+    esp_sntp_set_time_sync_notification_cb(time_sync_notification_cb);
+
+    esp_sntp_init();
+}
+
 void mqtt_app_start(void)
 {
     esp_mqtt_client_config_t mc = {.broker.address.uri = ESP_MQTT_BROKER_URL};
@@ -639,6 +711,7 @@ void start_mqtt_handler(void)
     ledc_channel_config_t lc = {.speed_mode = LEDC_LOW_SPEED_MODE, .channel = LEDC_CHANNEL_0, .timer_sel = LEDC_TIMER_0, .intr_type = LEDC_INTR_DISABLE, .gpio_num = LED_PIN, .duty = 0};
     ledc_channel_config(&lc);
     gpio_set_direction(PIR_PIN, GPIO_MODE_INPUT);
+    sync_system_time_from_rtc();
 
     // 2. Start Tasków (OLED i czujniki)
     xTaskCreate(button_task, "button", 4096, NULL, 10, NULL);
