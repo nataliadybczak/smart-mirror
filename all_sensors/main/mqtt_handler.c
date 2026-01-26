@@ -16,6 +16,7 @@
 #include "driver/touch_pad.h"
 #include "driver/ledc.h"
 #include "mqtt_handler.h"
+#include "wifi_ble_manager.h"
 
 // --- KONFIGURACJA ---
 #define ESP_MQTT_BROKER_URL "mqtt://srv38.mikr.us:40133"
@@ -38,9 +39,9 @@
 static const char *TAG = "SMART_MIRROR";
 static char esp_mac_str[13];
 static esp_mqtt_client_handle_t client;
-static EventGroupHandle_t s_wifi_event_group;
-#define MQTT_CONNECTED_BIT BIT2
-#define WIFI_CONNECTED_BIT BIT0
+// static EventGroupHandle_t wifi_event_group;
+// #define MQTT_CONNECTED_BIT BIT2
+// #define WIFI_CONNECTED_BIT BIT0
 
 // --- ZMIENNE STANU ---
 static int current_screen = 0;
@@ -57,6 +58,7 @@ static bool is_party_mode = false;
 static bool lux_music_played = false;
 static int music_11s_timer = 0;
 
+extern EventGroupHandle_t wifi_event_group;
 // Zmienne zewnętrzne z main.c
 extern SSD1306_t dev;
 extern void send_dfplayer_cmd(uint8_t cmd, uint16_t dat);
@@ -173,7 +175,7 @@ void refresh_oled(void)
         strftime(buf, sizeof(buf), "%H:%M:%S", &ti);
         ssd1306_display_text(&dev, 1, "    GODZINA", 11, false);
         ssd1306_display_text(&dev, 3, buf, strlen(buf), true);
-        EventBits_t bits = xEventGroupGetBits(s_wifi_event_group);
+        EventBits_t bits = xEventGroupGetBits(wifi_event_group);
         if (!(bits & WIFI_CONNECTED_BIT))
             ssd1306_display_text(&dev, 0, " [ BRAK WIFI ] ", 15, true);
         else
@@ -402,7 +404,7 @@ void telemetry_task(void *pvParameters)
         {
             mqtt_send_counter = 0; // Reset licznika
 
-            if (xEventGroupGetBits(s_wifi_event_group) & MQTT_CONNECTED_BIT)
+            if (xEventGroupGetBits(wifi_event_group) & MQTT_CONNECTED_BIT)
             {
                 char p[256];
                 snprintf(p, sizeof(p),
@@ -520,13 +522,13 @@ void handle_command_json(const char *json_str)
 //     }
 //     else if (base == WIFI_EVENT && id == WIFI_EVENT_STA_DISCONNECTED)
 //     {
-//         xEventGroupClearBits(s_wifi_event_group, WIFI_CONNECTED_BIT | MQTT_CONNECTED_BIT);
+//         xEventGroupClearBits(wifi_event_group, WIFI_CONNECTED_BIT | MQTT_CONNECTED_BIT);
 //         esp_wifi_connect();
 //     }
 //     else if (base == IP_EVENT && id == IP_EVENT_STA_GOT_IP)
 //     {
 //         ESP_LOGI(TAG, "Otrzymano IP!");
-//         xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+//         xEventGroupSetBits(wifi_event_group, WIFI_CONNECTED_BIT);
 
 //         // Start MQTT po uzyskaniu IP
 //         static bool mqtt_started = false;
@@ -544,8 +546,8 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t id, voi
     switch (id)
     {
     case MQTT_EVENT_CONNECTED:
-        // xEventGroupSetBits(s_wifi_event_group, MQTT_CONNECTED_BIT);
-        xEventGroupSetBits(s_wifi_event_group, MQTT_CONNECTED_BIT | WIFI_CONNECTED_BIT);
+        // xEventGroupSetBits(wifi_event_group, MQTT_CONNECTED_BIT);
+        xEventGroupSetBits(wifi_event_group, MQTT_CONNECTED_BIT | WIFI_CONNECTED_BIT);
 
         static bool sntp_started = false;
         if (!sntp_started)
@@ -561,7 +563,7 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t id, voi
 
     case MQTT_EVENT_DISCONNECTED:
         // Czyścimy bit MQTT, żeby telemetria przestała próbować wysyłać dane
-        xEventGroupClearBits(s_wifi_event_group, MQTT_CONNECTED_BIT);
+        xEventGroupClearBits(wifi_event_group, MQTT_CONNECTED_BIT);
         ESP_LOGW(TAG, "MQTT Rozłączone!");
         break;
 
@@ -578,7 +580,7 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t id, voi
 }
 
 // void wifi_init_sta(void) {
-//     s_wifi_event_group = xEventGroupCreate();
+//     wifi_event_group = xEventGroupCreate();
 
 //     // 1. Inicjalizacja bazowa WiFi (Musi być przed managerem!)
 //     esp_netif_create_default_wifi_sta();
@@ -720,5 +722,5 @@ void start_mqtt_handler(void)
 
     // 3. Start parowania/WiFi (MQTT wystartuje samo przez event handler)
     // wifi_init_sta();
-    s_wifi_event_group = xEventGroupCreate();
+    // wifi_event_group = xEventGroupCreate();
 }

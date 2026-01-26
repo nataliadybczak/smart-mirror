@@ -14,6 +14,7 @@
 #include "esp_bt_main.h"
 #include "mqtt_handler.h"
 #include "esp_mac.h"
+#include "wifi_ble_manager.h"
 
 extern void mqtt_app_start(void);
 
@@ -215,8 +216,9 @@ static void nvs_erase_wifi_credentials(void)
 
 /* =============================  Wi-Fi  ==================================== */
 
-static EventGroupHandle_t wifi_event_group;
-const int WIFI_CONNECTED_BIT = BIT0;
+// static EventGroupHandle_t wifi_event_group;
+EventGroupHandle_t wifi_event_group;
+// const int WIFI_CONNECTED_BIT = BIT0;
 
 static bool wifi_initialized = false;
 static bool wifi_started = false;
@@ -238,7 +240,7 @@ static void wifi_event_handler(void *arg,
         case WIFI_EVENT_STA_DISCONNECTED:
             ESP_LOGW(TAG, "Wi-Fi disconnected, reconnecting...");
             wifi_connected = false;
-            xEventGroupClearBits(wifi_event_group, WIFI_CONNECTED_BIT);
+            xEventGroupClearBits(wifi_event_group, WIFI_CONNECTED_BIT | MQTT_CONNECTED_BIT);
             esp_wifi_connect();
             break;
         default:
