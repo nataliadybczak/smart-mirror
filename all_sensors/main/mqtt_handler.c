@@ -176,10 +176,22 @@ void refresh_oled(void)
         ssd1306_display_text(&dev, 1, "    GODZINA", 11, false);
         ssd1306_display_text(&dev, 3, buf, strlen(buf), true);
         EventBits_t bits = xEventGroupGetBits(wifi_event_group);
-        if (!(bits & WIFI_CONNECTED_BIT))
-            ssd1306_display_text(&dev, 0, " [ BRAK WIFI ] ", 15, true);
+        // if (!(bits & WIFI_CONNECTED_BIT))
+        //     ssd1306_display_text(&dev, 0, " [ BRAK WIFI ] ", 15, true);
+        // else
+        //     ssd1306_display_text(&dev, 0, "   POLACZONO   ", 15, false);
+        if (wifi_event_group != NULL)
+        {
+            EventBits_t bits = xEventGroupGetBits(wifi_event_group);
+            if (!(bits & WIFI_CONNECTED_BIT))
+                ssd1306_display_text(&dev, 0, " [ BRAK WIFI ] ", 15, true);
+            else
+                ssd1306_display_text(&dev, 0, "   POLACZONO   ", 15, false);
+        }
         else
-            ssd1306_display_text(&dev, 0, "   POLACZONO   ", 15, false);
+        {
+            ssd1306_display_text(&dev, 0, " [ START... ]  ", 15, true);
+        }
         snprintf(buf, sizeof(buf), "%-16.16s", current_display_text);
         ssd1306_display_text(&dev, 6, buf, 16, false);
         break;
@@ -404,7 +416,7 @@ void telemetry_task(void *pvParameters)
         {
             mqtt_send_counter = 0; // Reset licznika
 
-            if (xEventGroupGetBits(wifi_event_group) & MQTT_CONNECTED_BIT)
+            if (wifi_event_group != NULL && (xEventGroupGetBits(wifi_event_group) & MQTT_CONNECTED_BIT))
             {
                 char p[256];
                 snprintf(p, sizeof(p),

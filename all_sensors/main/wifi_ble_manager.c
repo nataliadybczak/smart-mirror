@@ -1123,6 +1123,7 @@ void wifi_ble_init(void)
     }
 
     ble_init();
+    wifi_stack_init();
 
     char ssid[32] = {0};
     char pass[64] = {0};
