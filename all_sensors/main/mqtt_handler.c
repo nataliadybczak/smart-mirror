@@ -64,7 +64,7 @@ extern SSD1306_t dev;
 extern void send_dfplayer_cmd(uint8_t cmd, uint16_t dat);
 extern void wifi_ble_force_erase_credentials(void);
 
-// --- PROTOTYPY FUNKCJI (Aby uniknąć błędów implicit declaration) ---
+// --- PROTOTYPY FUNKCJI ---
 void mqtt_app_start(void);
 void refresh_oled(void);
 void initialize_sntp(void);
@@ -84,19 +84,6 @@ void rtc_set_time(int h, int m, int s, int d, int mo, int y)
     i2c_master_write_to_device(I2C_NUM_0, RTC_ADDR, data, 8, 100);
 }
 
-// --- EVENT HANDLERY ---
-
-// static void provisioning_event_handler(void* arg, esp_event_base_t event_base,
-//                                       int32_t event_id, void* event_data) {
-//     if (event_id == WIFI_PROV_START) {
-//         ESP_LOGI(TAG, "Rozpoczęto tryb parowania...");
-//         is_provisioning = true;
-//     } else if (event_id == WIFI_PROV_END) {
-//         ESP_LOGI(TAG, "Koniec parowania.");
-//         is_provisioning = false;
-//         wifi_prov_mgr_deinit();
-//     }
-// }
 
 // Synchronizacja czasu systemowego ESP32 z modułu RTC
 void sync_system_time_from_rtc()
@@ -148,15 +135,6 @@ void refresh_oled(void)
     if (!is_mirror_on)
         return;
 
-    // if (is_provisioning) {
-    //     ssd1306_display_text(&dev, 0, " TRYB PAROWANIA", 15, true);
-    //     ssd1306_display_text(&dev, 2, "Siec: PROV_LUST", 15, false);
-    //     char pin_buf[20];
-    //     snprintf(pin_buf, sizeof(pin_buf), "PIN: %s", generated_pin);
-    //     ssd1306_display_text(&dev, 4, pin_buf, strlen(pin_buf), false);
-    //     ssd1306_display_text(&dev, 6, "Uzyj aplikacji", 14, false);
-    //     return;
-    // }
 
     if (current_screen != last_screen)
     {
@@ -198,7 +176,7 @@ void refresh_oled(void)
 
     case 1: // POGODA
         ssd1306_display_text(&dev, 0, "--- POGODA ---", 14, false);
-        snprintf(buf, sizeof(buf), "Temp: %.1f C   ", g_temp); // Spacje na końcu czyszczą resztę linii
+        snprintf(buf, sizeof(buf), "Temp: %.1f C   ", g_temp);
         ssd1306_display_text(&dev, 2, buf, strlen(buf), false);
         snprintf(buf, sizeof(buf), "Wilg: %.1f %%   ", g_hum);
         ssd1306_display_text(&dev, 4, buf, strlen(buf), false);
@@ -220,7 +198,7 @@ void refresh_oled(void)
         break;
 
     case 3: // KOTEK
-        // Tutaj blink musi czyścić linię, żeby uszy nie zostawały
+        
         if (cat_blink)
             ssd1306_display_text(&dev, 1, "   (=^~~^=)   ", 14, false);
         else
@@ -244,9 +222,8 @@ void system_timer_task(void *pvParameters)
             if (mirror_timer == 0)
             {
                 if (is_mirror_on)
-                { // Wykonaj tylko jeśli było włączone
+                {
                     is_mirror_on = false;
-                    // --- ZMIANA: Graj "Do widzenia" przy auto-wyłączeniu ---
                     send_dfplayer_cmd(0x12, 3);
                     refresh_oled();
                 }
@@ -292,7 +269,7 @@ void button_task(void *pvParameters)
         {
             pwr_hold++;
             if (pwr_hold == 20)
-            { // ok 2 sekundy trzymania
+            {
                 if (is_mirror_on)
                 {
                     is_mirror_on = false;
@@ -321,9 +298,9 @@ void button_task(void *pvParameters)
             is_party_mode = !is_party_mode;
             if (is_party_mode)
             {
-                uint16_t songs[] = {4, 5, 6}; // Tylko te trzy numery
+                uint16_t songs[] = {4, 5, 6};
                 int idx = esp_random() % 3;
-                send_dfplayer_cmd(0x12, songs[idx]); // Losuje 4, 5 lub 6
+                send_dfplayer_cmd(0x12, songs[idx]);
             }
             else
             {
@@ -357,13 +334,13 @@ void telemetry_task(void *pvParameters)
 
     while (1)
     {
-        // 1. Odczyt BME280 (Szybki odczyt co 1s)
+
         if (bme280_read_float_data(I2C_PORT_NUM, BME_ADDR, &g_temp, &g_press, &g_hum) != ESP_OK)
         {
-            // Obsługa błędu (opcjonalna)
+
         }
 
-        // 2. Odczyt BH1750 (To trwa ok 180ms, więc jest bezpieczne co 1s)
+        // 2. Odczyt BH1750
         uint8_t cmd = 0x10;
         i2c_master_write_to_device(I2C_PORT_NUM, BH1750_ADDR, &cmd, 1, 100 / portTICK_PERIOD_MS);
         vTaskDelay(pdMS_TO_TICKS(180)); // Czekamy na pomiar
@@ -380,29 +357,25 @@ void telemetry_task(void *pvParameters)
             if (!is_mirror_on)
             {
                 is_mirror_on = true;
-                // --- NOWOŚĆ: Graj "Dzień dobry" przy wykryciu osoby ---
                 send_dfplayer_cmd(0x12, 2);
                 ESP_LOGI(TAG, "Auto-wybudzenie: Gra 0002.mp3");
             }
-            // Zawsze resetuj licznik do wartości domyślnej, gdy jest ruch
             mirror_timer = default_mirror_timeout;
         }
 
-        // 4. Logika Muzyki (Teraz bardzo responsywna!)
+        // 4. Logika Muzyki
         if (g_lux > 600.0)
         {
-            // Jeśli jasno I jeszcze nie graliśmy w tej sesji jasności I timer jest 0
             if (music_11s_timer == 0 && !lux_music_played)
             {
-                send_dfplayer_cmd(0x12, 1); // Graj
-                music_11s_timer = 11;       // Ustaw timer na 11s
-                lux_music_played = true;    // Zablokuj ponowne granie
+                send_dfplayer_cmd(0x12, 1);
+                music_11s_timer = 11;
+                lux_music_played = true;
                 ESP_LOGI(TAG, "Za jasno! Start Skolima na 11s");
             }
         }
         else if (g_lux < 550.0)
         {
-            // RESET: Jeśli światło spadnie, odblokuj możliwość grania
             if (lux_music_played)
             {
                 lux_music_played = false;
@@ -410,11 +383,11 @@ void telemetry_task(void *pvParameters)
             }
         }
 
-        // 5. Wysyłanie MQTT (Tylko co 5. obrót pętli = co 5 sekund)
+        // 5. Wysyłanie MQTT
         mqtt_send_counter++;
         if (mqtt_send_counter >= 5)
         {
-            mqtt_send_counter = 0; // Reset licznika
+            mqtt_send_counter = 0;
 
             if (wifi_event_group != NULL && (xEventGroupGetBits(wifi_event_group) & MQTT_CONNECTED_BIT))
             {
@@ -433,7 +406,6 @@ void telemetry_task(void *pvParameters)
 
         refresh_oled();
 
-        // ZMIANA: Czekamy tylko 1 sekundę, a nie 5!
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
@@ -459,24 +431,16 @@ void handle_command_json(const char *json_str)
             {
                 snprintf(current_display_text, sizeof(current_display_text), "%s", txt->valuestring);
 
-                // --- LOGIKA UNPAIR ---
-                // Jeśli tekst to "Ready to pair", czyścimy WiFi i restartujemy
-                // if (strcmp(txt->valuestring, "Ready to pair") == 0) {
-                //     ESP_LOGW(TAG, "Otrzymano sygnał Unpair! Czyszczenie WiFi...");
-                //     esp_wifi_restore(); // Kasuje dane WiFi z pamięci NVS
-                //     esp_restart();      // Restartuje urządzenie
-                // }
+    
                 if (strcmp(txt->valuestring, "Ready to pair") == 0)
                 {
                     ESP_LOGW(TAG, "Otrzymano sygnał Unpair! Czyszczenie NVS...");
 
-                    // ZAMIAST esp_wifi_restore() UŻYJ TEGO:
                     wifi_ble_force_erase_credentials();
 
-                    // Daj chwilę na zapisanie zmian we flashu
                     vTaskDelay(pdMS_TO_TICKS(1000));
 
-                    esp_restart(); // Restartuje urządzenie
+                    esp_restart();
                 }
             }
 
@@ -492,7 +456,6 @@ void handle_command_json(const char *json_str)
         // 2. Obsługa set_timer
         else if (strcmp(action->valuestring, "set_timer") == 0 || strcmp(action->valuestring, "set_timers") == 0)
         {
-            // Zmieniamy nazwy kluczy na zgodne z odebranym JSONem
             cJSON *timeout_val = cJSON_GetObjectItem(root, "on_time");
             cJSON *lockout_val = cJSON_GetObjectItem(root, "lock_time");
 
@@ -525,32 +488,7 @@ void handle_command_json(const char *json_str)
     refresh_oled();
 }
 
-// --- SETUP SIECI (Poprawiony - usunięto podwójną inicjalizację) ---
-// static void wifi_event_handler(void *arg, esp_event_base_t base, int32_t id, void *data)
-// {
-//     if (base == WIFI_EVENT && id == WIFI_EVENT_STA_START)
-//     {
-//         esp_wifi_connect();
-//     }
-//     else if (base == WIFI_EVENT && id == WIFI_EVENT_STA_DISCONNECTED)
-//     {
-//         xEventGroupClearBits(wifi_event_group, WIFI_CONNECTED_BIT | MQTT_CONNECTED_BIT);
-//         esp_wifi_connect();
-//     }
-//     else if (base == IP_EVENT && id == IP_EVENT_STA_GOT_IP)
-//     {
-//         ESP_LOGI(TAG, "Otrzymano IP!");
-//         xEventGroupSetBits(wifi_event_group, WIFI_CONNECTED_BIT);
 
-//         // Start MQTT po uzyskaniu IP
-//         static bool mqtt_started = false;
-//         if (!mqtt_started)
-//         {
-//             mqtt_app_start();
-//             mqtt_started = true;
-//         }
-//     }
-// }
 
 static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t id, void *data)
 {
@@ -558,7 +496,6 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t id, voi
     switch (id)
     {
     case MQTT_EVENT_CONNECTED:
-        // xEventGroupSetBits(wifi_event_group, MQTT_CONNECTED_BIT);
         xEventGroupSetBits(wifi_event_group, MQTT_CONNECTED_BIT | WIFI_CONNECTED_BIT);
 
         static bool sntp_started = false;
@@ -574,7 +511,6 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t id, voi
         break;
 
     case MQTT_EVENT_DISCONNECTED:
-        // Czyścimy bit MQTT, żeby telemetria przestała próbować wysyłać dane
         xEventGroupClearBits(wifi_event_group, MQTT_CONNECTED_BIT);
         ESP_LOGW(TAG, "MQTT Rozłączone!");
         break;
@@ -591,60 +527,9 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t id, voi
     }
 }
 
-// void wifi_init_sta(void) {
-//     wifi_event_group = xEventGroupCreate();
-
-//     // 1. Inicjalizacja bazowa WiFi (Musi być przed managerem!)
-//     esp_netif_create_default_wifi_sta();
-//     // SoftAP jest potrzebny do parowania
-//     esp_netif_create_default_wifi_ap();
-
-//     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-//     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
-
-//     // 2. Generowanie PINu (MAC)
-//     uint8_t mac[6];
-//     esp_read_mac(mac, ESP_MAC_WIFI_STA);
-//     snprintf(generated_pin, sizeof(generated_pin), "%02X%02X%02X%02X", mac[2], mac[3], mac[4], mac[5]);
-
-//     // 3. Konfiguracja managera
-//     wifi_prov_mgr_config_t config = {
-//         .scheme = wifi_prov_scheme_softap,
-//         .scheme_event_handler = WIFI_PROV_EVENT_HANDLER_NONE,
-//         .app_event_handler = WIFI_PROV_EVENT_HANDLER_NONE
-//     };
-
-//     ESP_ERROR_CHECK(wifi_prov_mgr_init(config));
-
-//     // 4. Rejestracja eventów
-//     esp_event_handler_instance_register(WIFI_PROV_EVENT, ESP_EVENT_ANY_ID, &provisioning_event_handler, NULL, NULL);
-//     esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL, NULL);
-//     esp_event_handler_instance_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL, NULL);
-
-//     // 5. Sprawdzenie stanu parowania
-//     bool provisioned = false;
-//     wifi_prov_mgr_is_provisioned(&provisioned);
-
-//     if (!provisioned) {
-//         ESP_LOGI(TAG, "STARTUJE TRYB PAROWANIA... PIN: %s", generated_pin);
-//         is_provisioning = true;
-//         refresh_oled();
-
-//         char service_name[] = "PROV_LUSTERKO";
-//         ESP_ERROR_CHECK(wifi_prov_mgr_start_provisioning(WIFI_PROV_SECURITY_1, generated_pin, service_name, NULL));
-//     } else {
-//         ESP_LOGI(TAG, "URZADZENIE SPAROWANE. LACZE...");
-//         is_provisioning = false;
-//         wifi_prov_mgr_deinit();
-
-//         esp_wifi_set_mode(WIFI_MODE_STA);
-//         esp_wifi_start();
-//     }
-// }
 
 // --- OBSŁUGA CZASU (SNTP + RTC) ---
 
-// Callback wywoływany automatycznie, gdy ESP32 pobierze czas z internetu
 void time_sync_notification_cb(struct timeval *tv)
 {
     ESP_LOGI(TAG, "Pobrano czas z NTP! Aktualizacja sprzętowego RTC...");
@@ -654,39 +539,20 @@ void time_sync_notification_cb(struct timeval *tv)
     time(&now);
     localtime_r(&now, &timeinfo);
 
-    // Zapisujemy czas do modułu RTC (DS3231/DS1307)
-    // rtc_set_time oczekuje: h, m, s, d, mo, y
-    // timeinfo.tm_year to lata od 1900 (np. 124 dla 2024), więc dodajemy 1900
     rtc_set_time(
         timeinfo.tm_hour,
         timeinfo.tm_min,
         timeinfo.tm_sec,
         timeinfo.tm_mday,
-        timeinfo.tm_mon + 1,    // tm_mon jest 0-11, rtc_set_time pewnie chce 1-12
-        timeinfo.tm_year + 1900 // przekazujemy pełny rok, np. 2024
+        timeinfo.tm_mon + 1,
+        timeinfo.tm_year + 1900
     );
 
     ESP_LOGI(TAG, "RTC zaktualizowany: %02d:%02d:%02d",
              timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
 }
 
-// void initialize_sntp(void)
-// {
-//     ESP_LOGI(TAG, "Inicjalizacja SNTP (Polska strefa czasowa)...");
 
-//     // Ustawienie strefy czasowej dla Polski (uwzględnia czas letni/zimowy)
-//     // CET-1CEST,M3.5.0,M10.5.0/3 to standardowy ciąg POSIX dla Europy Centralnej
-//     setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0/3", 1);
-//     tzset();
-
-//     sntp_setoperatingmode(SNTP_OPMODE_POLL);
-//     sntp_setservername(0, "pool.ntp.org");
-
-//     // Rejestracja funkcji, która wykona się po pobraniu czasu
-//     sntp_set_time_sync_notification_cb(time_sync_notification_cb);
-
-//     sntp_init();
-// }
 void initialize_sntp(void)
 {
     ESP_LOGI(TAG, "Inicjalizacja SNTP (Polska strefa czasowa)...");
@@ -709,7 +575,7 @@ void mqtt_app_start(void)
 {
     esp_mqtt_client_config_t mc = {.broker.address.uri = ESP_MQTT_BROKER_URL};
     client = esp_mqtt_client_init(&mc);
-    esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL); // Upewnij się że masz mqtt_event_handler zdefiniowany
+    esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL); 
     esp_mqtt_client_start(client);
 }
 
@@ -732,7 +598,4 @@ void start_mqtt_handler(void)
     xTaskCreate(telemetry_task, "telemetry", 4096, NULL, 5, NULL);
     xTaskCreate(system_timer_task, "sys_timer", 2048, NULL, 5, NULL);
 
-    // 3. Start parowania/WiFi (MQTT wystartuje samo przez event handler)
-    // wifi_init_sta();
-    // wifi_event_group = xEventGroupCreate();
 }
